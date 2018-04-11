@@ -1,0 +1,6 @@
+ontology-csharp-sdk/bin/
+ontology-csharp-sdk/obj/
+*/bin/
+*/obj/
+packages/
+.vs/
