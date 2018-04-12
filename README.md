@@ -37,12 +37,16 @@ int BlockHeight = ontSDK.getBlockHeight();
 | Method | Parameters | Description | Note |
 | :---| :---| :---| :---|
 | getBlockGenerationTime |  | gets the current block generation time |  |
-| getBlockHeight | | gets the current block height | |
-| getONTBalance | address | gets the ont/ong balance of address |  |
+| getBlockHeight |  | gets the current block height | |
+| getAddressBalance | string | gets the ont/ong balance of address |  |
 | getNodeCount |  | gets the number of network nodes |  |
-| getBlockHeightByTxHash | tx_hash | gets the block height of specified transaction hash |  |
+| getBlockHeightByTxHash | string | gets the block height of specified transaction hash |  |
+| getBlockHex | int | gets the block (hex) of specified block by block height | |
+| getBlockHex | string | gets the block (hex) of specified block by block hash | |
+| getBlockJson | int | gets the block (json) of specified block by block height| |
+| getBlockJson | string | gets the block (json) of specified block by block hash | |
 
 <br><br>
-# License
+## License
 
 This project is licensed under the GNU Lesser General Public License v3.0
