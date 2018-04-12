@@ -4,6 +4,7 @@ using Network;
 using System.Collections.Generic;
 using Org.BouncyCastle.Security;
 using Common.Helpers;
+using Common.Crypto;
 
 namespace Basic
 {
