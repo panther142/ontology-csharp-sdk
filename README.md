@@ -46,6 +46,8 @@ Network
 | getBlockHex | string | gets the block (hex) of specified block by block hash | |
 | getBlockJson | int | gets the block (json) of specified block by block height| |
 | getBlockJson | string | gets the block (json) of specified block by block hash | |
+| createPrivateKey |  | create a private key using SecureRandom  | |
+| getPublicKey | string | get a public key from a private key  | |
 
 Account
 | Method | Parameters | Description | Note |
