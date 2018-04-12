@@ -11,10 +11,10 @@ namespace Network
     public class RPCrequests
     {
 
-        public static JObject sendRPCrequest(string method, IList<object> parameters, int id)
+        public static JObject sendRPCrequest(string method, IList<object> parameters)
         {
             WebResponse RPCResponse = null;
-            string jsonRequest = Helpers.jsonRequestBuilder(method, id, parameters);
+            string jsonRequest = Helpers.jsonRequestBuilder(method, parameters);
             HttpWebRequest ontRPCRequest = (HttpWebRequest)WebRequest.Create("http://ont-privnet:20336");
 
             ontRPCRequest.ContentType = "application/json-rpc";

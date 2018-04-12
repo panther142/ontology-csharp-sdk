@@ -5,9 +5,13 @@
 
         int getBlockGenerationTime();
         int getBlockHeight();
-        string getONTBalance(string ONTAddress);
+        string getAddressBalance(string ONTAddress);
         int getNodeCount();
         int getBlockHeightByTxHash(string TxHash);
+        string getBlockHex(int blockHeight);
+        string getBlockHex(string blockHash);
+        string getBlockJson(int blockHeight);
+        string getBlockJson(string blockHash);
 
     }
 }
