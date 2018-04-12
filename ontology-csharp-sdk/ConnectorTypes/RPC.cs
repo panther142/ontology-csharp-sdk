@@ -14,13 +14,13 @@ namespace ConnectorTypes
 
         public int getBlockGenerationTime()
         {
-            result = RPCrequests.sendRPCrequest("getgenerateblocktime", null, 0);
+            result = RPCrequests.sendRPCrequest("getgenerateblocktime", null);
             return (int)result["result"];
         }
 
         public int getBlockHeight()
         {
-            result = RPCrequests.sendRPCrequest("getblockcount", null, 0);
+            result = RPCrequests.sendRPCrequest("getblockcount", null);
             return (int)result["result"];
         }
 
@@ -28,24 +28,58 @@ namespace ConnectorTypes
         {
             param.Clear();
             param.Add(TxHash);
-            result = RPCrequests.sendRPCrequest("getblockheightbytxhash", param, 0);
+            result = RPCrequests.sendRPCrequest("getblockheightbytxhash", param);
             return (int)result["result"];
+        }
+
+        public string getBlockHex(int blockHeight)
+        {
+            param.Clear();
+            param.Add(blockHeight);
+            result = RPCrequests.sendRPCrequest("getblock", param);
+            return result["result"].ToString();
+        }
+
+        public string getBlockHex(string blockHash)
+        {
+            param.Clear();
+            param.Add(blockHash);
+            result = RPCrequests.sendRPCrequest("getblock", param);
+            return result["result"].ToString();
+        }
+
+        public string getBlockJson(int blockHeight)
+        {
+            param.Clear();
+            param.Add(blockHeight);
+            param.Add(1);
+            result = RPCrequests.sendRPCrequest("getblock", param);
+            return result["result"].ToString();
+        }
+
+        public string getBlockJson(string blockHash)
+        {
+            param.Clear();
+            param.Add(blockHash);
+            param.Add(1);
+            result = RPCrequests.sendRPCrequest("getblock", param);
+            return result["result"].ToString();
         }
 
         public int getNodeCount()
         {
-            result = RPCrequests.sendRPCrequest("getconnectioncount", null, 0);
+            result = RPCrequests.sendRPCrequest("getconnectioncount", null);
             return (int)result["result"];
         }
 
-        public string getONTBalance(string ONTAddress)
+        public string getAddressBalance(string ONTAddress)
         {
             param.Clear();
             param.Add(ONTAddress);
 
-            result = RPCrequests.sendRPCrequest("getbalance", param, 1);
+            result = RPCrequests.sendRPCrequest("getbalance", param);
 
-            return (string)result["result"].ToString();
+            return result["result"].ToString();
         }
 
     }

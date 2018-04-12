@@ -4,16 +4,16 @@ using Newtonsoft.Json.Linq;
 
 namespace Common.Helpers
 {
-    public class Helpers
+    public static class Helpers
     {
-        public static string jsonRequestBuilder(string method, int id, IList<object> param)
+        public static string jsonRequestBuilder(string method, IList<object> param)
         {
 
             JObject jsonObject = new JObject();
 
             jsonObject["jsonrpc"] = "2.0";
             jsonObject["method"] = method;
-            jsonObject["id"] = id;
+            jsonObject["id"] = 1;
 
             JArray jsonArray = new JArray(param);
 
@@ -25,7 +25,4 @@ namespace Common.Helpers
         }
 
     }
-
-
-
 }
