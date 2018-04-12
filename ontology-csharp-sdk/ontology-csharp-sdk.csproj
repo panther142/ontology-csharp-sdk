@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BouncyCastle.Crypto">
+      <HintPath>..\..\library\bccrypto-csharp-1.8.2-bin\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -44,9 +47,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Basic\Account.cs" />
+    <Compile Include="Common\Crypto.cs" />
     <Compile Include="ConnectorTypes\RPC.cs" />
     <Compile Include="Controller.cs" />
     <Compile Include="Common\Helpers.cs" />
+    <Compile Include="Interface\IAccount.cs" />
     <Compile Include="Interface\IConnector.cs" />
     <Compile Include="Network\RPCrequests.cs" />
     <Compile Include="OntologySDK.cs" />

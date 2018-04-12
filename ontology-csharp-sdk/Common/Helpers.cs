@@ -23,6 +23,5 @@ namespace Common.Helpers
             return json;
 
         }
-
     }
 }
