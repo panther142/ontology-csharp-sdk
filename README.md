@@ -34,6 +34,7 @@ int BlockHeight = ontSDK.getBlockHeight();
 <br><br>
 ## Methods
 
+Network
 | Method | Parameters | Description | Note |
 | :---| :---| :---| :---|
 | getBlockGenerationTime |  | gets the current block generation time |  |
@@ -45,6 +46,10 @@ int BlockHeight = ontSDK.getBlockHeight();
 | getBlockHex | string | gets the block (hex) of specified block by block hash | |
 | getBlockJson | int | gets the block (json) of specified block by block height| |
 | getBlockJson | string | gets the block (json) of specified block by block hash | |
+
+Account
+| Method | Parameters | Description | Note |
+| :---| :---| :---| :---|
 | createPrivateKey |  | create a private key using SecureRandom  | |
 | getPublicKey | string | get a public key from a private key  | |
 
