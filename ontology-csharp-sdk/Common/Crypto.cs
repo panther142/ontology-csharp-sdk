@@ -12,12 +12,12 @@ namespace Common.Crypto
 {
     public static class Crypto
     {
-        private static X9ECParameters curve = SecNamedCurves.GetByName("secp256k1");
-        private static ECDomainParameters domain = new ECDomainParameters(curve.Curve, curve.G, curve.N, curve.H);
+        private static readonly X9ECParameters curve = SecNamedCurves.GetByName("secp256r1");
+        private static readonly ECDomainParameters domain = new ECDomainParameters(curve.Curve, curve.G, curve.N, curve.H);
 
         public static byte[] getPublicKeyByteArray(byte[] privateKey)
         {
-            BigInteger d = new BigInteger(privateKey);
+            BigInteger d = new BigInteger(1,privateKey);
             ECPoint q = domain.G.Multiply(d);
 
             var publicParams = new ECPublicKeyParameters(q, domain);
@@ -44,12 +44,6 @@ namespace Common.Crypto
                              .Where(x => x % 2 == 0)
                              .Select(x => Convert.ToByte(hex.Substring(x, 2), 16))
                              .ToArray();
-        }
-
-
-        public static string EncodeByteArray(byte[] ba)
-        {
-            return Convert.ToBase64String(ba);
         }
     }
 }

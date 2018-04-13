@@ -20,7 +20,7 @@ namespace OntologyCSharpSDK
         {
             return account.getPublicKey(privatekey);
         }
-        
+
     }
 }
 
