@@ -11,6 +11,12 @@ namespace Network
     public class RPCrequests
     {
 
+        /// <summary>
+        /// Sends RPC request to an RPC node and returns response
+        /// </summary>
+        /// <param name="method"></param>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
         public static JObject sendRPCrequest(string method, IList<object> parameters)
         {
             WebResponse RPCResponse = null;
@@ -36,7 +42,7 @@ namespace Network
                 throw;
             }
 
-            //Receive response
+            //Receive response from RPC node
             try
             {
                 using (RPCResponse = ontRPCRequest.GetResponse())
