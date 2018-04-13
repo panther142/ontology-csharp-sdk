@@ -45,6 +45,8 @@ int BlockHeight = ontSDK.getBlockHeight();
 | getBlockHex | string | gets the block (hex) of specified block by block hash | |
 | getBlockJson | int | gets the block (json) of specified block by block height| |
 | getBlockJson | string | gets the block (json) of specified block by block hash | |
+| getRawTransactionHex | string | gets the hex representation of a transaction based on transaction hash | |
+| getRawTransactionJson | string | gets the json representation of a transaction based on transaction hash | |
 
 <br><br>
 ## License
