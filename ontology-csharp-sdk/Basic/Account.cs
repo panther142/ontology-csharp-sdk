@@ -6,6 +6,7 @@ using Org.BouncyCastle.Security;
 using System.Text;
 using Common.Helpers;
 using Common.Crypto;
+using Common.HexBuilder;
 
 namespace Basic
 {
@@ -22,13 +23,19 @@ namespace Basic
         {
             var bytes = Crypto.HexStringToByteArray(privatekey);
             var bytes_pub = Crypto.getPublicKeyByteArray(bytes);
-            
             var publickey = Crypto.ByteArrayToHexString(bytes_pub);
-
-            //var publickey = Crypto.PrintBytes(bytes_pub);
             return publickey;
         }
-        
+
+        public string createONTID(string privatekey)
+        {
+            var hash = HexBuilder.getHash(privatekey);
+
+            var ontid = "did:ont:" + HexBuilder.u160ToAddress(hash);
+
+            return ontid;
+        }
+
 
 
     }
