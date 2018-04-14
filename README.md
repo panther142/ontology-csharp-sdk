@@ -47,6 +47,7 @@ int BlockHeight = ontSDK.getBlockHeight();
 | getBlockJson | string | gets the block (json) of specified block by block hash | |
 | createPrivateKey |  | create a private key using SecureRandom  | |
 | getPublicKey | string | get a public key from a private key  | |
+| createONTID | string | create a ONTID from a private key  | |
 
 <br><br>
 ## License
