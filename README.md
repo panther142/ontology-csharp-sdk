@@ -49,6 +49,7 @@ int BlockHeight = ontSDK.getBlockHeight();
 | getRawTransactionJson | string | gets the json representation of a transaction based on transaction hash | |
 | createPrivateKey |  | create a private key using SecureRandom  | |
 | getPublicKey | string | get a public key from a private key  | |
+| createONTID | string | create a ONTID from a private key  | |
 
 <br><br>
 ## License

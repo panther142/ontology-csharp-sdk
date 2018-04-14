@@ -14,6 +14,7 @@ namespace OntologyCSharpSDK
         public string createPrivateKey()
         {
             return account.createPrivateKey();
+
         }
 
         public string getPublicKey(string privatekey)
@@ -21,6 +22,11 @@ namespace OntologyCSharpSDK
             return account.getPublicKey(privatekey);
         }
 
+        public string createONTID(string privatekey)
+        {
+            return account.createONTID(privatekey);
+        }
+  
     }
 }
 
