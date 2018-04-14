@@ -20,16 +20,6 @@ namespace Controller
                 case ConnectorType.RPC:
                     ConnectorInterface = new RPC();
                     break;
-
-                    /* TODO: Future Implementation
-
-                    case ReportMethod.PDF:
-                        ReportingInterface = new PDFModule();
-                        break;
-
-                    case ReportMethod.Excel:
-                        ReportingInterface = new ExcelModule();
-                        break; */
             }
 
             return ConnectorInterface;

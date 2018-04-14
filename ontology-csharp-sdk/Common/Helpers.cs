@@ -6,6 +6,13 @@ namespace Common.Helpers
 {
     public static class Helpers
     {
+
+        /// <summary>
+        /// Builds a JSON string used to query an RPC node
+        /// </summary>
+        /// <param name="method"></param>
+        /// <param name="param"></param>
+        /// <returns></returns>
         public static string jsonRequestBuilder(string method, IList<object> param)
         {
 

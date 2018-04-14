@@ -23,6 +23,7 @@ namespace Basic
         {
             var bytes = Crypto.HexStringToByteArray(privatekey);
             var bytes_pub = Crypto.getPublicKeyByteArray(bytes);
+
             var publickey = Crypto.ByteArrayToHexString(bytes_pub);
             return publickey;
         }
@@ -35,8 +36,6 @@ namespace Basic
 
             return ontid;
         }
-
-
 
     }
 }

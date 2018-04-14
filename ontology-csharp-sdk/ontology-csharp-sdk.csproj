@@ -21,6 +21,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -52,6 +54,7 @@
     <Compile Include="Common\Base58Encoding.cs" />
     <Compile Include="Common\Crypto.cs" />
     <Compile Include="Common\HexBuilder.cs" />
+
     <Compile Include="ConnectorTypes\RPC.cs" />
     <Compile Include="Controller.cs" />
     <Compile Include="Common\Helpers.cs" />

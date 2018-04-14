@@ -20,7 +20,9 @@ namespace Common.Crypto
         public static byte[] getPublicKeyByteArray(byte[] privateKey)
         {
             BigInteger d = new BigInteger(1,privateKey);
+
             Org.BouncyCastle.Math.EC.ECPoint q = domain.G.Multiply(d);
+
 
             var publicParams = new ECPublicKeyParameters(q, domain);
             return publicParams.Q.GetEncoded(true);
@@ -47,6 +49,7 @@ namespace Common.Crypto
                              .Select(x => Convert.ToByte(hex.Substring(x, 2), 16))
                              .ToArray();
         }
+
         
 
         public static string GenerateSHA256String(string inputString)
@@ -107,8 +110,6 @@ namespace Common.Crypto
             }
             return result.ToString();
         }
-
-
 
     }
 }

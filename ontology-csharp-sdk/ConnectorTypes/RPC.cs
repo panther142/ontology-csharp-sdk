@@ -12,6 +12,7 @@ namespace ConnectorTypes
         JObject result;
         IList<object> param = new List<object>();
 
+
         public int getBlockGenerationTime()
         {
             result = RPCrequests.sendRPCrequest("getgenerateblocktime", null);
@@ -82,6 +83,22 @@ namespace ConnectorTypes
             return result["result"].ToString();
         }
 
+        public string getRawTransactionHex(string TxHash)
+        {
+            param.Clear();
+            param.Add(TxHash);
+            result = RPCrequests.sendRPCrequest("getrawtransaction", param);
+            return result["result"].ToString();
+        }
+
+        public string getRawTransactionJson(string TxHash)
+        {
+            param.Clear();
+            param.Add(TxHash);
+            param.Add(1);
+            result = RPCrequests.sendRPCrequest("getrawtransaction", param);
+            return result["result"].ToString();
+        }
     }
 
 }
