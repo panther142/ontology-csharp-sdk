@@ -5,5 +5,6 @@
         string createPrivateKey();
         string getPublicKey(string privatekey);
         string createONTID(string privatekey);
+        string createAddressFromPublickKey(string publicKey);
     }
 }

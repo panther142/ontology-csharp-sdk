@@ -37,5 +37,16 @@ namespace Basic
             return ontid;
         }
 
+        public string createAddressFromPublickKey(string publicKey)
+        {
+            publicKey = "1202" + publicKey;
+
+            string programHash = HexBuilder.getSingleSigUInt160(publicKey);
+            string address = HexBuilder.u160ToAddress(programHash);
+
+            return address;
+
+        }
+
     }
 }

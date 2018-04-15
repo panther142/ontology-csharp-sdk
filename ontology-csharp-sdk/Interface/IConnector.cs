@@ -1,4 +1,6 @@
-﻿namespace Interface
+﻿using Common;
+
+namespace Interface
 {
     public interface IConnector
     {
@@ -18,9 +20,9 @@
         /// <summary>
         /// Returns a JSON string representing the ONT/ONG balance of an address
         /// </summary>
-        /// <param name="ONTAddress"></param>
+        /// <param name="Address"></param>
         /// <returns></returns>
-        string getAddressBalance(string ONTAddress);
+        string getAddressBalance(string address);
 
         /// <summary>
         /// Returns the number of nodes connected
@@ -33,7 +35,7 @@
         /// </summary>
         /// <param name="TxHash"></param>
         /// <returns></returns>
-        int getBlockHeightByTxHash(string TxHash);
+        int getBlockHeightByTxHash(string txHash);
 
         /// <summary>
         /// Returns the hex representation of a block based on block height
@@ -68,14 +70,36 @@
         /// </summary>
         /// <param name="TxHash"></param>
         /// <returns></returns>
-        string getRawTransactionHex(string TxHash);
+        string getRawTransactionHex(string txHash);
 
         /// <summary>
         /// Returns a JSON string representing  a transaction based on transaction hash
         /// </summary>
         /// <param name="TxHash"></param>
         /// <returns></returns>
-        string getRawTransactionJson(string TxHash);
-        
+        string getRawTransactionJson(string txHash);
+
+        /// <summary>
+        /// Returns a JSON string representing a Smart Contract based on smart contract hash
+        /// </summary>
+        /// <param name="contractHash"></param>
+        /// <returns></returns>
+        string getContractJson(string contractHash);
+
+        /// <summary>
+        /// Returns a JSON string representing a Smart Contract Event based on block height
+        /// </summary>
+        /// <param name="blockHeight"></param>
+        /// <returns></returns>
+        string getSmartCodeEvent(int blockHeight);
+
+        /// <summary>
+        /// Returns a JSON string representing a Smart Contract Event based on transaction hash
+        /// </summary>
+        /// <param name="txHash"></param>
+        /// <returns></returns>
+        string getSmartCodeEvent(string txHash);
+
+
     }
 }

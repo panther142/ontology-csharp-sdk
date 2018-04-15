@@ -26,7 +26,11 @@ namespace OntologyCSharpSDK
         {
             return account.createONTID(privatekey);
         }
-  
+
+        public string createAddressFromPublickKey(string publickey)
+        {
+            return account.createAddressFromPublickKey(publickey);
+        }
     }
 }
 

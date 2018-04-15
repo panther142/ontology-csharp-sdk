@@ -5,7 +5,6 @@ using System.Numerics;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-using System.Numerics;
 
 namespace Merkator.BitCoin
 {
