@@ -73,6 +73,28 @@ int BlockHeight = ontSDK.getBlockHeight();
 - privatekey (string) private key of the from address
 
 <br><br>
+## Example
+
+1. Create and Register ONTID
+```
+var privatekey = "YOUR PRIVATE KEY";  // your private key
+var ontid = sdk.createONTID(privatekey); // create ONTID
+var result = sdk.registerONTID(ontid, privatekey); // register ONTID on blockchain
+Console.WriteLine("result:{0}", result.content.ToString()); // use result value to query on explore.ont.io
+```
+
+2. Transfer Fund
+```
+var privatekey = "YOUR PRIVATE KEY";  // your private key
+var publickey = sdk.getPublicKey(privatekey);  // get your public key
+var fromaddress = sdk.createAddressFromPublickKey(publickey); // get your address
+var toaddress = "TO ADDRESS";
+var result = sdk.transferFund("ONT", fromaddress, toaddress, 5, privatekey); // transfer 5 ONT from your address to destination toaddress
+Console.WriteLine("result:{0}", result.content); // use result value to query on explore.ont.io
+```
+
+
+<br><br>
 ## License
 
 This project is licensed under the GNU GENERAL PUBLIC LICENSE v3.0
