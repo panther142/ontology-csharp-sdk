@@ -299,6 +299,21 @@ namespace Common.Cryptology
             return result;
         }
 
+        public static string StringToVarBytes(string str)
+        {
+            var result = "";
+
+            var hex = StringToHexString(str);
+
+            var hexLen = NumberToVarInt(hex.Length / 2);
+
+            result += hexLen;
+
+            result += hex;
+
+            return result;
+        }
+
 
     }
 }

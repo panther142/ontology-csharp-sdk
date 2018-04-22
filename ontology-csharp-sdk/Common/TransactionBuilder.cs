@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Numerics;
 using System.Collections.Generic;
 using Common.Enum;
 using Common.Cryptology;
 using Common.Models;
+using Common.SmartContract;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Merkator.BitCoin;
@@ -10,6 +12,8 @@ namespace Common.TransactionBuilder
 {
     public static class TransactionBuilder
     {
+        private static string ONT_CONTRACT = "ff00000000000000000000000000000000000001";
+
         public static string getHash(string hex)
         {
 
@@ -29,10 +33,27 @@ namespace Common.TransactionBuilder
 
             var datas = data + ProgramSha256_2.Substring(0, 8).ToLower();
 
-
             return Base58Encoding.Encode(Crypto.HexStringToByteArray(datas)); ;
         }
 
+        public static string AddresstTou160(string addressencoded)
+        {
+            var result = "";
+            var decoded = Base58Encoding.Decode(addressencoded);
+
+            var programhash = Crypto.ByteArrayToHexString(decoded).Substring(2, 40);
+            var add58 = u160ToAddress(programhash);
+            if (add58 != addressencoded)
+            {
+                result = "";
+            }
+            else
+            {
+                result = programhash;
+            }
+
+            return result;
+        }
 
         public static string getSingleSigUInt160(string hash)
         {
@@ -49,6 +70,51 @@ namespace Common.TransactionBuilder
 
             var publickey = Crypto.ByteArrayToHexString(bytes_pub);
             return publickey;
+        }
+
+        public static Transaction makeTransferTransaction(string tokentype, string fromaddress, string toaddress, string value, string privatekey)
+        {
+            var state = new State();
+            state.from = fromaddress;
+            state.to = toaddress;
+
+            var valueToSend = BigInteger.Parse(value).ToString();
+            state.value = valueToSend;
+
+            var transfer = new Transfers();
+            var states = new List<State>();
+            states.Add(state);
+            transfer.states = states;
+
+            var contract = new Contract();
+            contract.address = ONT_CONTRACT;
+            contract.method = "transfer";
+            contract.args = transfer.serialize();
+
+            var tx = new Transaction();
+            tx.version = 0x00;
+            tx.type = Crypto.HexToInteger(TxType.Invoke);
+            tx.nonce = Crypto.ByteArrayToHexString(Crypto.GetSecureRandomByteArray(4));
+
+            //inovke
+            var code = "";
+            //TODO: change with token type
+
+            code += contract.serialize();
+            var vmcode = new VmCode();
+            vmcode.code = code;
+            vmcode.vmType = VmType.NativeVM;
+            var invokeCode = new InvokeCode();
+            invokeCode.code = vmcode;
+            tx.payload = invokeCode;
+
+            if (privatekey != null)
+            {
+                tx = signTransaction(tx, privatekey);
+            }
+
+            return tx;
+
         }
 
         public static Transaction buildRegisterOntidTx(string ontid, string privatekey)
@@ -108,8 +174,6 @@ namespace Common.TransactionBuilder
                 tx = signTransaction(tx, privatekey);
             }
 
-            Console.WriteLine("tx:" + JsonConvert.SerializeObject(tx));
-
             return tx;
         }
 
@@ -122,17 +186,10 @@ namespace Common.TransactionBuilder
             var pk = new PubKey(KeyType.PK_ECDSA, publickey);
             var hash = tx.getHash();
 
-            //hash = "88f2f62d1d2b5cdf77fc197159f19df7936992f2c8a7e4311216c7d62f8f7d37";
-            //tx.nonce = "70bf3bb1";
-            Console.WriteLine("hash:" + hash);
-            // this sign data function is not working
             var signed = Crypto.signData(hash, privatekey);
             var sig = new Sig();
             var s = Crypto.NumberToHex((int)schema);
             signed = s + signed;
-            // if I copy this value from ts-sdk result, it works
-            //signed = "018ba8974e7d45f09837d1d7f1b7ba64eb9a990b98dd2204d39cdd55e941de0e5f84b7edaffd176c700bf95dc8ab55c076df44806c03a9dd4ef0c7ebc69eb5f335";
-            Console.WriteLine("signed:" + signed);
             sig.M = 1;
 
             var pubKeys = new List<PubKey>();

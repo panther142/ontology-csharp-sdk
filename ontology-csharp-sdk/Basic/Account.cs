@@ -8,6 +8,13 @@ namespace Basic
 {
     class Account : IAccount
     {
+        private string net;
+
+        public Account(string network = "test")
+        {
+            net = network;
+        }
+        
         public string createPrivateKey() {
 
             var bytes = Crypto.GetSecureRandomByteArray(32);
@@ -30,6 +37,17 @@ namespace Basic
             return ontid;
         }
 
+
+        public APIResult registerONTID(string ontid, string privatekey)
+        {
+            var tx = TransactionBuilder.buildRegisterOntidTx(ontid, privatekey);
+            var serialized = tx.serialize();
+            var param = TransactionBuilder.buildRestfulParam(serialized);
+            var url = NetworkBuilder.getSendRawTxURL(net);
+            var result = RESTrequests.sendRESTrequest(url, "POST", null, param);
+            return result;
+        }
+
         public string createAddressFromPublickKey(string publicKey)
         {
             publicKey = "1202" + publicKey;
@@ -39,15 +57,18 @@ namespace Basic
             return address;
        }
 
-        public APIResult registerONTID(string ontid, string privatekey)
+        public APIResult transferFund(string name, string fromaddress, string toaddress, decimal value, string privatekey)
         {
-            var tx = TransactionBuilder.buildRegisterOntidTx(ontid, privatekey);
+            var fromhexaddress = TransactionBuilder.AddresstTou160(fromaddress);
+            var tohexaddress = TransactionBuilder.AddresstTou160(toaddress);
+            var tx = TransactionBuilder.makeTransferTransaction(name, fromhexaddress, tohexaddress, value.ToString(), privatekey);
             var serialized = tx.serialize();
             var param = TransactionBuilder.buildRestfulParam(serialized);
-            var url = NetworkBuilder.getSendRawTxURL();
+            var url = NetworkBuilder.getSendRawTxURL(net);
             var result = RESTrequests.sendRESTrequest(url, "POST", null, param);
             return result;
         }
+
 
     }
 }

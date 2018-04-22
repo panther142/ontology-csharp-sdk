@@ -149,6 +149,7 @@ namespace Network
             }
             catch (Exception ex)
             {
+                result = new APIResult();
                 result.content = ex.Message + ex.StackTrace;
                 result.status_code = 400;
             }
