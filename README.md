@@ -47,9 +47,39 @@ int BlockHeight = ontSDK.getBlockHeight();
 | getBlockJson | string | gets the block (json) of specified block by block hash | |
 | getRawTransactionHex | string | gets the hex representation of a transaction based on transaction hash | |
 | getRawTransactionJson | string | gets the json representation of a transaction based on transaction hash | |
-| createPrivateKey |  | create a private key using SecureRandom  | |
-| getPublicKey | string | get a public key from a private key  | |
-| createONTID | string | create a ONTID from a private key  | |
+
+
+<br><br>
+## Account
+
+<b>createPrivateKey</b>
+create a private key using SecureRandom
+
+<b>getPublicKey</b>
+paramters:
+privatekey (string)
+get a public key from a private key
+
+<b>createONTID</b>
+paramters:
+privatekey (string)
+create a ONTID from a private key
+
+<b>registerONTID</b>
+paramters:
+ontid (string)
+privatekey (string)
+register a ONTID on Blockchain
+
+<b>transferFund</b>
+paramters:
+name (string) - name of the fund, for example: ONT
+fromaddress (string) from address
+toaddress (string) to address
+value (decimal) value of the fund
+privatekey (string) private key of the from address
+Transfer token from address to another address
+
 
 <br><br>
 ## License
