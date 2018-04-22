@@ -52,34 +52,25 @@ int BlockHeight = ontSDK.getBlockHeight();
 <br><br>
 ## Account
 
-<b>createPrivateKey</b>
-create a private key using SecureRandom
+<b>createPrivateKey</b>: create a private key using SecureRandom
 
-<b>getPublicKey</b>
-paramters:
-privatekey (string)
-get a public key from a private key
+<b>getPublicKey</b>: get a public key from a private key
+- privatekey (string)
 
-<b>createONTID</b>
-paramters:
-privatekey (string)
-create a ONTID from a private key
 
-<b>registerONTID</b>
-paramters:
-ontid (string)
-privatekey (string)
-register a ONTID on Blockchain
+<b>createONTID</b> create a ONTID from a private key
+- privatekey (string)
 
-<b>transferFund</b>
-paramters:
-name (string) - name of the fund, for example: ONT
-fromaddress (string) from address
-toaddress (string) to address
-value (decimal) value of the fund
-privatekey (string) private key of the from address
-Transfer token from address to another address
+<b>registerONTID</b> register a ONTID on Blockchain
+- ontid (string)
+- privatekey (string)
 
+<b>transferFund</b>: Transfer token from address to another address
+- name (string) - name of the fund, for example: ONT
+- fromaddress (string) from address
+- toaddress (string) to address
+- value (decimal) value of the fund
+- privatekey (string) private key of the from address
 
 <br><br>
 ## License
