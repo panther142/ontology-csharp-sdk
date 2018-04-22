@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using Interface;
 using Network;
+using Common.Net;
 using System.Collections.Generic;
 
 namespace ConnectorTypes
@@ -12,16 +13,24 @@ namespace ConnectorTypes
         JObject result;
         IList<object> param = new List<object>();
 
+        private string net;
+        private string url;
+
+        public RPC(string network = "test")
+        {
+            net = network;
+            url = NetworkBuilder.getRPCURL(net);
+        }
 
         public int getBlockGenerationTime()
         {
-            result = RPCrequests.sendRPCrequest("getgenerateblocktime", null);
+            result = RPCrequests.sendRPCrequest(url,"getgenerateblocktime", null);
             return (int)result["result"];
         }
 
         public int getBlockHeight()
         {
-            result = RPCrequests.sendRPCrequest("getblockcount", null);
+            result = RPCrequests.sendRPCrequest(url, "getblockcount", null);
             return (int)result["result"];
         }
 
@@ -29,7 +38,7 @@ namespace ConnectorTypes
         {
             param.Clear();
             param.Add(TxHash);
-            result = RPCrequests.sendRPCrequest("getblockheightbytxhash", param);
+            result = RPCrequests.sendRPCrequest(url, "getblockheightbytxhash", param);
             return (int)result["result"];
         }
 
@@ -37,7 +46,7 @@ namespace ConnectorTypes
         {
             param.Clear();
             param.Add(blockHeight);
-            result = RPCrequests.sendRPCrequest("getblock", param);
+            result = RPCrequests.sendRPCrequest(url, "getblock", param);
             return result["result"].ToString();
         }
 
@@ -45,7 +54,7 @@ namespace ConnectorTypes
         {
             param.Clear();
             param.Add(blockHash);
-            result = RPCrequests.sendRPCrequest("getblock", param);
+            result = RPCrequests.sendRPCrequest(url, "getblock", param);
             return result["result"].ToString();
         }
 
@@ -54,7 +63,7 @@ namespace ConnectorTypes
             param.Clear();
             param.Add(blockHeight);
             param.Add(1);
-            result = RPCrequests.sendRPCrequest("getblock", param);
+            result = RPCrequests.sendRPCrequest(url, "getblock", param);
             return result["result"].ToString();
         }
 
@@ -63,13 +72,13 @@ namespace ConnectorTypes
             param.Clear();
             param.Add(blockHash);
             param.Add(1);
-            result = RPCrequests.sendRPCrequest("getblock", param);
+            result = RPCrequests.sendRPCrequest(url, "getblock", param);
             return result["result"].ToString();
         }
 
         public int getNodeCount()
         {
-            result = RPCrequests.sendRPCrequest("getconnectioncount", null);
+            result = RPCrequests.sendRPCrequest(url, "getconnectioncount", null);
             return (int)result["result"];
         }
 
@@ -78,7 +87,7 @@ namespace ConnectorTypes
             param.Clear();
             param.Add(ONTAddress);
 
-            result = RPCrequests.sendRPCrequest("getbalance", param);
+            result = RPCrequests.sendRPCrequest(url, "getbalance", param);
 
             return result["result"].ToString();
         }
@@ -87,7 +96,7 @@ namespace ConnectorTypes
         {
             param.Clear();
             param.Add(TxHash);
-            result = RPCrequests.sendRPCrequest("getrawtransaction", param);
+            result = RPCrequests.sendRPCrequest(url, "getrawtransaction", param);
             return result["result"].ToString();
         }
 
@@ -96,7 +105,7 @@ namespace ConnectorTypes
             param.Clear();
             param.Add(TxHash);
             param.Add(1);
-            result = RPCrequests.sendRPCrequest("getrawtransaction", param);
+            result = RPCrequests.sendRPCrequest(url, "getrawtransaction", param);
             return result["result"].ToString();
         }
     }

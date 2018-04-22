@@ -33,6 +33,27 @@
             return url;
         }
 
+        public static string getRPCURL(string net = "test")
+        {
+            string url = "";
+            string node = "";
+
+            switch (net)
+            {
+                case "main":
+                    node = MAIN_NODE;
+                    break;
+                case "test":
+                    node = TEST_NODE;
+                    break;
+                default:
+                    node = net;
+                    break;
+            }
+
+            url = "http://" + node + ":" + HTTP_JSON_PORT;
+            return url;
+        }
 
     }
 }
