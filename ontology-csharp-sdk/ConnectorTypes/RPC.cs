@@ -31,14 +31,7 @@ namespace ConnectorTypes
         {
             param.Clear();
             param.Add(txHash);
-            result = RPCrequests.sendRPCrequest("getblockheightbytxhash", param);
-
-            int ErrorCode = (int)result["error"];
-            
-            if(ErrorCode > 0)
-            {
-                throw new ArgumentException("Error returned by server - Code: " + ErrorCode + " - Description: " + result["desc"]);
-            }
+            result = RPCrequests.sendRPCrequest(url, "getblockheightbytxhash", param);
             return (int)result["result"];
             
         }
@@ -97,7 +90,9 @@ namespace ConnectorTypes
         public string getRawTransactionHex(string TxHash)
         {
             param.Clear();
-            param.Add(TxHash);
+            param.Add(txHash);
+            result = RPCrequests.sendRPCrequest(url, "getrawtransaction", param);
+
 
             result = RPCrequests.sendRPCrequest("getrawtransaction", param);
             return result["result"].ToString();
@@ -106,10 +101,25 @@ namespace ConnectorTypes
         public string getRawTransactionJson(string TxHash)
         {
             param.Clear();
-            param.Add(TxHash);
+            param.Add(contractHash);
+            result = RPCrequests.sendRPCrequest(url, "getcontractstate", param);
+            return result["result"].ToString();
+        }
 
-            param.Add(1);
-            result = RPCrequests.sendRPCrequest("getrawtransaction", param);
+
+        public string getSmartCodeEvent(int blockHeight)
+        {
+            param.Clear();
+            param.Add(blockHeight);
+            result = RPCrequests.sendRPCrequest(url, "getsmartcodeevent", param);
+            return result["result"].ToString();
+        }
+
+        public string getSmartCodeEvent(string txHash)
+        {
+            param.Clear();
+            param.Add(txHash);
+            result = RPCrequests.sendRPCrequest(url, "getsmartcodeevent", param);
             return result["result"].ToString();
         }
 

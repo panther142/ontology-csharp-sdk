@@ -171,5 +171,10 @@
         Description = 0x90
     }
 
+    public enum VmType
+    {
+        NativeVM = 0xFF,
+        NEOVM = 0x80,
+    }
 }
 
