@@ -47,9 +47,52 @@ int BlockHeight = ontSDK.getBlockHeight();
 | getBlockJson | string | gets the block (json) of specified block by block hash | |
 | getRawTransactionHex | string | gets the hex representation of a transaction based on transaction hash | |
 | getRawTransactionJson | string | gets the json representation of a transaction based on transaction hash | |
-| createPrivateKey |  | create a private key using SecureRandom  | |
-| getPublicKey | string | get a public key from a private key  | |
-| createONTID | string | create a ONTID from a private key  | |
+
+
+<br><br>
+## Account
+
+<b>createPrivateKey</b>: create a private key using SecureRandom
+
+<b>getPublicKey</b>: get a public key from a private key
+- privatekey (string)
+
+
+<b>createONTID</b> create a ONTID from a private key
+- privatekey (string)
+
+<b>registerONTID</b> register a ONTID on Blockchain
+- ontid (string)
+- privatekey (string)
+
+<b>transferFund</b>: Transfer token from address to another address
+- name (string) - name of the fund, for example: ONT
+- fromaddress (string) from address
+- toaddress (string) to address
+- value (decimal) value of the fund
+- privatekey (string) private key of the from address
+
+<br><br>
+## Example
+
+1. Create and Register ONTID
+```
+var privatekey = "YOUR PRIVATE KEY";  // your private key
+var ontid = sdk.createONTID(privatekey); // create ONTID
+var result = sdk.registerONTID(ontid, privatekey); // register ONTID on blockchain
+Console.WriteLine("result:{0}", result.content.ToString()); // use result value to query on explore.ont.io
+```
+
+2. Transfer Fund
+```
+var privatekey = "YOUR PRIVATE KEY";  // your private key
+var publickey = sdk.getPublicKey(privatekey);  // get your public key
+var fromaddress = sdk.createAddressFromPublickKey(publickey); // get your address
+var toaddress = "TO ADDRESS";
+var result = sdk.transferFund("ONT", fromaddress, toaddress, 5, privatekey); // transfer 5 ONT from your address to destination toaddress
+Console.WriteLine("result:{0}", result.content); // use result value to query on explore.ont.io
+```
+
 
 <br><br>
 ## License
