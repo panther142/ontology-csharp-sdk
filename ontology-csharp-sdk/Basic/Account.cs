@@ -38,6 +38,7 @@ namespace Basic
         }
 
 
+
         public APIResult registerONTID(string ontid, string privatekey)
         {
             var tx = TransactionBuilder.buildRegisterOntidTx(ontid, privatekey);

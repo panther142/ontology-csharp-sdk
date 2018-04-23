@@ -27,16 +27,19 @@ namespace OntologyCSharpSDK
         {
             return account.createONTID(privatekey);
         }
+
         
         public APIResult registerONTID(string ontid, string privatekey)
         {
             return account.registerONTID(ontid, privatekey);
         }
 
+
         public string createAddressFromPublickKey(string publickey)
         {
             return account.createAddressFromPublickKey(publickey);
         }
+
 
         public APIResult transferFund(string name, string fromaddress, string toaddress, decimal value, string privatekey)
         {
@@ -44,5 +47,6 @@ namespace OntologyCSharpSDK
         }
 
 }
+
 }
 

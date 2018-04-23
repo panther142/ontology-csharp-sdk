@@ -3,6 +3,7 @@ using Interface;
 using Network;
 using Common.Net;
 using System.Collections.Generic;
+using Common;
 
 namespace ConnectorTypes
 {
@@ -34,11 +35,12 @@ namespace ConnectorTypes
             return (int)result["result"];
         }
 
-        public int getBlockHeightByTxHash(string TxHash)
+        public int getBlockHeightByTxHash(string txHash)
         {
             param.Clear();
             param.Add(TxHash);
             result = RPCrequests.sendRPCrequest(url, "getblockheightbytxhash", param);
+
             return (int)result["result"];
         }
 
@@ -82,30 +84,56 @@ namespace ConnectorTypes
             return (int)result["result"];
         }
 
-        public string getAddressBalance(string ONTAddress)
+        public string getAddressBalance(string address)
         {
             param.Clear();
-            param.Add(ONTAddress);
+            param.Add(address);
 
             result = RPCrequests.sendRPCrequest(url, "getbalance", param);
 
             return result["result"].ToString();
         }
 
-        public string getRawTransactionHex(string TxHash)
+        public string getRawTransactionHex(string txHash)
         {
             param.Clear();
             param.Add(TxHash);
+            result = RPCrequests.sendRPCrequest(url, "getrawtransaction", param);
+
+            return result["result"].ToString();
+        }
+
+        public string getRawTransactionJson(string txHash)
+        {
+            param.Clear();
+            param.Add(txHash);
+            param.Add(1);
             result = RPCrequests.sendRPCrequest(url, "getrawtransaction", param);
             return result["result"].ToString();
         }
 
-        public string getRawTransactionJson(string TxHash)
+        public string getContractJson(string contractHash)
         {
             param.Clear();
-            param.Add(TxHash);
-            param.Add(1);
-            result = RPCrequests.sendRPCrequest(url, "getrawtransaction", param);
+            param.Add(contractHash);
+            result = RPCrequests.sendRPCrequest("getcontractstate", param);
+            return result["result"].ToString();
+        }
+
+
+        public string getSmartCodeEvent(int blockHeight)
+        {
+            param.Clear();
+            param.Add(blockHeight);
+            result = RPCrequests.sendRPCrequest("getsmartcodeevent", param);
+            return result["result"].ToString();
+        }
+
+        public string getSmartCodeEvent(string txHash)
+        {
+            param.Clear();
+            param.Add(txHash);
+            result = RPCrequests.sendRPCrequest("getsmartcodeevent", param);
             return result["result"].ToString();
         }
     }
