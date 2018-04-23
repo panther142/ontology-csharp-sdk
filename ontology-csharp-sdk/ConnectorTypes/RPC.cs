@@ -116,7 +116,7 @@ namespace ConnectorTypes
         {
             param.Clear();
             param.Add(contractHash);
-            result = RPCrequests.sendRPCrequest("getcontractstate", param);
+            result = RPCrequests.sendRPCrequest(url, "getcontractstate", param);
             return result["result"].ToString();
         }
 
@@ -125,7 +125,7 @@ namespace ConnectorTypes
         {
             param.Clear();
             param.Add(blockHeight);
-            result = RPCrequests.sendRPCrequest("getsmartcodeevent", param);
+            result = RPCrequests.sendRPCrequest(url, "getsmartcodeevent", param);
             return result["result"].ToString();
         }
 
@@ -133,7 +133,7 @@ namespace ConnectorTypes
         {
             param.Clear();
             param.Add(txHash);
-            result = RPCrequests.sendRPCrequest("getsmartcodeevent", param);
+            result = RPCrequests.sendRPCrequest(url, "getsmartcodeevent", param);
             return result["result"].ToString();
         }
     }
