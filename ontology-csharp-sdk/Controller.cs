@@ -22,9 +22,11 @@ namespace OntologyCSharpSDK
                     ConnectorInterface = new RPC();
                     break;
 
+
                 case ConnectorType.REST:
                     ConnectorInterface = new REST();
                     break;
+
             }
 
             return ConnectorInterface;
