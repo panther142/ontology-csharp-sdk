@@ -13,6 +13,7 @@ namespace Common.Helpers
         /// <param name="method"></param>
         /// <param name="param"></param>
         /// <returns></returns>
+
         public static string jsonRequestBuilder(string method, IList<object> param)
         {
 

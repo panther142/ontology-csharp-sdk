@@ -9,7 +9,7 @@ using System;
 
 namespace Network
 {
-    public class RPCrequests
+    public class RESTrequests
     {
 
         /// <summary>
@@ -18,35 +18,35 @@ namespace Network
         /// <param name="method"></param>
         /// <param name="parameters"></param>
         /// <returns></returns>
-        public static JObject sendRPCrequest(string method, IList<object> parameters)
+        public static JObject sendRESTrequest(string method, IList<object> parameters)
         {
 
             string jsonRequest = Helpers.RPCJsonRequestBuilder(method, parameters);
-            WebResponse RPCResponse = null;
-            HttpWebRequest ontRPCRequest = null;
+            WebResponse RESTResponse = null;
+            HttpWebRequest ontRESTRequest = null;
             byte[] byteArray;
 
-            
+
             // Create WebRequest object
             try
             {
-                ontRPCRequest = (HttpWebRequest)WebRequest.Create("http://ont-privnet:20336");
-                ontRPCRequest.ContentType = "application/json-rpc";
-                ontRPCRequest.Method = "POST";
+                ontRESTRequest = (HttpWebRequest)WebRequest.Create("http://ont-privnet:20336");
+                ontRESTRequest.ContentType = "application/json-rpc";
+                ontRESTRequest.Method = "POST";
                 byteArray = Encoding.UTF8.GetBytes(jsonRequest);
-                ontRPCRequest.ContentLength = byteArray.Length;
+                ontRESTRequest.ContentLength = byteArray.Length;
             }
             catch (Exception ex)
             {
-                throw new Exception("RPCrequests error while creating HttpWebRequest object", ex.InnerException);
+                throw new Exception("RESTrequests error while creating HttpWebRequest object", ex.InnerException);
             }
 
             // Send JSON request
             try
             {
-                using (Stream ontRPCRequestStream = ontRPCRequest.GetRequestStream())
+                using (Stream ontRESTRequestStream = ontRESTRequest.GetRequestStream())
                 {
-                    ontRPCRequestStream.Write(byteArray, 0, byteArray.Length);
+                    ontRESTRequestStream.Write(byteArray, 0, byteArray.Length);
                 }
             }
             catch (WebException)
@@ -54,12 +54,12 @@ namespace Network
                 throw;
             }
 
-            //Receive response from RPC node
+            //Receive response from REST node
             try
             {
-                using (RPCResponse = ontRPCRequest.GetResponse())
+                using (RESTResponse = ontRESTRequest.GetResponse())
                 {
-                    using (Stream str = RPCResponse.GetResponseStream())
+                    using (Stream str = RESTResponse.GetResponseStream())
                     {
                         using (StreamReader sr = new StreamReader(str))
                         {

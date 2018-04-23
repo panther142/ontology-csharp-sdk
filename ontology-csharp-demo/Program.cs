@@ -18,7 +18,6 @@ namespace ontology_csharp_demo
             RPCDemo();
 
         }
-
         //Query blockchain using RPC
         public static void RPCDemo()
         {

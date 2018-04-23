@@ -51,7 +51,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Basic\Account.cs" />
-    <Compile Include="Common\abiModels.cs" />
     <Compile Include="Common\Base58Encoding.cs" />
     <Compile Include="Common\Constants.cs" />
     <Compile Include="Common\Crypto.cs" />
@@ -64,9 +63,11 @@
     <Compile Include="Common\Helpers.cs" />
     <Compile Include="Interface\IAccount.cs" />
     <Compile Include="Interface\IConnector.cs" />
+    <Compile Include="Network\RESTrequests.cs" />
     <Compile Include="Network\RPCrequests.cs" />
     <Compile Include="OntologySDK.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Transaction\TransactionType.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

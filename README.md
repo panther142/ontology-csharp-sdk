@@ -49,6 +49,7 @@ int BlockHeight = ontSDK.getBlockHeight();
 | getRawTransactionJson | string | gets the json representation of a transaction based on transaction hash | |
 
 
+
 <br><br>
 ## Account
 
@@ -92,6 +93,10 @@ var toaddress = "TO ADDRESS";
 var result = sdk.transferFund("ONT", fromaddress, toaddress, 5, privatekey); // transfer 5 ONT from your address to destination toaddress
 Console.WriteLine("result:{0}", result.content); // use result value to query on explore.ont.io
 ```
+
+=======
+| createPrivateKey |  | create a private key using SecureRandom  | |
+| getPublicKey | string | get a public key from a private key  | |
 
 
 <br><br>
