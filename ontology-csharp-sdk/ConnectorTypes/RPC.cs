@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json.Linq;
 using Interface;
 using Network;
-using Common.Net;
 using System.Collections.Generic;
 using Common;
+using System;
 
 namespace ConnectorTypes
 {
@@ -14,41 +14,40 @@ namespace ConnectorTypes
         JObject result;
         IList<object> param = new List<object>();
 
-        private string net;
-        private string url;
-
-        public RPC(string network = "test")
-        {
-            net = network;
-            url = NetworkBuilder.getRPCURL(net);
-        }
 
         public int getBlockGenerationTime()
         {
-            result = RPCrequests.sendRPCrequest(url,"getgenerateblocktime", null);
+            result = RPCrequests.sendRPCrequest("getgenerateblocktime", null);
             return (int)result["result"];
         }
 
         public int getBlockHeight()
         {
-            result = RPCrequests.sendRPCrequest(url, "getblockcount", null);
+            result = RPCrequests.sendRPCrequest("getblockcount", null);
             return (int)result["result"];
         }
 
         public int getBlockHeightByTxHash(string txHash)
         {
             param.Clear();
-            param.Add(TxHash);
-            result = RPCrequests.sendRPCrequest(url, "getblockheightbytxhash", param);
+            param.Add(txHash);
+            result = RPCrequests.sendRPCrequest("getblockheightbytxhash", param);
 
+            int ErrorCode = (int)result["error"];
+            
+            if(ErrorCode > 0)
+            {
+                throw new ArgumentException("Error returned by server - Code: " + ErrorCode + " - Description: " + result["desc"]);
+            }
             return (int)result["result"];
+            
         }
 
         public string getBlockHex(int blockHeight)
         {
             param.Clear();
             param.Add(blockHeight);
-            result = RPCrequests.sendRPCrequest(url, "getblock", param);
+            result = RPCrequests.sendRPCrequest("getblock", param);
             return result["result"].ToString();
         }
 
@@ -56,7 +55,7 @@ namespace ConnectorTypes
         {
             param.Clear();
             param.Add(blockHash);
-            result = RPCrequests.sendRPCrequest(url, "getblock", param);
+            result = RPCrequests.sendRPCrequest("getblock", param);
             return result["result"].ToString();
         }
 
@@ -65,7 +64,7 @@ namespace ConnectorTypes
             param.Clear();
             param.Add(blockHeight);
             param.Add(1);
-            result = RPCrequests.sendRPCrequest(url, "getblock", param);
+            result = RPCrequests.sendRPCrequest("getblock", param);
             return result["result"].ToString();
         }
 
@@ -74,13 +73,13 @@ namespace ConnectorTypes
             param.Clear();
             param.Add(blockHash);
             param.Add(1);
-            result = RPCrequests.sendRPCrequest(url, "getblock", param);
+            result = RPCrequests.sendRPCrequest("getblock", param);
             return result["result"].ToString();
         }
 
         public int getNodeCount()
         {
-            result = RPCrequests.sendRPCrequest(url, "getconnectioncount", null);
+            result = RPCrequests.sendRPCrequest("getconnectioncount", null);
             return (int)result["result"];
         }
 
@@ -89,7 +88,7 @@ namespace ConnectorTypes
             param.Clear();
             param.Add(address);
 
-            result = RPCrequests.sendRPCrequest(url, "getbalance", param);
+            result = RPCrequests.sendRPCrequest("getbalance", param);
 
             return result["result"].ToString();
         }
@@ -97,9 +96,8 @@ namespace ConnectorTypes
         public string getRawTransactionHex(string txHash)
         {
             param.Clear();
-            param.Add(TxHash);
-            result = RPCrequests.sendRPCrequest(url, "getrawtransaction", param);
-
+            param.Add(txHash);
+            result = RPCrequests.sendRPCrequest("getrawtransaction", param);
             return result["result"].ToString();
         }
 
@@ -108,7 +106,7 @@ namespace ConnectorTypes
             param.Clear();
             param.Add(txHash);
             param.Add(1);
-            result = RPCrequests.sendRPCrequest(url, "getrawtransaction", param);
+            result = RPCrequests.sendRPCrequest("getrawtransaction", param);
             return result["result"].ToString();
         }
 

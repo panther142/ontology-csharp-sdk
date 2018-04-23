@@ -1,13 +1,14 @@
 ﻿using Interface;
 using ConnectorTypes;
 
-namespace Controller
+namespace OntologyCSharpSDK
 {
     public class Controller
     {
         public enum ConnectorType
         {
-            RPC
+            RPC,
+            REST
         }
 
         public virtual IConnector Gateway(ConnectorType method)
@@ -19,6 +20,10 @@ namespace Controller
             {
                 case ConnectorType.RPC:
                     ConnectorInterface = new RPC();
+                    break;
+
+                case ConnectorType.REST:
+                    ConnectorInterface = new REST();
                     break;
             }
 
