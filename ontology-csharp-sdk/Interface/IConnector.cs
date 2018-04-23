@@ -20,9 +20,11 @@ namespace Interface
         /// <summary>
         /// Returns a JSON string representing the ONT/ONG balance of an address
         /// </summary>
-        /// <param name="Address"></param>
+
+        /// <param name="ONTAddress"></param>
         /// <returns></returns>
-        string getAddressBalance(string address);
+        string getAddressBalance(string ONTAddress);
+
 
         /// <summary>
         /// Returns the number of nodes connected
@@ -35,7 +37,8 @@ namespace Interface
         /// </summary>
         /// <param name="TxHash"></param>
         /// <returns></returns>
-        int getBlockHeightByTxHash(string txHash);
+
+        int getBlockHeightByTxHash(string TxHash);
 
         /// <summary>
         /// Returns the hex representation of a block based on block height
@@ -70,36 +73,17 @@ namespace Interface
         /// </summary>
         /// <param name="TxHash"></param>
         /// <returns></returns>
-        string getRawTransactionHex(string txHash);
+
+        string getRawTransactionHex(string TxHash);
+
 
         /// <summary>
         /// Returns a JSON string representing  a transaction based on transaction hash
         /// </summary>
         /// <param name="TxHash"></param>
         /// <returns></returns>
-        string getRawTransactionJson(string txHash);
 
-        /// <summary>
-        /// Returns a JSON string representing a Smart Contract based on smart contract hash
-        /// </summary>
-        /// <param name="contractHash"></param>
-        /// <returns></returns>
-        string getContractJson(string contractHash);
-
-        /// <summary>
-        /// Returns a JSON string representing a Smart Contract Event based on block height
-        /// </summary>
-        /// <param name="blockHeight"></param>
-        /// <returns></returns>
-        string getSmartCodeEvent(int blockHeight);
-
-        /// <summary>
-        /// Returns a JSON string representing a Smart Contract Event based on transaction hash
-        /// </summary>
-        /// <param name="txHash"></param>
-        /// <returns></returns>
-        string getSmartCodeEvent(string txHash);
-
-
+        string getRawTransactionJson(string TxHash);
+        
     }
 }

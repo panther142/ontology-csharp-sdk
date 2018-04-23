@@ -93,47 +93,26 @@ namespace ConnectorTypes
             return result["result"].ToString();
         }
 
-        public string getRawTransactionHex(string txHash)
+
+        public string getRawTransactionHex(string TxHash)
         {
             param.Clear();
-            param.Add(txHash);
+            param.Add(TxHash);
+
             result = RPCrequests.sendRPCrequest("getrawtransaction", param);
             return result["result"].ToString();
         }
 
-        public string getRawTransactionJson(string txHash)
+        public string getRawTransactionJson(string TxHash)
         {
             param.Clear();
-            param.Add(txHash);
+            param.Add(TxHash);
+
             param.Add(1);
             result = RPCrequests.sendRPCrequest("getrawtransaction", param);
             return result["result"].ToString();
         }
 
-        public string getContractJson(string contractHash)
-        {
-            param.Clear();
-            param.Add(contractHash);
-            result = RPCrequests.sendRPCrequest("getcontractstate", param);
-            return result["result"].ToString();
-        }
-
-
-        public string getSmartCodeEvent(int blockHeight)
-        {
-            param.Clear();
-            param.Add(blockHeight);
-            result = RPCrequests.sendRPCrequest("getsmartcodeevent", param);
-            return result["result"].ToString();
-        }
-
-        public string getSmartCodeEvent(string txHash)
-        {
-            param.Clear();
-            param.Add(txHash);
-            result = RPCrequests.sendRPCrequest("getsmartcodeevent", param);
-            return result["result"].ToString();
-        }
     }
 
 }
