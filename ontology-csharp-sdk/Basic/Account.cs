@@ -12,7 +12,8 @@ namespace Basic
 {
     class Account : IAccount
     {
-        public string createPrivateKey() {
+        public string createPrivateKey()
+        {
 
             var bytes = Crypto.getSecureRandomByteArray(32);
             var privatekey = Crypto.ByteArrayToHexString(bytes);
@@ -45,8 +46,6 @@ namespace Basic
             string address = HexBuilder.u160ToAddress(programHash);
 
             return address;
-
         }
-
     }
 }

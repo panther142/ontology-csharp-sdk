@@ -4,16 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{2DD47140-C98B-49E0-9490-0EB5E7B8C52E}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ontology_csharp_sdk</RootNamespace>
-    <AssemblyName>ontology-csharp-sdk</AssemblyName>
+    <ProjectGuid>{A6D32C8A-7BEF-44C2-AFE6-527E7BA0286A}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>ontology_csharp_demo</RootNamespace>
+    <AssemblyName>ontology-csharp-demo</AssemblyName>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -21,10 +22,9 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>
-    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -33,15 +33,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BouncyCastle.Crypto">
-      <HintPath>..\..\library\bccrypto-csharp-1.8.2-bin\BouncyCastle.Crypto.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="ontology-csharp-sdk">
+      <HintPath>..\ontology-csharp-sdk\bin\Debug\ontology-csharp-sdk.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Numerics" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -50,26 +46,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Basic\Account.cs" />
-    <Compile Include="Common\Base58Encoding.cs" />
-    <Compile Include="Common\Constants.cs" />
-    <Compile Include="Common\Crypto.cs" />
-    <Compile Include="Common\Enums.cs" />
-    <Compile Include="Common\HexBuilder.cs" />
-    <Compile Include="ConnectorTypes\REST.cs" />
-    <Compile Include="ConnectorTypes\RPC.cs" />
-    <Compile Include="Controller.cs" />
-    <Compile Include="Common\Helpers.cs" />
-    <Compile Include="Interface\IAccount.cs" />
-    <Compile Include="Interface\IConnector.cs" />
-    <Compile Include="Network\RESTrequests.cs" />
-    <Compile Include="Network\RPCrequests.cs" />
-    <Compile Include="OntologySDK.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Transaction\TransactionType.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <None Include="App.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

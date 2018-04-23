@@ -3,6 +3,7 @@ using Interface;
 using Network;
 using System.Collections.Generic;
 using Common;
+using System;
 
 namespace ConnectorTypes
 {
@@ -31,7 +32,15 @@ namespace ConnectorTypes
             param.Clear();
             param.Add(txHash);
             result = RPCrequests.sendRPCrequest("getblockheightbytxhash", param);
+
+            int ErrorCode = (int)result["error"];
+            
+            if(ErrorCode > 0)
+            {
+                throw new ArgumentException("Error returned by server - Code: " + ErrorCode + " - Description: " + result["desc"]);
+            }
             return (int)result["result"];
+            
         }
 
         public string getBlockHex(int blockHeight)
