@@ -4,6 +4,7 @@ using Network;
 using System.Collections.Generic;
 using Common;
 using System;
+using Common.Net;
 
 namespace ConnectorTypes
 {
@@ -14,16 +15,25 @@ namespace ConnectorTypes
         JObject result;
         IList<object> param = new List<object>();
 
+        private string net;
+
+        public RPC(string network = "test")
+        {
+            net = network;
+        }
 
         public int getBlockGenerationTime()
         {
-            result = RPCrequests.sendRPCrequest("getgenerateblocktime", null);
+
+            var url = NetworkBuilder.getRPCURL(net);
+            result = RPCrequests.sendRPCrequest(url,"getgenerateblocktime", null);
             return (int)result["result"];
         }
 
         public int getBlockHeight()
         {
-            result = RPCrequests.sendRPCrequest("getblockcount", null);
+            var url = NetworkBuilder.getRPCURL(net);
+            result = RPCrequests.sendRPCrequest(url,"getblockcount", null);
             return (int)result["result"];
         }
 
@@ -31,7 +41,8 @@ namespace ConnectorTypes
         {
             param.Clear();
             param.Add(txHash);
-            result = RPCrequests.sendRPCrequest(url, "getblockheightbytxhash", param);
+            var url = NetworkBuilder.getRPCURL(net);
+            result = RPCrequests.sendRPCrequest(url,"getblockheightbytxhash", param);
             return (int)result["result"];
             
         }
@@ -40,7 +51,8 @@ namespace ConnectorTypes
         {
             param.Clear();
             param.Add(blockHeight);
-            result = RPCrequests.sendRPCrequest("getblock", param);
+            var url = NetworkBuilder.getRPCURL(net);
+            result = RPCrequests.sendRPCrequest(url,"getblock", param);
             return result["result"].ToString();
         }
 
@@ -48,7 +60,8 @@ namespace ConnectorTypes
         {
             param.Clear();
             param.Add(blockHash);
-            result = RPCrequests.sendRPCrequest("getblock", param);
+            var url = NetworkBuilder.getRPCURL(net);
+            result = RPCrequests.sendRPCrequest(url,"getblock", param);
             return result["result"].ToString();
         }
 
@@ -57,7 +70,8 @@ namespace ConnectorTypes
             param.Clear();
             param.Add(blockHeight);
             param.Add(1);
-            result = RPCrequests.sendRPCrequest("getblock", param);
+            var url = NetworkBuilder.getRPCURL(net);
+            result = RPCrequests.sendRPCrequest(url,"getblock", param);
             return result["result"].ToString();
         }
 
@@ -66,13 +80,15 @@ namespace ConnectorTypes
             param.Clear();
             param.Add(blockHash);
             param.Add(1);
-            result = RPCrequests.sendRPCrequest("getblock", param);
+            var url = NetworkBuilder.getRPCURL(net);
+            result = RPCrequests.sendRPCrequest(url,"getblock", param);
             return result["result"].ToString();
         }
 
         public int getNodeCount()
         {
-            result = RPCrequests.sendRPCrequest("getconnectioncount", null);
+            var url = NetworkBuilder.getRPCURL(net);
+            result = RPCrequests.sendRPCrequest(url,"getconnectioncount", null);
             return (int)result["result"];
         }
 
@@ -81,7 +97,8 @@ namespace ConnectorTypes
             param.Clear();
             param.Add(address);
 
-            result = RPCrequests.sendRPCrequest("getbalance", param);
+            var url = NetworkBuilder.getRPCURL(net);
+            result = RPCrequests.sendRPCrequest(url,"getbalance", param);
 
             return result["result"].ToString();
         }
@@ -90,18 +107,18 @@ namespace ConnectorTypes
         public string getRawTransactionHex(string TxHash)
         {
             param.Clear();
-            param.Add(txHash);
-            result = RPCrequests.sendRPCrequest(url, "getrawtransaction", param);
+            param.Add(TxHash);
 
-
-            result = RPCrequests.sendRPCrequest("getrawtransaction", param);
+            var url = NetworkBuilder.getRPCURL(net);
+            result = RPCrequests.sendRPCrequest(url,"getrawtransaction", param);
             return result["result"].ToString();
         }
 
         public string getRawTransactionJson(string TxHash)
         {
             param.Clear();
-            param.Add(contractHash);
+            param.Add(TxHash);
+            var url = NetworkBuilder.getRPCURL(net);
             result = RPCrequests.sendRPCrequest(url, "getcontractstate", param);
             return result["result"].ToString();
         }
@@ -111,6 +128,7 @@ namespace ConnectorTypes
         {
             param.Clear();
             param.Add(blockHeight);
+            var url = NetworkBuilder.getRPCURL(net);
             result = RPCrequests.sendRPCrequest(url, "getsmartcodeevent", param);
             return result["result"].ToString();
         }
@@ -119,6 +137,7 @@ namespace ConnectorTypes
         {
             param.Clear();
             param.Add(txHash);
+            var url = NetworkBuilder.getRPCURL(net);
             result = RPCrequests.sendRPCrequest(url, "getsmartcodeevent", param);
             return result["result"].ToString();
         }
