@@ -18,63 +18,108 @@ namespace Network
         /// <param name="method"></param>
         /// <param name="parameters"></param>
         /// <returns></returns>
-        public static JObject sendRESTrequest(string method, IList<object> parameters)
+        public static APIResult sendRESTrequest(string url, string verb, List<HttpRequestHeader> headers, string content)
         {
-
-            string jsonRequest = Helpers.RPCJsonRequestBuilder(method, parameters);
-            WebResponse RESTResponse = null;
-            HttpWebRequest ontRESTRequest = null;
-            byte[] byteArray;
-
-
-            // Create WebRequest object
+            APIResult result = null;
             try
             {
-                ontRESTRequest = (HttpWebRequest)WebRequest.Create("http://ont-privnet:20336");
-                ontRESTRequest.ContentType = "application/json-rpc";
-                ontRESTRequest.Method = "POST";
-                byteArray = Encoding.UTF8.GetBytes(jsonRequest);
-                ontRESTRequest.ContentLength = byteArray.Length;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("RESTrequests error while creating HttpWebRequest object", ex.InnerException);
-            }
 
-            // Send JSON request
-            try
-            {
-                using (Stream ontRESTRequestStream = ontRESTRequest.GetRequestStream())
+
+                // Create a request using a URL that can receive a post. 
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+                // Set the Method property of the request to POST.
+                //request.Headers.Add("Authorization", authheader);
+                if(headers!=null)
                 {
-                    ontRESTRequestStream.Write(byteArray, 0, byteArray.Length);
-                }
-            }
-            catch (WebException)
-            {
-                throw;
-            }
-
-            //Receive response from REST node
-            try
-            {
-                using (RESTResponse = ontRESTRequest.GetResponse())
-                {
-                    using (Stream str = RESTResponse.GetResponseStream())
+                    if (headers.Count > 0)
                     {
-                        using (StreamReader sr = new StreamReader(str))
+                        foreach (var header in headers)
                         {
-                            JObject response = JsonConvert.DeserializeObject<JObject>(sr.ReadToEnd());
-                            return response;
+                            request.Headers.Add(header.key, header.value);
                         }
                     }
                 }
+               
+
+                request.Method = verb;
+                request.Timeout = 600000;
+                if (headers != null)
+                {
+                    if (headers.Count > 0)
+                    {
+                        foreach (var header in headers)
+                        {
+                            request.Headers[header.key] = header.value;
+                        }
+                    }
+                }
+
+
+                //request.Accept = "text/html,application/xhtml+xml,application/xml;q=0.9,*;q=0.8";
+                //request.Headers["SOAPAction"] = "\"Retrieve\"";
+                // Create POST data and convert it to a byte array.string postData = "This is a test that posts this string to a Web server.";
+                request.ContentType = "application/json";
+
+                if (!String.IsNullOrEmpty(content))
+                {
+                    byte[] byteArray = Encoding.UTF8.GetBytes(content.ToString());
+                    // Set the ContentType property of the WebRequest.
+
+                    request.ContentLength = byteArray.Length;
+
+                    using (Stream stream = request.GetRequestStream())
+                    {
+                        stream.Write(byteArray, 0, byteArray.Length);
+                    }
+                }
+                else
+                {
+                    request.ContentLength = 0;
+                }
+
+
+                result = new APIResult();
+
+                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+                {
+                    result.status_code = (int)response.StatusCode;
+                    // Get response
+                    using (Stream stream = response.GetResponseStream())
+                    {
+                        Stream dataStream = response.GetResponseStream();
+                        // Open the stream using a StreamReader for easy access.
+                        StreamReader reader = new StreamReader(dataStream);
+
+                        // Read the content.
+                        result.content = reader.ReadToEnd();
+                    }
+
+
+                }
+
+
             }
-            catch (WebException)
+            catch (Exception ex)
             {
-                throw;
+                result.content = ex.Message + ex.StackTrace;
+                result.status_code = 400;
             }
 
+            return result;
         }
+
+    }
+
+    public class HttpRequestHeader
+    {
+        public string key { get; set; }
+        public string value { get; set; }
+    }
+
+    public class APIResult
+    {
+        public int status_code { get; set; }
+        public string content { get; set; }
     }
 }
 

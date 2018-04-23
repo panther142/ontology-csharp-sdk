@@ -18,10 +18,10 @@ namespace Network
         /// <param name="method"></param>
         /// <param name="parameters"></param>
         /// <returns></returns>
-        public static JObject sendRPCrequest(string method, IList<object> parameters)
+        public static JObject sendRPCrequest(string url, string method, IList<object> parameters)
         {
 
-            string jsonRequest = Helpers.RPCJsonRequestBuilder(method, parameters);
+            string jsonRequest = Helpers.jsonRequestBuilder(method, parameters);
             WebResponse RPCResponse = null;
             HttpWebRequest ontRPCRequest = null;
             byte[] byteArray;
@@ -30,7 +30,7 @@ namespace Network
             // Create WebRequest object
             try
             {
-                ontRPCRequest = (HttpWebRequest)WebRequest.Create("http://ont-privnet:20336");
+                ontRPCRequest = (HttpWebRequest)WebRequest.Create(url);
                 ontRPCRequest.ContentType = "application/json-rpc";
                 ontRPCRequest.Method = "POST";
                 byteArray = Encoding.UTF8.GetBytes(jsonRequest);

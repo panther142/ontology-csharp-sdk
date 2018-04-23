@@ -92,8 +92,8 @@ namespace Common.TransactionBuilder
             contract.args = transfer.serialize();
 
             var tx = new Transaction();
-            tx.version = 0x00;
-            tx.type = Crypto.HexToInteger(TxType.Invoke);
+            tx.version = 0x00; 
+            tx.type = Crypto.HexToInteger(Common.Enums.TxType.Invoke);
             tx.nonce = Crypto.ByteArrayToHexString(Crypto.GetSecureRandomByteArray(4));
 
             //inovke
@@ -156,7 +156,7 @@ namespace Common.TransactionBuilder
         public static Transaction makeInvokeTransaction(JToken func, string hash, string privatekey)
         {
             var tx = new Transaction();
-            tx.type = Crypto.HexToInteger(TxType.Invoke);
+            tx.type = Crypto.HexToInteger(Common.Enums.TxType.Invoke);
             tx.version = 0x00;
             tx.nonce = Crypto.ByteArrayToHexString(Crypto.GetSecureRandomByteArray(4));
 

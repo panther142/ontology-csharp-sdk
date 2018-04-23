@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Basic\Account.cs" />
+    <Compile Include="Common\abiModels.cs" />
     <Compile Include="Common\Base58Encoding.cs" />
     <Compile Include="Common\Constants.cs" />
     <Compile Include="Common\Crypto.cs" />
@@ -58,6 +59,7 @@
     <Compile Include="Common\Network.cs" />
     <Compile Include="Common\SmartContract.cs" />
     <Compile Include="Common\TransactionBuilder.cs" />
+    <Compile Include="ConnectorTypes\REST.cs" />
     <Compile Include="ConnectorTypes\RPC.cs" />
     <Compile Include="Controller.cs" />
     <Compile Include="Common\Helpers.cs" />
