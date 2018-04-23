@@ -38,7 +38,7 @@ namespace ConnectorTypes
         public int getBlockHeightByTxHash(string txHash)
         {
             param.Clear();
-            param.Add(TxHash);
+            param.Add(txHash);
             result = RPCrequests.sendRPCrequest(url, "getblockheightbytxhash", param);
 
             return (int)result["result"];
@@ -97,7 +97,7 @@ namespace ConnectorTypes
         public string getRawTransactionHex(string txHash)
         {
             param.Clear();
-            param.Add(TxHash);
+            param.Add(txHash);
             result = RPCrequests.sendRPCrequest(url, "getrawtransaction", param);
 
             return result["result"].ToString();

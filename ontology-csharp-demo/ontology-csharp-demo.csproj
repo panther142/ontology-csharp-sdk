@@ -4,13 +4,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{DA78E963-6D2C-4782-98B3-713C1661E6E9}</ProjectGuid>
+    <ProjectGuid>{A6D32C8A-7BEF-44C2-AFE6-527E7BA0286A}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>ontology_csharp_examples</RootNamespace>
-    <AssemblyName>ontology-csharp-examples</AssemblyName>
+    <RootNamespace>ontology_csharp_demo</RootNamespace>
+    <AssemblyName>ontology-csharp-demo</AssemblyName>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>

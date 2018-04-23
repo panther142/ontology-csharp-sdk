@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.27004.2006
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ontology-csharp-sdk", "ontology-csharp-sdk\ontology-csharp-sdk.csproj", "{2DD47140-C98B-49E0-9490-0EB5E7B8C52E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ontology-csharp-examples", "ontology-csharp-examples\ontology-csharp-examples.csproj", "{DA78E963-6D2C-4782-98B3-713C1661E6E9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ontology-csharp-demo", "ontology-csharp-demo\ontology-csharp-demo.csproj", "{A6D32C8A-7BEF-44C2-AFE6-527E7BA0286A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{2DD47140-C98B-49E0-9490-0EB5E7B8C52E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2DD47140-C98B-49E0-9490-0EB5E7B8C52E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2DD47140-C98B-49E0-9490-0EB5E7B8C52E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DA78E963-6D2C-4782-98B3-713C1661E6E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DA78E963-6D2C-4782-98B3-713C1661E6E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DA78E963-6D2C-4782-98B3-713C1661E6E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DA78E963-6D2C-4782-98B3-713C1661E6E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6D32C8A-7BEF-44C2-AFE6-527E7BA0286A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6D32C8A-7BEF-44C2-AFE6-527E7BA0286A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6D32C8A-7BEF-44C2-AFE6-527E7BA0286A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6D32C8A-7BEF-44C2-AFE6-527E7BA0286A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

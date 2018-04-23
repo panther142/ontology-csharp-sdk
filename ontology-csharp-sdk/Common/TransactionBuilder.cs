@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Numerics;
 using System.Collections.Generic;
-using Common.Enum;
+using Common.Enums;
 using Common.Cryptology;
 using Common.Models;
 using Common.SmartContract;
