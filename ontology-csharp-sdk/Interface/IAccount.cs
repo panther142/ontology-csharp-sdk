@@ -10,5 +10,6 @@ namespace Interface
 
         APIResult registerONTID(string ontid, string privatekey);
         APIResult transferFund(string name, string fromaddress, string toaddress, decimal value, string privatekey);
+        APIResult registerClaim(string context, string metadata,string content, string type, string issuer, string privatekey);
     }
 }

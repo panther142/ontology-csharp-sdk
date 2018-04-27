@@ -71,5 +71,28 @@ namespace Basic
         }
 
 
+        public APIResult registerClaim(string context, string metadata, 
+            string content, string type, string issuer, string privatekey)
+        {
+            var claim = new Claim(context, content, metadata);
+            var signed = claim.sign(privatekey);
+            var claimId = claim.Id;
+            var path = Common.Cryptology.Crypto.StringToHexString(claimId);
+            var type_hex = Common.Cryptology.Crypto.StringToHexString(type);
+
+            var data = "{'Type':'" + type + "','Value':{'Context':'" + context + "','Issuer':'" + issuer + "'}}";
+
+            var value = claim.GetValue(data);
+            
+            var tx = TransactionBuilder.buildAddAttributeTx(path, value, type_hex, issuer, privatekey);
+            
+            var serialized = tx.serialize();
+            var param = TransactionBuilder.buildRestfulParam(serialized);
+            var url = NetworkBuilder.getSendRawTxURL(net);
+            var result = RESTrequests.sendRESTrequest(url, "POST", null, param);
+            return result;
+        }
+
+
     }
 }

@@ -218,8 +218,6 @@ namespace Common.TransactionBuilder
             var payload = makeInvokeCode(funcname, parameters, hash, VmType.NEOVM);
             tx.payload = payload;
 
-            Console.WriteLine("tx:" + JsonConvert.SerializeObject(tx));
-
             if (privatekey != null)
             {
                 tx = signTransaction(tx, privatekey);
@@ -654,7 +652,6 @@ namespace Common.TransactionBuilder
             body["Metadata"] = JToken.Parse(metadata);
             var body_serialised = JsonConvert.SerializeObject(body);
             this.Id = Crypto.SHA256ByteArray(Crypto.StringToByteArray(body_serialised)).ToString();
-            Console.WriteLine("this.Id :{0}", this.Id);
         }
 
         public string GetValue(string data)
