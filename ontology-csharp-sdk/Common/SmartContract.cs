@@ -80,6 +80,7 @@ namespace Common.SmartContract
     public class Contract
     {
         public string version { get; set; }
+        public string code { get; set; }
         public string address { get; set; }
         public string method { get; set; }
         public string args { get; set; }
@@ -87,16 +88,15 @@ namespace Common.SmartContract
         public Contract()
         {
             this.version = "00";
+            this.code = "00";
         }
         public string serialize()
         {
             var result = "";
             result += this.version;
-
+            result += this.code;
             result += this.address;
-
             result += Crypto.StringToVarBytes(this.method);
-
             result += Crypto.HexToVarBytes(this.args);
 
             return result;

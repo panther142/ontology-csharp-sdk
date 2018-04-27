@@ -72,6 +72,56 @@ namespace Common.TransactionBuilder
             return publickey;
         }
 
+        public static Transaction buildAddAttributeTx(string path, string value, string type, string ontid, string privatekey)
+        {
+            var publickey = getPublicKey(privatekey);
+            publickey = "1202" + publickey;
+
+            if (ontid.Substring(0, 3) == "did")
+            {
+                ontid = Crypto.StringToHexString(ontid);
+            }
+
+            JToken f = abiModels.GetFunction("AddAttribute");
+
+            var parameters = JArray.Parse(f["parameters"].ToString());
+
+            for (int i = 0; i < parameters.Count; i++)
+            {
+                var parameter = parameters[i];
+                if (parameter["name"].ToString() == "ontId")
+                {
+                    parameter["value"] = ontid;
+                }
+                if (parameter["name"].ToString() == "path")
+                {
+                    parameter["value"] = path;
+                }
+                if (parameter["name"].ToString() == "type")
+                {
+                    parameter["value"] = type;
+                }
+                if (parameter["name"].ToString() == "value")
+                {
+                    parameter["value"] = value;
+                }
+                if (parameter["name"].ToString() == "publicKey")
+                {
+                    parameter["value"] = publickey;
+                }
+                parameters[i] = parameter;
+            }
+            f["parameters"] = parameters;
+
+            var hash = abiModels.GetHash();
+
+            var tx = makeInvokeTransaction(f, hash, privatekey);
+
+            return tx;
+
+        }
+
+
         public static Transaction makeTransferTransaction(string tokentype, string fromaddress, string toaddress, string value, string privatekey)
         {
             var state = new State();
@@ -92,7 +142,7 @@ namespace Common.TransactionBuilder
             contract.args = transfer.serialize();
 
             var tx = new Transaction();
-            tx.version = 0x00; 
+            tx.version = 0x00;
             tx.type = Crypto.HexToInteger(Common.Enums.TxType.Invoke);
             tx.nonce = Crypto.ByteArrayToHexString(Crypto.GetSecureRandomByteArray(4));
 
@@ -168,6 +218,7 @@ namespace Common.TransactionBuilder
             var payload = makeInvokeCode(funcname, parameters, hash, VmType.NEOVM);
             tx.payload = payload;
 
+            Console.WriteLine("tx:" + JsonConvert.SerializeObject(tx));
 
             if (privatekey != null)
             {
@@ -186,7 +237,7 @@ namespace Common.TransactionBuilder
             var pk = new PubKey(KeyType.PK_ECDSA, publickey);
             var hash = tx.getHash();
 
-            var signed = Crypto.signData(hash, privatekey);
+            var signed = Crypto.signData(hash, signDataType.Hex, privatekey);
             var sig = new Sig();
             var s = Crypto.NumberToHex((int)schema);
             signed = s + signed;
@@ -208,10 +259,17 @@ namespace Common.TransactionBuilder
         {
             var invokeCode = new InvokeCode();
             var vmCode = new VmCode();
-            var code = buildSmartContractParam(funcname, parameters);
+            var args = buildSmartContractParam(funcname, parameters);
             //Console.WriteLine("code:" + code);
-            code += Crypto.NumberToHex(Crypto.HexToInteger(OPCODE.TAILCALL));
-            code += hash;
+
+            var contract = new Contract();
+            contract.address = hash;
+            contract.args = args;
+            contract.method = "";
+
+            var code = contract.serialize();
+            code = Crypto.NumberToHex(Crypto.HexToInteger(OPCODE.APPCALL)) + code;
+
             vmCode.code = code;
             vmCode.vmType = vmtype;
             invokeCode.code = vmCode;
@@ -576,5 +634,78 @@ namespace Common.TransactionBuilder
         public string Action { get; set; }
         public string Version { get; set; }
         public string Data { get; set; }
+    }
+    public class Claim
+    {
+        public string Context { get; set; }
+        public string Id { get; set; }
+        public JToken Content { get; set; }
+        public JToken Metadata { get; set; }
+        public Signature Signature { get; set; }
+        public Claim(string context, string content, string metadata)
+        {
+            this.Context = context;
+            this.Content = JToken.Parse(content);
+            this.Metadata = JToken.Parse(metadata);
+
+            var body = new JObject();
+            body["Context"] = context;
+            body["Content"] = JToken.Parse(content);
+            body["Metadata"] = JToken.Parse(metadata);
+            var body_serialised = JsonConvert.SerializeObject(body);
+            this.Id = Crypto.SHA256ByteArray(Crypto.StringToByteArray(body_serialised)).ToString();
+            Console.WriteLine("this.Id :{0}", this.Id);
+        }
+
+        public string GetValue(string data)
+        {
+            var result = Crypto.StringToHexString(data).ToString();
+            return result;
+        }
+
+
+        public Signature sign(string privatekey)
+        {
+            var body = new JObject();
+            body["Context"] = this.Context;
+            body["Id"] = this.Id;
+            body["Content"] = this.Content;
+            body["Metadata"] = this.Metadata;
+
+            var unsignedData = JsonConvert.SerializeObject(body);
+            var signatureValue = Crypto.signData(unsignedData, signDataType.String, privatekey);
+            var sig = new Signature();
+            sig.Value = signatureValue;
+            this.Signature = sig;
+            return sig;
+        }
+
+    }
+
+    public class Body
+    {
+        public string Context { get; set; }
+        public JToken Content { get; set; }
+        public JToken Metadata { get; set; }
+    }
+    public class Metadata
+    {
+        public string CreateTime { get; set; }
+        public string Issuer { get; set; }
+        public string Subject { get; set; }
+        public string Expires { get; set; }
+        public string Revocation { get; set; }
+        public string Crl { get; set; }
+    }
+    public class Signature
+    {
+        public string Format { get; set; }
+        public string Algorithm { get; set; }
+        public string Value { get; set; }
+        public Signature()
+        {
+            this.Format = "pgp";
+            this.Algorithm = "ECDSAwithSHA256";
+        }
     }
 }
