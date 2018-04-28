@@ -3,7 +3,7 @@
     public static class NetworkBuilder
     {
         private static string MAIN_NODE = "54.222.182.88";
-        private static string TEST_NODE = "139.219.111.50";
+        private static string TEST_NODE = "polaris1.ont.io";
         private static string HTTP_REST_PORT = "20334";
         private static string HTTP_WS_PORT = "20335";
         private static string HTTP_JSON_PORT = "20336";

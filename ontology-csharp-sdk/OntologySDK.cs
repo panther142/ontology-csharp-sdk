@@ -46,7 +46,11 @@ namespace OntologyCSharpSDK
             return account.transferFund(name, fromaddress, toaddress, value, privatekey);
         }
 
-}
-
+        public APIResult registerClaim(string context, string metadata,
+            string content, string type, string issuer, string privatekey)
+        {
+            return account.registerClaim(context, metadata, content, type, issuer, privatekey);
+        }
+ }
 }
 
