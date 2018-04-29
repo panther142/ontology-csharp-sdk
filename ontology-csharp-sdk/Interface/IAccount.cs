@@ -12,5 +12,6 @@ namespace Interface
                 
         NetworkResponse registerONTID(string ontid, string privatekey);
         NetworkResponse transferFund(string name, string fromaddress, string toaddress, decimal value, string privatekey);
+        NetworkResponse registerClaim(string context, string metadata, string content, string type, string issuer, string privatekey);
     }
 }

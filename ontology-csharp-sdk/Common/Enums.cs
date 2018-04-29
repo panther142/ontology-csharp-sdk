@@ -3,6 +3,12 @@
 namespace Common.Enums
 {
 
+    public enum signDataType
+    {
+        String = 1,
+        Hex = 2
+    }
+
     public enum Protocol
     {
         RPC,

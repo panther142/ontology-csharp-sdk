@@ -110,7 +110,7 @@ namespace ontology_csharp_demo
             var type = "JSON";
 
             var result = OntSDK.registerClaim(context, metaData, content, type, issuer_ontid, privatekey);
-            Console.WriteLine("result:{0}", result.content);
+            Console.WriteLine("result:{0}", result.rawResponse);
         }
     }
 

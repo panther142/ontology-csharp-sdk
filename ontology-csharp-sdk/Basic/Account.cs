@@ -69,5 +69,27 @@ namespace Basic
             var result = NetworkHelper.sendNetworkRequest(Common.Enums.Protocol.REST, "POST", Constants.REST_sendRawTransaction, param);
             return result;
         }
+
+        public NetworkResponse registerClaim(string context, string metadata,
+            string content, string type, string issuer, string privatekey)
+        {
+            var claim = new Claim(context, content, metadata);
+            var signed = claim.sign(privatekey);
+            var claimId = claim.Id;
+            var path = Common.Cryptology.Crypto.StringToHexString(claimId);
+            var type_hex = Common.Cryptology.Crypto.StringToHexString(type);
+
+            var data = "{'Type':'" + type + "','Value':{'Context':'" + context + "','Issuer':'" + issuer + "'}}";
+
+            var value = claim.GetValue(data);
+
+            var tx = TransactionBuilder.buildAddAttributeTx(path, value, type_hex, issuer, privatekey);
+
+            var serialized = tx.serialize();
+            IList<object> param = new List<object>() { serialized };
+            var result = NetworkHelper.sendNetworkRequest(Common.Enums.Protocol.REST, "POST", Constants.REST_sendRawTransaction, param);
+            return result;
+        }
+
     }
 }
