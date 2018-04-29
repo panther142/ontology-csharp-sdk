@@ -6,6 +6,7 @@ using Org.BouncyCastle.Asn1.Sec;
 using Org.BouncyCastle.Asn1.X9;
 using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.Security;
+using Common.Enums;
 
 namespace Common.Cryptology
 {
@@ -23,7 +24,7 @@ namespace Common.Cryptology
             return publicParams.Q.GetEncoded(true);
         }
 
-        public static string signData(string message, string privatekey)
+        public static string signData(string message, signDataType type, string privatekey)
         {
             var bytes = HexStringToByteArray(privatekey);
             var curve = SecNamedCurves.GetByName("secp256r1");
@@ -31,7 +32,15 @@ namespace Common.Cryptology
             var keyParameters = new ECPrivateKeyParameters(new Org.BouncyCastle.Math.BigInteger(1, bytes), domain);
             var signer = SignerUtilities.GetSigner("SHA-256withECDSA");
             signer.Init(true, keyParameters);
-            var bytes_message = HexStringToByteArray(message);
+            byte[] bytes_message = null;
+            if (type == signDataType.Hex)
+            {
+                bytes_message = HexStringToByteArray(message);
+            }
+            else if (type == signDataType.String)
+            {
+                bytes_message = StringToByteArray(message);
+            }
             signer.BlockUpdate(bytes_message, 0, bytes_message.Length);
             var signature = signer.GenerateSignature();
             return ByteArrayToHexString(DSADERtoPlain(signature));
