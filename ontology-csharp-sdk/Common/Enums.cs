@@ -1,6 +1,15 @@
-﻿namespace Common.Enums
+﻿using System;
+
+namespace Common.Enums
 {
 
+    public enum Protocol
+    {
+        RPC,
+        REST,
+        Websocket
+    }
+        
     public enum TxType
     {
         BookKeeping = 0x00,

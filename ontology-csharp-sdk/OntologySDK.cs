@@ -1,15 +1,16 @@
 ﻿using ConnectorTypes;
 using Network;
+using Network.NetworkHelper;
 
 namespace OntologyCSharpSDK
 {
-    public class OntologySDK : RPC
+    public class OntologySDK : REST
     {
         private Basic.Account account = null;
 
-        public OntologySDK(string network = "test")
+        public OntologySDK(string node)
         {
-            account = new Basic.Account(network);
+            account = new Basic.Account(node);
         }
 
         public string createPrivateKey()
@@ -28,8 +29,8 @@ namespace OntologyCSharpSDK
             return account.createONTID(privatekey);
         }
 
-        
-        public APIResult registerONTID(string ontid, string privatekey)
+
+        public NetworkResponse registerONTID(string ontid, string privatekey)
         {
             return account.registerONTID(ontid, privatekey);
         }
@@ -41,12 +42,12 @@ namespace OntologyCSharpSDK
         }
 
 
-        public APIResult transferFund(string name, string fromaddress, string toaddress, decimal value, string privatekey)
+        public NetworkResponse transferFund(string name, string fromaddress, string toaddress, decimal value, string privatekey)
         {
             return account.transferFund(name, fromaddress, toaddress, value, privatekey);
         }
 
-}
+    }
 
 }
 

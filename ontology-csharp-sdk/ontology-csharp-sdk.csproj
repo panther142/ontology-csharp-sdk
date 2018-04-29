@@ -56,7 +56,6 @@
     <Compile Include="Common\Constants.cs" />
     <Compile Include="Common\Crypto.cs" />
     <Compile Include="Common\Enums.cs" />
-    <Compile Include="Common\Network.cs" />
     <Compile Include="Common\SmartContract.cs" />
     <Compile Include="Common\TransactionBuilder.cs" />
     <Compile Include="ConnectorTypes\REST.cs" />
@@ -65,14 +64,13 @@
     <Compile Include="Common\Helpers.cs" />
     <Compile Include="Interface\IAccount.cs" />
     <Compile Include="Interface\IConnector.cs" />
-    <Compile Include="Network\RESTrequests.cs" />
-    <Compile Include="Network\RPCrequests.cs" />
+    <Compile Include="Network\NetworkHelper.cs" />
     <Compile Include="OntologySDK.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Transaction\TransactionType.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

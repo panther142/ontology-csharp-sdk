@@ -1,7 +1,7 @@
 ﻿using Interface;
 using ConnectorTypes;
 
-namespace OntologyCSharpSDK
+namespace OntologyCSharpSDK.NetController
 {
     public class Controller
     {

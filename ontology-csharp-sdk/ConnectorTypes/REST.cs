@@ -1,37 +1,46 @@
-﻿using Newtonsoft.Json.Linq;
-using Interface;
-using Network;
+﻿using Interface;
 using System.Collections.Generic;
-using Common;
+using Common.Enums;
 using System;
+using Network.NetworkHelper;
+using Common.Constants;
 
 namespace ConnectorTypes
 {
 
     public class REST : IConnector
     {
-
-        JObject result;
         IList<object> param = new List<object>();
 
         public string getAddressBalance(string address)
         {
-            throw new NotImplementedException();
+            param.Clear();
+            param.Add(address);
+            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.REST, "GET", Constants.REST_getAddressBalance, param);
+            return response.jobjectResponse["Result"].ToString();
         }
 
         public int getBlockGenerationTime()
         {
-            throw new NotImplementedException();
+            param.Clear();
+            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.REST, "GET", Constants.REST_getBlockGenerationTime, param);
+            return (int)response.jobjectResponse["Result"];
         }
 
         public int getBlockHeight()
         {
-            throw new NotImplementedException();
+            param.Clear();
+            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.REST, "GET", Constants.REST_getBlockHeight, param);
+            return (int)response.jobjectResponse["Result"];
         }
 
         public int getBlockHeightByTxHash(string txHash)
         {
-            throw new NotImplementedException();
+            param.Clear();
+            param.Add(txHash);
+            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.REST, "GET", Constants.REST_getBlockHeightByTxHash, param);
+            return (int)response.jobjectResponse["Result"];
+
         }
 
         public string getBlockHex(int blockHeight)
@@ -46,22 +55,33 @@ namespace ConnectorTypes
 
         public string getBlockJson(int blockHeight)
         {
-            throw new NotImplementedException();
+            param.Clear();
+            param.Add(blockHeight);
+            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.REST, "GET", Constants.REST_getBlockByHeight, param);
+            return response.jobjectResponse["Result"].ToString();
         }
 
         public string getBlockJson(string blockHash)
         {
-            throw new NotImplementedException();
+            param.Clear();
+            param.Add(blockHash);
+            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.REST, "GET", Constants.REST_getBlockByHash, param);
+            return response.jobjectResponse["Result"].ToString();
         }
 
         public string getContractJson(string contractHash)
         {
-            throw new NotImplementedException();
+            param.Clear();
+            param.Add(contractHash);
+            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.REST, "GET", Constants.REST_getContract, param);
+            return response.jobjectResponse["Result"].ToString();
         }
 
         public int getNodeCount()
         {
-            throw new NotImplementedException();
+            param.Clear();
+            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.REST, "GET", Constants.REST_getNodeCount, param);
+            return (int)response.jobjectResponse["Result"];
         }
 
         public string getRawTransactionHex(string txHash)
@@ -71,17 +91,26 @@ namespace ConnectorTypes
 
         public string getRawTransactionJson(string txHash)
         {
-            throw new NotImplementedException();
+            param.Clear();
+            param.Add(txHash);
+            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.REST, "GET", Constants.REST_getTransactionByHash, param);
+            return response.jobjectResponse["Result"].ToString();
         }
 
         public string getSmartCodeEvent(int blockHeight)
         {
-            throw new NotImplementedException();
+            param.Clear();
+            param.Add(blockHeight);
+            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.REST, "GET", Constants.REST_getSmartCodeEventByHeight, param);
+            return response.jobjectResponse["Result"].ToString();
         }
 
         public string getSmartCodeEvent(string txHash)
         {
-            throw new NotImplementedException();
+            param.Clear();
+            param.Add(txHash);
+            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.REST, "GET", Constants.RESTful_getSmartCodeEventByTxHash, param);
+            return response.jobjectResponse["Result"].ToString();
         }
     }
 }

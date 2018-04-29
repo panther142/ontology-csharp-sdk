@@ -1,10 +1,9 @@
 ﻿using Newtonsoft.Json.Linq;
 using Interface;
-using Network;
 using System.Collections.Generic;
-using Common;
-using System;
-using Common.Net;
+using Network.NetworkHelper;
+using Common.Enums;
+
 
 namespace ConnectorTypes
 {
@@ -12,7 +11,6 @@ namespace ConnectorTypes
     public class RPC : IConnector
     {
 
-        JObject result;
         IList<object> param = new List<object>();
 
         private string net;
@@ -24,45 +22,40 @@ namespace ConnectorTypes
 
         public int getBlockGenerationTime()
         {
-
-            var url = NetworkBuilder.getRPCURL(net);
-            result = RPCrequests.sendRPCrequest(url,"getgenerateblocktime", null);
-            return (int)result["result"];
+            param.Clear();
+            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.RPC, "POST", "getgenerateblocktime", param);
+            return (int)response.jobjectResponse["result"];
         }
 
         public int getBlockHeight()
         {
-            var url = NetworkBuilder.getRPCURL(net);
-            result = RPCrequests.sendRPCrequest(url,"getblockcount", null);
-            return (int)result["result"];
+            param.Clear();
+            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.RPC, "POST", "getblockcount", param);
+            return (int)response.jobjectResponse["result"];
         }
 
         public int getBlockHeightByTxHash(string txHash)
         {
             param.Clear();
             param.Add(txHash);
-            var url = NetworkBuilder.getRPCURL(net);
-            result = RPCrequests.sendRPCrequest(url,"getblockheightbytxhash", param);
-            return (int)result["result"];
-            
+            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.RPC, "POST", "getblockheightbytxhash", param);
+            return (int)response.jobjectResponse["result"];
         }
 
         public string getBlockHex(int blockHeight)
         {
             param.Clear();
             param.Add(blockHeight);
-            var url = NetworkBuilder.getRPCURL(net);
-            result = RPCrequests.sendRPCrequest(url,"getblock", param);
-            return result["result"].ToString();
+            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.RPC, "POST", "getblock", param);
+            return response.jobjectResponse["result"].ToString();
         }
 
         public string getBlockHex(string blockHash)
         {
             param.Clear();
             param.Add(blockHash);
-            var url = NetworkBuilder.getRPCURL(net);
-            result = RPCrequests.sendRPCrequest(url,"getblock", param);
-            return result["result"].ToString();
+            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.RPC, "POST", "getblock", param);
+            return response.jobjectResponse["result"].ToString();
         }
 
         public string getBlockJson(int blockHeight)
@@ -70,9 +63,8 @@ namespace ConnectorTypes
             param.Clear();
             param.Add(blockHeight);
             param.Add(1);
-            var url = NetworkBuilder.getRPCURL(net);
-            result = RPCrequests.sendRPCrequest(url,"getblock", param);
-            return result["result"].ToString();
+            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.RPC, "POST", "getblock", param);
+            return response.jobjectResponse["result"].ToString();
         }
 
         public string getBlockJson(string blockHash)
@@ -80,27 +72,23 @@ namespace ConnectorTypes
             param.Clear();
             param.Add(blockHash);
             param.Add(1);
-            var url = NetworkBuilder.getRPCURL(net);
-            result = RPCrequests.sendRPCrequest(url,"getblock", param);
-            return result["result"].ToString();
+            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.RPC, "POST", "getblock", param);
+            return response.jobjectResponse["result"].ToString();
         }
 
         public int getNodeCount()
         {
-            var url = NetworkBuilder.getRPCURL(net);
-            result = RPCrequests.sendRPCrequest(url,"getconnectioncount", null);
-            return (int)result["result"];
+            param.Clear();
+            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.RPC, "POST", "getconnectioncount", param);
+            return (int)response.jobjectResponse["result"];
         }
 
         public string getAddressBalance(string address)
         {
             param.Clear();
             param.Add(address);
-
-            var url = NetworkBuilder.getRPCURL(net);
-            result = RPCrequests.sendRPCrequest(url,"getbalance", param);
-
-            return result["result"].ToString();
+            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.RPC, "POST", "getbalance", param);
+            return response.jobjectResponse["result"].ToString();
         }
 
 
@@ -108,19 +96,17 @@ namespace ConnectorTypes
         {
             param.Clear();
             param.Add(TxHash);
-
-            var url = NetworkBuilder.getRPCURL(net);
-            result = RPCrequests.sendRPCrequest(url,"getrawtransaction", param);
-            return result["result"].ToString();
+            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.RPC, "POST", "getrawtransaction", param);
+            return response.jobjectResponse["result"].ToString();
         }
 
         public string getRawTransactionJson(string TxHash)
         {
             param.Clear();
             param.Add(TxHash);
-            var url = NetworkBuilder.getRPCURL(net);
-            result = RPCrequests.sendRPCrequest(url, "getcontractstate", param);
-            return result["result"].ToString();
+            param.Add(1);
+            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.RPC, "POST", "getrawtransaction", param);
+            return response.jobjectResponse["result"].ToString();
         }
 
 
@@ -128,18 +114,16 @@ namespace ConnectorTypes
         {
             param.Clear();
             param.Add(blockHeight);
-            var url = NetworkBuilder.getRPCURL(net);
-            result = RPCrequests.sendRPCrequest(url, "getsmartcodeevent", param);
-            return result["result"].ToString();
+            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.RPC, "POST", "getsmartcodeevent", param);
+            return response.jobjectResponse["result"].ToString();
         }
 
         public string getSmartCodeEvent(string txHash)
         {
             param.Clear();
             param.Add(txHash);
-            var url = NetworkBuilder.getRPCURL(net);
-            result = RPCrequests.sendRPCrequest(url, "getsmartcodeevent", param);
-            return result["result"].ToString();
+            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.RPC, "POST", "getsmartcodeevent", param);
+            return response.jobjectResponse["result"].ToString();
         }
 
     }

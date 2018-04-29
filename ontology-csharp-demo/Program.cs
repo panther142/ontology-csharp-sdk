@@ -6,7 +6,11 @@ namespace ontology_csharp_demo
     class Program
     {
 
-        static OntologySDK OntSDK = new OntologySDK();
+        // MAIN_NODE = "54.222.182.88";
+        // TEST_NODE = "139.219.111.50";
+        private static string node = "http://192.168.4.5:20334";
+
+        static OntologySDK OntSDK = new OntologySDK(node);
         static string TxHash = "5fcffe97e2c4d413b34cea985bf548bfce0ae3a0cbf2c9ec9e518388c0dd650a5fcffe97e2c4d413b34cea985bf548bfce0ae3a0cbf2c9ec9e518388c0dd650a";
         static string Address = "TA87tPxU1Zq8ANQfMnrGZTTs6X4UYFEjsw";
         static string BlockHash = "f0d2da3a971b2e51f8aebce06c37a9bb5253db39a28b1fd713b222928e2c439c";
@@ -15,13 +19,17 @@ namespace ontology_csharp_demo
         static void Main(string[] args)
         {
 
-            RPCDemo();
+            //RPCDemo();
+            RESTDemo();
+            //CreateRegisterONTID();
+            //TransferFund();
+            Console.WriteLine("\r\n\r\nPress any key..");
+            Console.ReadKey();
 
         }
         //Query blockchain using RPC
         public static void RPCDemo()
         {
-
             Console.WriteLine("(RPC) Block Generation Time: " + OntSDK.getBlockGenerationTime().ToString() + " seconds ");
             Console.WriteLine("(RPC) Block Height: " + OntSDK.getBlockHeight().ToString());
             Console.WriteLine("(RPC) ONT Balance: " + OntSDK.getAddressBalance(Address));
@@ -33,8 +41,20 @@ namespace ontology_csharp_demo
             Console.WriteLine("(RPC) Block Json (hash): " + OntSDK.getBlockJson(BlockHash));
             Console.WriteLine("(RPC) Transaction Hex by Tx Hash: " + OntSDK.getRawTransactionHex(TxHash));
             Console.WriteLine("(RPC) Transaction Json by Tx Hash: " + OntSDK.getRawTransactionJson(TxHash));
-
         }
+
+        public static void RESTDemo()
+        {
+            Console.WriteLine("(REST) Block Generation Time: " + OntSDK.getBlockGenerationTime().ToString() + " seconds ");
+            Console.WriteLine("(REST) Block Height: " + OntSDK.getBlockHeight().ToString());
+            Console.WriteLine("(REST) ONT Balance: " + OntSDK.getAddressBalance(Address));
+            Console.WriteLine("(REST) Node Count: " + OntSDK.getNodeCount());
+            Console.WriteLine("(REST) Block Height by Tx Hash: " + OntSDK.getBlockHeightByTxHash(TxHash));
+            Console.WriteLine("(REST) Block Json (int): " + OntSDK.getBlockJson(15));
+            Console.WriteLine("(REST) Block Json (hash): " + OntSDK.getBlockJson(BlockHash));
+            Console.WriteLine("(REST) Transaction Json by Tx Hash: " + OntSDK.getRawTransactionJson(TxHash));
+        }
+
 
         // create a new private key
         public static void CreatePrivateKey()
@@ -49,7 +69,7 @@ namespace ontology_csharp_demo
             var ontid = OntSDK.createONTID(privatekey);
             Console.WriteLine("ontid:{0}", ontid);
             var result = OntSDK.registerONTID(ontid, privatekey);
-            Console.WriteLine("result:{0}", result.content);
+            Console.WriteLine("result:{0}", result.rawResponse);
         }
 
         // get the public key from privatekey
@@ -75,7 +95,7 @@ namespace ontology_csharp_demo
             var fromaddress = OntSDK.createAddressFromPublickKey(publickey);
             var toaddress = "TA5UZsbLNNw1kLQhtarvVMfoCVBe6ZDZGv";
             var result = OntSDK.transferFund("ONT", fromaddress, toaddress, 5, privatekey);
-            Console.WriteLine("result:{0}", result.content);
+            Console.WriteLine("result:{0}", result.rawResponse);
         }
     }
 
