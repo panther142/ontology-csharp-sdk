@@ -1,18 +1,19 @@
 ﻿using Interface;
-using Network;
+using Network.NetworkHelper;
 using Common.Cryptology;
 using Common.TransactionBuilder;
-using Common.Net;
+using Common.Constants;
+using System.Collections.Generic;
 
 namespace Basic
 {
     class Account : IAccount
     {
-        private string net;
+        public static string _node { get; set; }
 
-        public Account(string network = "test")
+        public Account(string node)
         {
-            net = network;
+            _node = node;
         }
 
         public string createPrivateKey()
@@ -39,13 +40,12 @@ namespace Basic
         }
 
 
-        public APIResult registerONTID(string ontid, string privatekey)
+        public NetworkResponse registerONTID(string ontid, string privatekey)
         {
             var tx = TransactionBuilder.buildRegisterOntidTx(ontid, privatekey);
             var serialized = tx.serialize();
-            var param = TransactionBuilder.buildRestfulParam(serialized);
-            var url = NetworkBuilder.getSendRawTxURL(net);
-            var result = RESTrequests.sendRESTrequest(url, "POST", null, param);
+            IList<object> param = new List<object>() { serialized };
+            var result = NetworkHelper.sendNetworkRequest(Common.Enums.Protocol.REST, "POST", Constants.REST_sendRawTransaction, param);
             return result;
         }
 
@@ -58,20 +58,19 @@ namespace Basic
             return address;
         }
 
-        public APIResult transferFund(string name, string fromaddress, string toaddress, decimal value, string privatekey)
+        public NetworkResponse transferFund(string name, string fromaddress, string toaddress, decimal value, string privatekey)
         {
             var fromhexaddress = TransactionBuilder.AddresstTou160(fromaddress);
             var tohexaddress = TransactionBuilder.AddresstTou160(toaddress);
             var tx = TransactionBuilder.makeTransferTransaction(name, fromhexaddress, tohexaddress, value.ToString(), privatekey);
             var serialized = tx.serialize();
-            var param = TransactionBuilder.buildRestfulParam(serialized);
-            var url = NetworkBuilder.getSendRawTxURL(net);
-            var result = RESTrequests.sendRESTrequest(url, "POST", null, param);
+
+            IList<object> param = new List<object>() { serialized };
+            var result = NetworkHelper.sendNetworkRequest(Common.Enums.Protocol.REST, "POST", Constants.REST_sendRawTransaction, param);
             return result;
         }
 
-
-        public APIResult registerClaim(string context, string metadata, 
+        public NetworkResponse registerClaim(string context, string metadata,
             string content, string type, string issuer, string privatekey)
         {
             var claim = new Claim(context, content, metadata);
@@ -83,16 +82,14 @@ namespace Basic
             var data = "{'Type':'" + type + "','Value':{'Context':'" + context + "','Issuer':'" + issuer + "'}}";
 
             var value = claim.GetValue(data);
-            
+
             var tx = TransactionBuilder.buildAddAttributeTx(path, value, type_hex, issuer, privatekey);
-            
+
             var serialized = tx.serialize();
-            var param = TransactionBuilder.buildRestfulParam(serialized);
-            var url = NetworkBuilder.getSendRawTxURL(net);
-            var result = RESTrequests.sendRESTrequest(url, "POST", null, param);
+            IList<object> param = new List<object>() { serialized };
+            var result = NetworkHelper.sendNetworkRequest(Common.Enums.Protocol.REST, "POST", Constants.REST_sendRawTransaction, param);
             return result;
         }
-
 
     }
 }
