@@ -1,9 +1,8 @@
-﻿using Newtonsoft.Json.Linq;
-using Interface;
+﻿using Interface;
 using System.Collections.Generic;
 using Network.NetworkHelper;
 using Common.Enums;
-
+using Common.Cryptology;
 
 namespace ConnectorTypes
 {
@@ -134,9 +133,15 @@ namespace ConnectorTypes
             return response.jobjectResponse["result"].ToString();
         }
 
-        public string getStorage(string txHash, string key)
+        public string getStorage(string contractHash, string key)
         {
-            throw new System.NotImplementedException();
+            key = Crypto.StringToHexString(key).ToString();
+
+            param.Clear();
+            param.Add(txHash);
+            param.Add(key);
+            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.RPC, "POST", "getblockhash", param);
+            return response.jobjectResponse["result"].ToString();
         }
 
         public int getVersion()
@@ -146,14 +151,20 @@ namespace ConnectorTypes
             return (int)response.jobjectResponse["result"];
         }
 
-        public string getBlockSysFee()
+        public int getBlockSysFee(int index)
         {
-            throw new System.NotImplementedException();
+            param.Clear();
+            param.Add(index);
+            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.RPC, "POST", "getblocksysfee", param);
+            return (int)response.jobjectResponse["result"];
         }
 
         public string getContractState(string scriptHash)
         {
-            throw new System.NotImplementedException();
+            param.Clear();
+            param.Add(scriptHash);
+            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.RPC, "POST", "getcontractstate", param);
+            return response.jobjectResponse["result"].ToString();
         }
 
         public string getMempoolTxState(string txHash)

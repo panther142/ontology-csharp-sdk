@@ -79,7 +79,7 @@ namespace ConnectorTypes
             return response.jobjectResponse["Result"].ToString();
         }
 
-        public string getBlockSysFee()
+        public int getBlockSysFee(int index)
         {
             throw new NotImplementedException();
         }
@@ -138,7 +138,7 @@ namespace ConnectorTypes
             return response.jobjectResponse["Result"].ToString();
         }
 
-        public string getStorage(string txHash, string key)
+        public string getStorage(string contractHash, string key)
         {
             throw new NotImplementedException();
         }
