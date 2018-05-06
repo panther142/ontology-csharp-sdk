@@ -20,11 +20,21 @@ namespace ConnectorTypes
             return response.jobjectResponse["Result"].ToString();
         }
 
+        public string getBestBlockHash()
+        {
+            throw new NotImplementedException();
+        }
+
         public int getBlockGenerationTime()
         {
             param.Clear();
             NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.REST, "GET", Constants.REST_getBlockGenerationTime, param);
             return (int)response.jobjectResponse["Result"];
+        }
+
+        public string getBlockHashByHeight(int blockHeight)
+        {
+            throw new NotImplementedException();
         }
 
         public int getBlockHeight()
@@ -69,12 +79,27 @@ namespace ConnectorTypes
             return response.jobjectResponse["Result"].ToString();
         }
 
+        public string getBlockSysFee()
+        {
+            throw new NotImplementedException();
+        }
+
         public string getContractJson(string contractHash)
         {
             param.Clear();
             param.Add(contractHash);
             NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.REST, "GET", Constants.REST_getContract, param);
             return response.jobjectResponse["Result"].ToString();
+        }
+
+        public string getContractState(string scriptHash)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string getMempoolTxState(string txHash)
+        {
+            throw new NotImplementedException();
         }
 
         public int getNodeCount()
@@ -111,6 +136,16 @@ namespace ConnectorTypes
             param.Add(txHash);
             NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.REST, "GET", Constants.RESTful_getSmartCodeEventByTxHash, param);
             return response.jobjectResponse["Result"].ToString();
+        }
+
+        public string getStorage(string txHash, string key)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int getVersion()
+        {
+            throw new NotImplementedException();
         }
     }
 }

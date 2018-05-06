@@ -12,14 +12,7 @@ namespace ConnectorTypes
     {
 
         IList<object> param = new List<object>();
-
-        private string net;
-
-        public RPC(string network = "test")
-        {
-            net = network;
-        }
-
+               
         public int getBlockGenerationTime()
         {
             param.Clear();
@@ -126,6 +119,50 @@ namespace ConnectorTypes
             return response.jobjectResponse["result"].ToString();
         }
 
+        public string getBestBlockHash()
+        {
+            param.Clear();
+            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.RPC, "POST", "getbestblockhash", param);
+            return response.jobjectResponse["result"].ToString();
+        }
+
+        public string getBlockHashByHeight(int blockHeight)
+        {
+            param.Clear();
+            param.Add(blockHeight);
+            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.RPC, "POST", "getblockhash", param);
+            return response.jobjectResponse["result"].ToString();
+        }
+
+        public string getStorage(string txHash, string key)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public int getVersion()
+        {
+            param.Clear();
+            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.RPC, "POST", "getversion", param);
+            return (int)response.jobjectResponse["result"];
+        }
+
+        public string getBlockSysFee()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public string getContractState(string scriptHash)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public string getMempoolTxState(string txHash)
+        {
+            param.Clear();
+            param.Add(txHash);
+            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.RPC, "POST", "getmempooltxstate", param);
+            return response.jobjectResponse["result"].ToString();
+        }
     }
 
 }

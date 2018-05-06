@@ -35,10 +35,10 @@ namespace Interface
         /// <summary>
         /// Returns the block height for a given transaction hash
         /// </summary>
-        /// <param name="TxHash"></param>
+        /// <param name="txHash"></param>
         /// <returns></returns>
 
-        int getBlockHeightByTxHash(string TxHash);
+        int getBlockHeightByTxHash(string txHash);
 
         /// <summary>
         /// Returns the hex representation of a block based on block height
@@ -71,19 +71,34 @@ namespace Interface
         /// <summary>
         /// Returns the hex representation of a transaction based on transaction hash
         /// </summary>
-        /// <param name="TxHash"></param>
+        /// <param name="txHash"></param>
         /// <returns></returns>
 
-        string getRawTransactionHex(string TxHash);
+        string getRawTransactionHex(string txHash);
 
 
         /// <summary>
         /// Returns a JSON string representing  a transaction based on transaction hash
         /// </summary>
-        /// <param name="TxHash"></param>
+        /// <param name="txHash"></param>
         /// <returns></returns>
 
-        string getRawTransactionJson(string TxHash);
-        
+        string getRawTransactionJson(string txHash);
+                        
+        string getBestBlockHash();
+
+        string getBlockHashByHeight(int blockHeight);
+
+        string getStorage(string txHash, string key);
+
+        int getVersion();
+
+        string getBlockSysFee();
+
+        string getContractState(string scriptHash);
+
+        string getMempoolTxState(string txHash);
+               
+
     }
 }
