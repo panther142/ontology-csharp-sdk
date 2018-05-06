@@ -138,7 +138,7 @@ namespace ConnectorTypes
             key = Crypto.StringToHexString(key).ToString();
 
             param.Clear();
-            param.Add(txHash);
+            param.Add(contractHash);
             param.Add(key);
             NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.RPC, "POST", "getblockhash", param);
             return response.jobjectResponse["result"].ToString();
