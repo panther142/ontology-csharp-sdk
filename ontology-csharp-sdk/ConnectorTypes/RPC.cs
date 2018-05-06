@@ -140,7 +140,7 @@ namespace ConnectorTypes
             param.Clear();
             param.Add(contractHash);
             param.Add(key);
-            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.RPC, "POST", "getblockhash", param);
+            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.RPC, "POST", "getstorage", param);
             return response.jobjectResponse["result"].ToString();
         }
 
