@@ -11,7 +11,7 @@ namespace ConnectorTypes
     {
 
         IList<object> param = new List<object>();
-               
+
         public int getBlockGenerationTime()
         {
             param.Clear();
@@ -174,7 +174,14 @@ namespace ConnectorTypes
             NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.RPC, "POST", "getmempooltxstate", param);
             return response.jobjectResponse["result"].ToString();
         }
-    }
 
+        public string setSendRawTransaction(string tx)
+        {
+            param.Clear();
+            param.Add(tx);
+            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.RPC, "POST", "sendrawtransaction", param);
+            return response.jobjectResponse["result"].ToString();
+        }
+    }
 }
 

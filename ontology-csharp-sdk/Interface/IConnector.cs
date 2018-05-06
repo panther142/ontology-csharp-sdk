@@ -127,5 +127,12 @@ namespace Interface
         /// <param name="txHash"></param>
         /// <returns></returns>
         string getMempoolTxState(string txHash);
+
+        /// <summary>
+        /// Broadcasts a transaction to the network (must be a valid sign transaction in hex format)
+        /// </summary>
+        /// <param name="hexValue"></param>
+        /// <returns></returns>
+        string setSendRawTransaction(string tx);
     }
 }

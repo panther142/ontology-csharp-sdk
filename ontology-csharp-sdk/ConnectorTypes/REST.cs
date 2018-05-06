@@ -147,6 +147,11 @@ namespace ConnectorTypes
         {
             throw new NotImplementedException();
         }
+
+        public string setSendRawTransaction(string tx)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 
