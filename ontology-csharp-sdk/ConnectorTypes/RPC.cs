@@ -151,10 +151,10 @@ namespace ConnectorTypes
             return (int)response.jobjectResponse["result"];
         }
 
-        public int getBlockSysFee(int index)
+        public int getBlockSysFee(int blockHeight)
         {
             param.Clear();
-            param.Add(index);
+            param.Add(blockHeight);
             NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.RPC, "POST", "getblocksysfee", param);
             return (int)response.jobjectResponse["result"];
         }
@@ -181,6 +181,11 @@ namespace ConnectorTypes
             param.Add(tx);
             NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.RPC, "POST", "sendrawtransaction", param);
             return response.jobjectResponse["result"].ToString();
+        }
+
+        public string getMerkleProof(string hash)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

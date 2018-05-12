@@ -4,6 +4,7 @@ using Common.Enums;
 using System;
 using Network.NetworkHelper;
 using Common.Constants;
+using Common.Cryptology;
 
 namespace ConnectorTypes
 {
@@ -102,6 +103,14 @@ namespace ConnectorTypes
             throw new NotImplementedException();
         }
 
+        public string getMerkleProof(string hash)
+        {
+            param.Clear();
+            param.Add(hash);
+            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.REST, "GET", Constants.REST_getMerkleProof, param);
+            return response.jobjectResponse["Result"].ToString();
+        }
+
         public int getNodeCount()
         {
             param.Clear();
@@ -140,7 +149,13 @@ namespace ConnectorTypes
 
         public string getStorage(string contractHash, string key)
         {
-            throw new NotImplementedException();
+            key = Crypto.StringToHexString(key).ToString();
+
+            param.Clear();
+            param.Add(contractHash);
+            param.Add(key);
+            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.REST, "GET", Constants.REST_getStorage, param);
+            return response.jobjectResponse["result"].ToString();
         }
 
         public int getVersion()
@@ -150,7 +165,10 @@ namespace ConnectorTypes
 
         public string setSendRawTransaction(string tx)
         {
-            throw new NotImplementedException();
+            param.Clear();
+            param.Add(tx);
+            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.REST, "POST", Constants.REST_sendRawTransaction, param);
+            return response.jobjectResponse["result"].ToString();
         }
     }
 }

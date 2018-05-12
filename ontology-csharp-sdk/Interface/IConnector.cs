@@ -110,9 +110,9 @@ namespace Interface
         /// <summary>
         /// Returns the system fee (in ONG) before the specified block
         /// </summary>
-        /// <param name="index"></param>
+        /// <param name="blockHeight"></param>
         /// <returns></returns>
-        int getBlockSysFee(int index);
+        int getBlockSysFee(int blockHeight);
 
         /// <summary>
         /// Returns the contract information of the supplied script hash
@@ -128,6 +128,13 @@ namespace Interface
         /// <returns></returns>
         string getMempoolTxState(string txHash);
 
+        /// <summary>
+        /// Returns merkle proof
+        /// </summary>
+        /// <param name="hash"></param>
+        /// <returns></returns>
+        string getMerkleProof(string hash);
+               
         /// <summary>
         /// Broadcasts a transaction to the network (must be a valid sign transaction in hex format)
         /// </summary>
