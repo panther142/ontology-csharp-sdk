@@ -16,20 +16,34 @@ Requires .NET v4.7
 ```
 https://github.com/OntologyCommunityDevelopers/ontology-csharp-sdk.git
 ```
-2. Modify Network/RPCrequest.cs to point to the appropriate RPC node
-```
-HttpWebRequest ontRPCRequest = (HttpWebRequest)WebRequest.Create("http://ont-privnet:20336"); <--- modify as needed
-```
-3. Build and add ontology-csharp-sdk.dll to your project
+2. Build the repository, ddl files should be available in `ontology-csharp-sdk\ontology-csharp-sdk\bin\Debug folder`, alternatively you can use the ddl files in `ontology-csharp-sdk\ontology-csharp-sdk\release` folder.
 
-4. Create instance, e.g.
+3. Add the ddl files in your client project, invoke the library
+
 ```
-OntologySDK ontSDK = new OntologySDK();
+using OntologyCSharpSDK;
 ```
+
+4. Create instance by specifying node parameter, e.g.
+```
+OntologySDK ontSDK = new OntologySDK(node);
+```
+node parameter is constructed by domain/IP + port
+
+| Network | Port |
+| :---| :---|
+| REST | 20334|
+| Websocket | 20335|
+| RPC | 20336|
+
+For domain/IP, use current testnet address `http://polaris1.ont.io` or your private net address
+
 5. Call methods, e.g.
 ```
 int BlockHeight = ontSDK.getBlockHeight();
 ```
+
+See more code examples in `ontology-csharp-demo` project
 
 <br><br>
 ## Methods
@@ -58,7 +72,6 @@ int BlockHeight = ontSDK.getBlockHeight();
 <b>getPublicKey</b>: get a public key from a private key
 - privatekey (string)
 
-
 <b>createONTID</b> create a ONTID from a private key
 - privatekey (string)
 
@@ -73,33 +86,39 @@ int BlockHeight = ontSDK.getBlockHeight();
 - value (decimal) value of the fund
 - privatekey (string) private key of the from address
 
-<br><br>
-## Example
+<b>registerClaim</b>: issue and register a claim
+- context (string) - context (template name) for the claim, it can be standard or self-defined
+- metadata (json string) metadata for the claim, including issuer and subject, expiry etc
+- content (json string) json data for the claim
+- type (string) JSON or string
+- issuer (string) ONTID of the party is registering this claim
+- privatekey (string) private key of the issuer
 
-1. Create and Register ONTID
-```
-var privatekey = "YOUR PRIVATE KEY";  // your private key
-var ontid = sdk.createONTID(privatekey); // create ONTID
-var result = sdk.registerONTID(ontid, privatekey); // register ONTID on blockchain
-Console.WriteLine("result:{0}", result.content.ToString()); // use result value to query on explore.ont.io
-```
-
-2. Transfer Fund
-```
-var privatekey = "YOUR PRIVATE KEY";  // your private key
-var publickey = sdk.getPublicKey(privatekey);  // get your public key
-var fromaddress = sdk.createAddressFromPublickKey(publickey); // get your address
-var toaddress = "TO ADDRESS";
-var result = sdk.transferFund("ONT", fromaddress, toaddress, 5, privatekey); // transfer 5 ONT from your address to destination toaddress
-Console.WriteLine("result:{0}", result.content); // use result value to query on explore.ont.io
-```
-
-=======
-| createPrivateKey |  | create a private key using SecureRandom  | |
-| getPublicKey | string | get a public key from a private key  | |
+<b>addPublicKey</b> add a public key to existing ONTID
+- ontid (string) existing ONTID
+- new_publickey (string) new public key need to be added
+- publickey (string) public key for the existing private key
+- privatekey (string) existing private key
 
 
 <br><br>
 ## License
 
 This project is licensed under the GNU GENERAL PUBLIC LICENSE v3.0
+
+<br><br>
+## Current Contributors
+
+Panther
+Github: https://github.com/panther142
+Discord: Panther#3489
+
+Bobio
+Github: https://github.com/bobio2018
+Discord: Bobio#7026
+
+<br><br>
+## Suggestions and report issues
+Issues can be submitted directly in Github or join our discussion on Discord
+Ontology official Discord:https://discord.gg/mggatmY
+Ontology Community Developers Discord: https://discord.gg/w9WCPsd
