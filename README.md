@@ -38,6 +38,11 @@ node parameter is constructed by domain/IP + port
 
 For domain/IP, use current testnet address `http://polaris1.ont.io` or your private net address
 
+For example, calling REST method for testnet(currently 0.75) will be below:
+```
+OntologySDK ontSDK = new OntologySDK("http://polaris1.ont.io:20334");
+```
+
 5. Call methods, e.g.
 ```
 int BlockHeight = ontSDK.getBlockHeight();
