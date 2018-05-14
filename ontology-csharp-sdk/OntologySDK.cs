@@ -54,8 +54,11 @@ namespace OntologyCSharpSDK
             return account.registerClaim(context, metadata, content, type, issuer, privatekey);
         }
 
+        public NetworkResponse addPublicKey(string ontid, string new_publickey, string publickey, string privatekey)
+        {
+            return account.addPublicKey(ontid, new_publickey, publickey, privatekey);
+        }
 
     }
-
 }
 
