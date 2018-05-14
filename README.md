@@ -114,16 +114,19 @@ This project is licensed under the GNU GENERAL PUBLIC LICENSE v3.0
 <br><br>
 ## Current Contributors
 
-Panther
+- Panther
+
 Github: https://github.com/panther142
 Discord: Panther#3489
 
-Bobio
+- Bobio
+
 Github: https://github.com/bobio2018
 Discord: Bobio#7026
 
 <br><br>
 ## Suggestions and report issues
 Issues can be submitted directly in Github or join our discussion on Discord
-Ontology official Discord:https://discord.gg/mggatmY
-Ontology Community Developers Discord: https://discord.gg/w9WCPsd
+
+- Ontology official Discord:https://discord.gg/mggatmY
+- Ontology Community Developers Discord: https://discord.gg/w9WCPsd
