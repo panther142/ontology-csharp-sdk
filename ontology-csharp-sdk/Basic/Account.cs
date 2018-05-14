@@ -91,5 +91,14 @@ namespace Basic
             return result;
         }
 
+        public NetworkResponse addPublicKey(string ontid, string new_publickey, string publickey, string privatekey)
+        {
+            var tx = TransactionBuilder.buildAddPublicKeyTx(ontid, new_publickey, publickey, privatekey);
+            var serialized = tx.serialize();
+            IList<object> param = new List<object>() { serialized };
+            var result = NetworkHelper.sendNetworkRequest(Common.Enums.Protocol.REST, "POST", Constants.REST_sendRawTransaction, param);
+            return result;
+        }
+
     }
 }

@@ -122,6 +122,46 @@ namespace Common.TransactionBuilder
 
         }
 
+        public static Transaction buildAddPublicKeyTx(string ontid, string new_publickey, string sender, string privatekey)
+        {
+            new_publickey = "1202" + new_publickey;
+            sender = "1202" + sender;
+
+            if (ontid.Substring(0, 3) == "did")
+            {
+                ontid = Crypto.StringToHexString(ontid);
+            }
+
+            JToken f = abiModels.GetFunction("AddKey");
+
+            var parameters = JArray.Parse(f["parameters"].ToString());
+
+            for (int i = 0; i < parameters.Count; i++)
+            {
+                var parameter = parameters[i];
+                if (parameter["name"].ToString() == "ontId")
+                {
+                    parameter["value"] = ontid;
+                }
+                if (parameter["name"].ToString() == "newPublicKey")
+                {
+                    parameter["value"] = new_publickey;
+                }
+                if (parameter["name"].ToString() == "sender")
+                {
+                    parameter["value"] = sender;
+                }
+                parameters[i] = parameter;
+            }
+            f["parameters"] = parameters;
+
+            var hash = abiModels.GetHash();
+
+            var tx = makeInvokeTransaction(f, hash, privatekey);
+
+            return tx;
+
+        }
 
         public static Transaction makeTransferTransaction(string tokentype, string fromaddress, string toaddress, string value, string privatekey)
         {
