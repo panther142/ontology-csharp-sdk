@@ -16,7 +16,7 @@ Requires .NET v4.7
 ```
 https://github.com/OntologyCommunityDevelopers/ontology-csharp-sdk.git
 ```
-2. Build the repository, ddl files should be available in `ontology-csharp-sdk\ontology-csharp-sdk\bin\Debug folder`, alternatively you can use the ddl files in `ontology-csharp-sdk\ontology-csharp-sdk\release` folder.
+2. Build the repository, ddl files should be available in `ontology-csharp-sdk\ontology-csharp-sdk\bin\Debug folder`.
 
 3. Add the ddl files in your client project, invoke the library
 
