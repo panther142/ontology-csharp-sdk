@@ -13,6 +13,7 @@ namespace Common.TransactionBuilder
     public static class TransactionBuilder
     {
         private static string ONT_CONTRACT = "ff00000000000000000000000000000000000001";
+        private static string ONG_CONTRACT = "ff00000000000000000000000000000000000002";
 
         public static string getHash(string hex)
         {

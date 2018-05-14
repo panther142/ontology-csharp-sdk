@@ -1,9 +1,8 @@
-﻿using Newtonsoft.Json.Linq;
-using Interface;
+﻿using Interface;
 using System.Collections.Generic;
 using Network.NetworkHelper;
 using Common.Enums;
-
+using Common.Cryptology;
 
 namespace ConnectorTypes
 {
@@ -12,13 +11,6 @@ namespace ConnectorTypes
     {
 
         IList<object> param = new List<object>();
-
-        private string net;
-
-        public RPC(string network = "test")
-        {
-            net = network;
-        }
 
         public int getBlockGenerationTime()
         {
@@ -126,7 +118,75 @@ namespace ConnectorTypes
             return response.jobjectResponse["result"].ToString();
         }
 
-    }
+        public string getBestBlockHash()
+        {
+            param.Clear();
+            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.RPC, "POST", "getbestblockhash", param);
+            return response.jobjectResponse["result"].ToString();
+        }
 
+        public string getBlockHashByHeight(int blockHeight)
+        {
+            param.Clear();
+            param.Add(blockHeight);
+            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.RPC, "POST", "getblockhash", param);
+            return response.jobjectResponse["result"].ToString();
+        }
+
+        public string getStorage(string contractHash, string key)
+        {
+            key = Crypto.StringToHexString(key).ToString();
+
+            param.Clear();
+            param.Add(contractHash);
+            param.Add(key);
+            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.RPC, "POST", "getstorage", param);
+            return response.jobjectResponse["result"].ToString();
+        }
+
+        public int getVersion()
+        {
+            param.Clear();
+            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.RPC, "POST", "getversion", param);
+            return (int)response.jobjectResponse["result"];
+        }
+
+        public int getBlockSysFee(int blockHeight)
+        {
+            param.Clear();
+            param.Add(blockHeight);
+            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.RPC, "POST", "getblocksysfee", param);
+            return (int)response.jobjectResponse["result"];
+        }
+
+        public string getContractState(string scriptHash)
+        {
+            param.Clear();
+            param.Add(scriptHash);
+            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.RPC, "POST", "getcontractstate", param);
+            return response.jobjectResponse["result"].ToString();
+        }
+
+        public string getMempoolTxState(string txHash)
+        {
+            param.Clear();
+            param.Add(txHash);
+            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.RPC, "POST", "getmempooltxstate", param);
+            return response.jobjectResponse["result"].ToString();
+        }
+
+        public string setSendRawTransaction(string tx)
+        {
+            param.Clear();
+            param.Add(tx);
+            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.RPC, "POST", "sendrawtransaction", param);
+            return response.jobjectResponse["result"].ToString();
+        }
+
+        public string getMerkleProof(string hash)
+        {
+            throw new System.NotImplementedException();
+        }
+    }
 }
 

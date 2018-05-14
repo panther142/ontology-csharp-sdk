@@ -4,7 +4,6 @@ namespace Interface
 {
     public interface IConnector
     {
-
         /// <summary>
         /// Returns the current block generation time in seconds
         /// </summary>
@@ -20,11 +19,9 @@ namespace Interface
         /// <summary>
         /// Returns a JSON string representing the ONT/ONG balance of an address
         /// </summary>
-
         /// <param name="ONTAddress"></param>
         /// <returns></returns>
         string getAddressBalance(string ONTAddress);
-
 
         /// <summary>
         /// Returns the number of nodes connected
@@ -35,10 +32,10 @@ namespace Interface
         /// <summary>
         /// Returns the block height for a given transaction hash
         /// </summary>
-        /// <param name="TxHash"></param>
+        /// <param name="txHash"></param>
         /// <returns></returns>
 
-        int getBlockHeightByTxHash(string TxHash);
+        int getBlockHeightByTxHash(string txHash);
 
         /// <summary>
         /// Returns the hex representation of a block based on block height
@@ -71,19 +68,78 @@ namespace Interface
         /// <summary>
         /// Returns the hex representation of a transaction based on transaction hash
         /// </summary>
-        /// <param name="TxHash"></param>
+        /// <param name="txHash"></param>
         /// <returns></returns>
-
-        string getRawTransactionHex(string TxHash);
+        string getRawTransactionHex(string txHash);
 
 
         /// <summary>
         /// Returns a JSON string representing  a transaction based on transaction hash
         /// </summary>
-        /// <param name="TxHash"></param>
+        /// <param name="txHash"></param>
         /// <returns></returns>
+        string getRawTransactionJson(string txHash);
 
-        string getRawTransactionJson(string TxHash);
-        
+        /// <summary>
+        ///  Returns hash of the highest block
+        /// </summary>
+        /// <returns></returns>        
+        string getBestBlockHash();
+
+        /// <summary>
+        /// Returns the hash of the specified block height
+        /// </summary>
+        /// <param name="blockHeight"></param>
+        /// <returns></returns>
+        string getBlockHashByHeight(int blockHeight);
+
+        /// <summary>
+        /// Returns the stored value (hex string) according to the contract script hashes and stored key
+        /// </summary>
+        /// <param name="txHash"></param>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        string getStorage(string contractHash, string key);
+
+        /// <summary>
+        /// Returns the version of the queried node
+        /// </summary>
+        /// <returns></returns>
+        int getVersion();
+
+        /// <summary>
+        /// Returns the system fee (in ONG) before the specified block
+        /// </summary>
+        /// <param name="blockHeight"></param>
+        /// <returns></returns>
+        int getBlockSysFee(int blockHeight);
+
+        /// <summary>
+        /// Returns the contract information of the supplied script hash
+        /// </summary>
+        /// <param name="scriptHash"></param>
+        /// <returns></returns>
+        string getContractState(string scriptHash);
+
+        /// <summary>
+        /// Returns the stranasction status as per the memory pool
+        /// </summary>
+        /// <param name="txHash"></param>
+        /// <returns></returns>
+        string getMempoolTxState(string txHash);
+
+        /// <summary>
+        /// Returns merkle proof
+        /// </summary>
+        /// <param name="hash"></param>
+        /// <returns></returns>
+        string getMerkleProof(string hash);
+               
+        /// <summary>
+        /// Broadcasts a transaction to the network (must be a valid sign transaction in hex format)
+        /// </summary>
+        /// <param name="hexValue"></param>
+        /// <returns></returns>
+        string setSendRawTransaction(string tx);
     }
 }
