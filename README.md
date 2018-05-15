@@ -1,5 +1,4 @@
 <h1 align="center">Ontology C# SDK </h1>
-<h4 align="center">Version 0.0.1 </h4>
 
 ## Overview
 
