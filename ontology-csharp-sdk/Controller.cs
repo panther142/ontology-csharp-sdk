@@ -8,7 +8,8 @@ namespace OntologyCSharpSDK.NetController
         public enum ConnectorType
         {
             RPC,
-            REST
+            REST,
+            Websocket
         }
 
         public virtual IConnector Gateway(ConnectorType method)
@@ -21,12 +22,14 @@ namespace OntologyCSharpSDK.NetController
                 case ConnectorType.RPC:
                     ConnectorInterface = new RPC();
                     break;
-
-
+                    
                 case ConnectorType.REST:
                     ConnectorInterface = new REST();
                     break;
 
+                case ConnectorType.Websocket:
+                    ConnectorInterface = new Websocket();
+                    break;
             }
 
             return ConnectorInterface;

@@ -60,6 +60,7 @@
     <Compile Include="Common\TransactionBuilder.cs" />
     <Compile Include="ConnectorTypes\REST.cs" />
     <Compile Include="ConnectorTypes\RPC.cs" />
+    <Compile Include="ConnectorTypes\Websocket.cs" />
     <Compile Include="Controller.cs" />
     <Compile Include="Common\Helpers.cs" />
     <Compile Include="Interface\IAccount.cs" />
