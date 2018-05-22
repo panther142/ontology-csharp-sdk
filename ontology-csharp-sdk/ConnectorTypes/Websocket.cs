@@ -136,7 +136,11 @@ namespace ConnectorTypes
 
         public string getStorage(string contractHash, string key)
         {
-            throw new NotImplementedException();
+            param.Clear();
+            param.Add(new KeyValuePair<string, object>("Hash", contractHash));
+            param.Add(new KeyValuePair<string, object>("Key", key));
+            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "getstorage", param);
+            return response.jobjectResponse["Result"].ToString();
         }
 
         public int getVersion()

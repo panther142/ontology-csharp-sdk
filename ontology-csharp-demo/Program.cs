@@ -18,7 +18,7 @@ namespace ontology_csharp_demo
 
         static void Main(string[] args)
         {
-            WebsocketDemo();
+            //WebsocketDemo();
             //RPCDemo();
             //RESTDemo();
             //CreateRegisterONTID();
