@@ -8,7 +8,7 @@ namespace ontology_csharp_demo
 
         // MAIN_NODE = "54.222.182.88";
         // TEST_NODE = "139.219.111.50";
-        private static string node = "http://192.168.4.5:20334";
+        private static string node = "ws://192.168.4.5:20335";
 
         static OntologySDK OntSDK = new OntologySDK(node);
         static string TxHash = "5fcffe97e2c4d413b34cea985bf548bfce0ae3a0cbf2c9ec9e518388c0dd650a5fcffe97e2c4d413b34cea985bf548bfce0ae3a0cbf2c9ec9e518388c0dd650a";
@@ -18,9 +18,9 @@ namespace ontology_csharp_demo
 
         static void Main(string[] args)
         {
-
+            WebsocketDemo();
             //RPCDemo();
-            RESTDemo();
+            //RESTDemo();
             //CreateRegisterONTID();
             //TransferFund();
             //CreateAndRegisterClaim();
@@ -57,6 +57,15 @@ namespace ontology_csharp_demo
             Console.WriteLine("(REST) Transaction Json by Tx Hash: " + OntSDK.getRawTransactionJson(TxHash));
         }
 
+        public static void WebsocketDemo()
+        {
+            Console.WriteLine("(Websocket) Block Generation Time: " + OntSDK.getBlockGenerationTime().ToString() + " seconds ");
+            Console.WriteLine("(Websocket) Block Height: " + OntSDK.getBlockHeight().ToString());
+            Console.WriteLine("(Websocket) Block Json (int): " + OntSDK.getBlockJson(50));
+            Console.WriteLine("(Websocket) Block Json (hash): " + OntSDK.getBlockJson(BlockHash));
+            Console.WriteLine("(Websocket) Block hash by height: " + OntSDK.getBlockHashByHeight(50));
+            Console.WriteLine("(Websocket) Get Address Balance: " + OntSDK.getAddressBalance("TA8HEr37yqME9RRrcCgTp9qZN2F1xdWPAz"));            
+        }
 
         // create a new private key
         public static void CreatePrivateKey()

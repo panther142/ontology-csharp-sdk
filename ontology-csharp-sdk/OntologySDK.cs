@@ -4,7 +4,7 @@ using Network.NetworkHelper;
 
 namespace OntologyCSharpSDK
 {
-    public class OntologySDK : REST
+    public class OntologySDK : Websocket
     {
         private Basic.Account account = null;
 

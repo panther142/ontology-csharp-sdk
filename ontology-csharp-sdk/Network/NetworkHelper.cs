@@ -6,6 +6,8 @@ using Newtonsoft.Json.Linq;
 using System.IO;
 using System.Net;
 using Common.Constants;
+using WebSocketSharp;
+
 
 namespace Network.NetworkHelper
 {
@@ -42,6 +44,13 @@ namespace Network.NetworkHelper
                         }
                         return sendRESTRequest(request, requestType, host);
                     }
+
+                case Common.Enums.Protocol.Websocket:
+                    {
+                        request = webSocketRequestBuilder(method, param);
+                        return sendWebSocketRequest(request, host);
+                    }
+
                 default:
                     return null;
             }
@@ -177,6 +186,38 @@ namespace Network.NetworkHelper
             }
         }
 
+        private static NetworkResponse sendWebSocketRequest(string request, string host)
+        {
+
+            NetworkResponse response = new NetworkResponse();
+
+
+            using (var ws = new WebSocket(host))
+            {
+
+                ws.OnMessage += (sender, e) =>
+                {
+                    response.rawResponse = e.Data;
+                    response.jobjectResponse = JsonConvert.DeserializeObject<JObject>(response.rawResponse);
+                    ws.Close();
+                };
+
+                ws.OnError += (sender, e) =>
+                {
+                    response.rawResponse = e.Exception.InnerException.ToString();
+                    ws.Close();
+                };
+
+                ws.Connect();
+                ws.Send(request);
+
+                while (ws.IsAlive)
+                {
+                }
+
+                return response;
+            }
+        }
 
         private static string rpcRequestBuilder(string method, IList<object> param)
         {
@@ -216,6 +257,24 @@ namespace Network.NetworkHelper
             {
                 return sb.ToString();
             }
+        }
+
+        private static string webSocketRequestBuilder(string method, IList<object> param)
+        {
+            JObject jsonObject = new JObject();
+
+            jsonObject["Action"] = method;
+            jsonObject["Version"] = "1.0.0";
+
+            foreach (KeyValuePair<string, object> kvp in param)
+            {
+                JToken jt = JToken.FromObject(kvp.Value);
+                jsonObject.Add(kvp.Key, jt);
+            }
+
+            string json = JsonConvert.SerializeObject(jsonObject);
+            return json;
+
         }
 
         public static string restBuildSendRawTransaction(string method, IList<object> param)

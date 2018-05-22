@@ -5,6 +5,7 @@ using Common.Enums;
 using Network.NetworkHelper;
 using Common.Constants;
 using Common.Cryptology;
+using Newtonsoft.Json.Linq;
 
 namespace ConnectorTypes
 {
@@ -15,7 +16,11 @@ namespace ConnectorTypes
 
         public string getAddressBalance(string address)
         {
-            throw new NotImplementedException();
+            param.Clear();
+            param.Add(new KeyValuePair<string, object>("Raw", 0));
+            param.Add(new KeyValuePair<string, object>("Addr", address));
+            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "getbalance", param);
+            return response.jobjectResponse["Result"].ToString();
         }
 
         public string getBestBlockHash()
@@ -25,17 +30,24 @@ namespace ConnectorTypes
 
         public int getBlockGenerationTime()
         {
-            throw new NotImplementedException();
+            param.Clear();
+            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "getgenerateblocktime", param);
+            return (int)response.jobjectResponse["Result"];
         }
 
         public string getBlockHashByHeight(int blockHeight)
         {
-            throw new NotImplementedException();
+            param.Clear();
+            param.Add(new KeyValuePair<string, object>("Height", blockHeight));
+            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "getblockhash", param);
+            return response.jobjectResponse["Result"].ToString();
         }
 
         public int getBlockHeight()
         {
-            throw new NotImplementedException();
+            param.Clear();
+            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "getblockheight", param);
+            return (int)response.jobjectResponse["Result"];
         }
 
         public int getBlockHeightByTxHash(string txHash)
@@ -55,12 +67,19 @@ namespace ConnectorTypes
 
         public string getBlockJson(int blockHeight)
         {
-            throw new NotImplementedException();
+            param.Clear();
+            param.Add(new KeyValuePair<string, object>("Height", blockHeight));
+            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "getblockbyheight", param);
+            return response.jobjectResponse["Result"].ToString();
         }
 
         public string getBlockJson(string blockHash)
         {
-            throw new NotImplementedException();
+            param.Clear();
+            param.Add(new KeyValuePair<string, object>("Raw", 0));
+            param.Add(new KeyValuePair<string, object>("Hash", blockHash));
+            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "getblockbyhash", param);
+            return response.jobjectResponse["Result"].ToString();
         }
 
         public int getBlockSysFee(int index)
@@ -90,7 +109,9 @@ namespace ConnectorTypes
 
         public int getNodeCount()
         {
-            throw new NotImplementedException();
+            param.Clear();
+            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "getconnectioncount", param);
+            return (int)response.jobjectResponse["Result"];
         }
 
         public string getRawTransactionHex(string txHash)
