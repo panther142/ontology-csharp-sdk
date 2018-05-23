@@ -2,7 +2,7 @@
 
 ## Overview
 
-This C# SDK aims to help .NET developers when writing applications for the Ontology Blockhain.  The initial implementation supports RPC.
+This C# SDK aims to help .NET developers when writing applications for the Ontology Blockhain.  
 
 <b> Note: This software should be considered pre-alpha and only be used on testnet (current version 0.75, address: polaris1.ont.io ) or privatenet</b>
 
@@ -23,9 +23,9 @@ https://github.com/OntologyCommunityDevelopers/ontology-csharp-sdk.git
 using OntologyCSharpSDK;
 ```
 
-4. Create instance by specifying node parameter, e.g.
+4. Create instance by specifying node parameter and ConnectionMethod (RPC, REST or Websocket), e.g.
 ```
-OntologySDK ontSDK = new OntologySDK(node);
+OntologySDK ontSDK = new OntologySDK(node, ConnectionMethod.REST);
 ```
 node parameter is constructed by domain/IP + port
 
@@ -39,12 +39,12 @@ For domain/IP, use current testnet address `http://polaris1.ont.io` or your priv
 
 For example, calling REST method for testnet(currently 0.75) will be below:
 ```
-OntologySDK ontSDK = new OntologySDK("http://polaris1.ont.io:20334");
+OntologySDK ontSDK = new OntologySDK("http://polaris1.ont.io:20334", ConnectionMethod.REST);
 ```
 
 5. Call methods, e.g.
 ```
-int BlockHeight = ontSDK.getBlockHeight();
+int BlockHeight = ontSDK.connectionManager.getBlockHeight();
 ```
 
 See more code examples in `ontology-csharp-demo` project
