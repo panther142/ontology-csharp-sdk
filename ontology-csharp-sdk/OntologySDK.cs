@@ -1,15 +1,23 @@
-﻿using ConnectorTypes;
+﻿using ConnectionMethods;
+using Interface;
 using Network;
 using Network.NetworkHelper;
+using OntologyCSharpSDK.NetController;
 
 namespace OntologyCSharpSDK
 {
-    public class OntologySDK : Websocket
+    public class OntologySDK
     {
         private Basic.Account account = null;
+        public IConnectionMethod connectionManager;
 
-        public OntologySDK(string node)
+        public OntologySDK(string node, ConnectionMethodFactory.ConnectionMethod connectionMethod)
         {
+
+            connectionManager = null;
+            ConnectionMethodFactory factory = new ConnectionMethodFactory();
+            connectionManager = factory.setConnectionMethod(connectionMethod);
+
             account = new Basic.Account(node);
         }
 

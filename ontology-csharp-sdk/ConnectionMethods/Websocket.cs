@@ -3,14 +3,11 @@ using System.Collections.Generic;
 using Interface;
 using Common.Enums;
 using Network.NetworkHelper;
-using Common.Constants;
-using Common.Cryptology;
-using Newtonsoft.Json.Linq;
 
-namespace ConnectorTypes
+namespace ConnectionMethods
 {
 
-    public class Websocket : IConnector
+    public class Websocket : IConnectionMethod
     {
         IList<object> param = new List<object>();
 

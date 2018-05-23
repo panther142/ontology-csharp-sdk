@@ -6,10 +6,10 @@ using Network.NetworkHelper;
 using Common.Constants;
 using Common.Cryptology;
 
-namespace ConnectorTypes
+namespace ConnectionMethods
 {
 
-    public class REST : IConnector
+    public class REST : IConnectionMethod
     {
         IList<object> param = new List<object>();
 

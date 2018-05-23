@@ -1,5 +1,6 @@
 ﻿using OntologyCSharpSDK;
 using System;
+using OntologyCSharpSDK.NetController;
 
 namespace ontology_csharp_demo
 {
@@ -10,63 +11,41 @@ namespace ontology_csharp_demo
         // TEST_NODE = "139.219.111.50";
         private static string node = "ws://192.168.4.5:20335";
 
-        static OntologySDK OntSDK = new OntologySDK(node);
+        static OntologySDK OntSDK = new OntologySDK(node, ConnectionMethodFactory.ConnectionMethod.RPC);
         static string TxHash = "5fcffe97e2c4d413b34cea985bf548bfce0ae3a0cbf2c9ec9e518388c0dd650a5fcffe97e2c4d413b34cea985bf548bfce0ae3a0cbf2c9ec9e518388c0dd650a";
         static string Address = "TA87tPxU1Zq8ANQfMnrGZTTs6X4UYFEjsw";
         static string BlockHash = "f0d2da3a971b2e51f8aebce06c37a9bb5253db39a28b1fd713b222928e2c439c";
         static string privatekey = "2d3747c9b5eba66e3b4f5b1491aa08720503fffca167b2b405af6f07c8eb108b";
 
+        
         static void Main(string[] args)
         {
-            //WebsocketDemo();
-            //RPCDemo();
-            //RESTDemo();
+            //QueryBlockchain();
             //CreateRegisterONTID();
             //TransferFund();
             //CreateAndRegisterClaim();
             //AddPublicKey();
             Console.WriteLine("\r\n\r\nPress any key..");
             Console.ReadKey();
-
+            
         }
-        //Query blockchain using RPC
-        public static void RPCDemo()
+        //Query blockchain using chosen connection method (RPC, REST or Websocket)
+        public static void QueryBlockchain()
         {
-            Console.WriteLine("(RPC) Block Generation Time: " + OntSDK.getBlockGenerationTime().ToString() + " seconds ");
-            Console.WriteLine("(RPC) Block Height: " + OntSDK.getBlockHeight().ToString());
-            Console.WriteLine("(RPC) ONT Balance: " + OntSDK.getAddressBalance(Address));
-            Console.WriteLine("(RPC) Node Count: " + OntSDK.getNodeCount());
-            Console.WriteLine("(RPC) Block Height by Tx Hash: " + OntSDK.getBlockHeightByTxHash(TxHash));
-            Console.WriteLine("(RPC) Block Hex (int): " + OntSDK.getBlockHex(15));
-            Console.WriteLine("(RPC) Block Hex (hash): " + OntSDK.getBlockHex(BlockHash));
-            Console.WriteLine("(RPC) Block Json (int): " + OntSDK.getBlockJson(15));
-            Console.WriteLine("(RPC) Block Json (hash): " + OntSDK.getBlockJson(BlockHash));
-            Console.WriteLine("(RPC) Transaction Hex by Tx Hash: " + OntSDK.getRawTransactionHex(TxHash));
-            Console.WriteLine("(RPC) Transaction Json by Tx Hash: " + OntSDK.getRawTransactionJson(TxHash));
+            Console.WriteLine("Connecting to blockchain via: " + OntSDK.connectionManager.GetType());
+            Console.WriteLine("Block Generation Time: " + OntSDK.connectionManager.getBlockGenerationTime().ToString() + " seconds ");
+            Console.WriteLine("Block Height: " + OntSDK.connectionManager.getBlockHeight().ToString());
+            Console.WriteLine("ONT Balance: " + OntSDK.connectionManager.getAddressBalance(Address));
+            Console.WriteLine("Node Count: " + OntSDK.connectionManager.getNodeCount());
+            Console.WriteLine("Block Height by Tx Hash: " + OntSDK.connectionManager.getBlockHeightByTxHash(TxHash));
+            Console.WriteLine("Block Hex (int): " + OntSDK.connectionManager.getBlockHex(15));
+            Console.WriteLine("Block Hex (hash): " + OntSDK.connectionManager.getBlockHex(BlockHash));
+            Console.WriteLine("Block Json (int): " + OntSDK.connectionManager.getBlockJson(15));
+            Console.WriteLine("Block Json (hash): " + OntSDK.connectionManager.getBlockJson(BlockHash));
+            Console.WriteLine("Transaction Hex by Tx Hash: " + OntSDK.connectionManager.getRawTransactionHex(TxHash));
+            Console.WriteLine("Transaction Json by Tx Hash: " + OntSDK.connectionManager.getRawTransactionJson(TxHash));
         }
-
-        public static void RESTDemo()
-        {
-            Console.WriteLine("(REST) Block Generation Time: " + OntSDK.getBlockGenerationTime().ToString() + " seconds ");
-            Console.WriteLine("(REST) Block Height: " + OntSDK.getBlockHeight().ToString());
-            Console.WriteLine("(REST) ONT Balance: " + OntSDK.getAddressBalance(Address));
-            Console.WriteLine("(REST) Node Count: " + OntSDK.getNodeCount());
-            Console.WriteLine("(REST) Block Height by Tx Hash: " + OntSDK.getBlockHeightByTxHash(TxHash));
-            Console.WriteLine("(REST) Block Json (int): " + OntSDK.getBlockJson(15));
-            Console.WriteLine("(REST) Block Json (hash): " + OntSDK.getBlockJson(BlockHash));
-            Console.WriteLine("(REST) Transaction Json by Tx Hash: " + OntSDK.getRawTransactionJson(TxHash));
-        }
-
-        public static void WebsocketDemo()
-        {
-            Console.WriteLine("(Websocket) Block Generation Time: " + OntSDK.getBlockGenerationTime().ToString() + " seconds ");
-            Console.WriteLine("(Websocket) Block Height: " + OntSDK.getBlockHeight().ToString());
-            Console.WriteLine("(Websocket) Block Json (int): " + OntSDK.getBlockJson(50));
-            Console.WriteLine("(Websocket) Block Json (hash): " + OntSDK.getBlockJson(BlockHash));
-            Console.WriteLine("(Websocket) Block hash by height: " + OntSDK.getBlockHashByHeight(50));
-            Console.WriteLine("(Websocket) Get Address Balance: " + OntSDK.getAddressBalance("TA8HEr37yqME9RRrcCgTp9qZN2F1xdWPAz"));            
-        }
-
+ 
         // create a new private key
         public static void CreatePrivateKey()
         {

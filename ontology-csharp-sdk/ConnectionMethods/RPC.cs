@@ -4,10 +4,10 @@ using Network.NetworkHelper;
 using Common.Enums;
 using Common.Cryptology;
 
-namespace ConnectorTypes
+namespace ConnectionMethods
 {
 
-    public class RPC : IConnector
+    public class RPC : IConnectionMethod
     {
 
         IList<object> param = new List<object>();

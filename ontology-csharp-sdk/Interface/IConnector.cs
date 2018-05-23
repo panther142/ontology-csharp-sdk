@@ -2,7 +2,7 @@
 
 namespace Interface
 {
-    public interface IConnector
+    public interface IConnectionMethod
     {
         /// <summary>
         /// Returns the current block generation time in seconds
