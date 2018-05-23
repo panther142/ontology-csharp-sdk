@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using Interface;
-using Common.Enums;
-using Network.NetworkHelper;
+using OntologyCSharpSDK.Interface;
+using OntologyCSharpSDK.Common;
+using OntologyCSharpSDK.Network;
 
-namespace ConnectionMethods
+namespace OntologyCSharpSDK.ConnectionMethods
 {
 
     public class Websocket : IConnectionMethod

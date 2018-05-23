@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 
-namespace Common.Models
+namespace OntologyCSharpSDK.Common
 {
     public static class abiModels
     {

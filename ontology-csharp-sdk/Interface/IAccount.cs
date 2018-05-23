@@ -1,7 +1,7 @@
-﻿using Network;
-using Network.NetworkHelper;
+﻿using OntologyCSharpSDK;
+using OntologyCSharpSDK.Network;
 
-namespace Interface
+namespace OntologyCSharpSDK.Interface
 {
     interface IAccount
     {

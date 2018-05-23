@@ -5,17 +5,17 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.IO;
 using System.Net;
-using Common.Constants;
 using WebSocketSharp;
+using OntologyCSharpSDK.Common;
 
 
-namespace Network.NetworkHelper
+namespace OntologyCSharpSDK.Network
 {
     class NetworkHelper
     {
         //TODO: Nodelist implementation
 
-        public static NetworkResponse sendNetworkRequest(Common.Enums.Protocol protocol, string requestType, string method, IList<object> param)
+        public static NetworkResponse sendNetworkRequest(Protocol protocol, string requestType, string method, IList<object> param)
         {
 
             requestType = requestType.ToUpper();
@@ -26,13 +26,13 @@ namespace Network.NetworkHelper
 
             switch (protocol)
             {
-                case Common.Enums.Protocol.RPC:
+                case Protocol.RPC:
                     {
                         request = rpcRequestBuilder(method, param);
                         return sendRPCRequest(request, requestType, host);
                     }
 
-                case Common.Enums.Protocol.REST:
+                case Protocol.REST:
                     {
                         if (requestType == "GET")
                         {
@@ -45,7 +45,7 @@ namespace Network.NetworkHelper
                         return sendRESTRequest(request, requestType, host);
                     }
 
-                case Common.Enums.Protocol.Websocket:
+                case Protocol.Websocket:
                     {
                         request = webSocketRequestBuilder(method, param);
                         return sendWebSocketRequest(request, host);

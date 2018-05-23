@@ -1,10 +1,9 @@
-﻿using Interface;
-using System.Collections.Generic;
-using Network.NetworkHelper;
-using Common.Enums;
-using Common.Cryptology;
+﻿using System.Collections.Generic;
+using OntologyCSharpSDK.Network;
+using OntologyCSharpSDK.Common;
+using OntologyCSharpSDK.Interface;
 
-namespace ConnectionMethods
+namespace OntologyCSharpSDK.ConnectionMethods
 {
 
     public class RPC : IConnectionMethod

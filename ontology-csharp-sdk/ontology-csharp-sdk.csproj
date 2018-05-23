@@ -64,10 +64,10 @@
     <Compile Include="ConnectionMethods\REST.cs" />
     <Compile Include="ConnectionMethods\RPC.cs" />
     <Compile Include="ConnectionMethods\Websocket.cs" />
-    <Compile Include="ConnectionMethodFactory.cs" />
+    <Compile Include="Interface\ConnectionMethodFactory.cs" />
     <Compile Include="Common\Helpers.cs" />
     <Compile Include="Interface\IAccount.cs" />
-    <Compile Include="Interface\IConnector.cs" />
+    <Compile Include="Interface\IConnectionMethod.cs" />
     <Compile Include="Network\NetworkHelper.cs" />
     <Compile Include="OntologySDK.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -1,11 +1,9 @@
-﻿using Interface;
-using Network.NetworkHelper;
-using Common.Cryptology;
-using Common.TransactionBuilder;
-using Common.Constants;
+﻿using OntologyCSharpSDK.Interface;
+using OntologyCSharpSDK.Network;
 using System.Collections.Generic;
+using OntologyCSharpSDK.Common;
 
-namespace Basic
+namespace OntologyCSharpSDK.Basic
 {
     class Account : IAccount
     {
@@ -45,7 +43,7 @@ namespace Basic
             var tx = TransactionBuilder.buildRegisterOntidTx(ontid, privatekey);
             var serialized = tx.serialize();
             IList<object> param = new List<object>() { serialized };
-            var result = NetworkHelper.sendNetworkRequest(Common.Enums.Protocol.REST, "POST", Constants.REST_sendRawTransaction, param);
+            var result = NetworkHelper.sendNetworkRequest(Protocol.REST, "POST", Constants.REST_sendRawTransaction, param);
             return result;
         }
 
@@ -66,7 +64,7 @@ namespace Basic
             var serialized = tx.serialize();
 
             IList<object> param = new List<object>() { serialized };
-            var result = NetworkHelper.sendNetworkRequest(Common.Enums.Protocol.REST, "POST", Constants.REST_sendRawTransaction, param);
+            var result = NetworkHelper.sendNetworkRequest(Protocol.REST, "POST", Constants.REST_sendRawTransaction, param);
             return result;
         }
 
@@ -76,8 +74,8 @@ namespace Basic
             var claim = new Claim(context, content, metadata);
             var signed = claim.sign(privatekey);
             var claimId = claim.Id;
-            var path = Common.Cryptology.Crypto.StringToHexString(claimId);
-            var type_hex = Common.Cryptology.Crypto.StringToHexString(type);
+            var path = global::OntologyCSharpSDK.Common.Crypto.StringToHexString(claimId);
+            var type_hex = global::OntologyCSharpSDK.Common.Crypto.StringToHexString(type);
 
             var data = "{'Type':'" + type + "','Value':{'Context':'" + context + "','Issuer':'" + issuer + "'}}";
 
@@ -87,7 +85,7 @@ namespace Basic
 
             var serialized = tx.serialize();
             IList<object> param = new List<object>() { serialized };
-            var result = NetworkHelper.sendNetworkRequest(Common.Enums.Protocol.REST, "POST", Constants.REST_sendRawTransaction, param);
+            var result = NetworkHelper.sendNetworkRequest(Protocol.REST, "POST", Constants.REST_sendRawTransaction, param);
             return result;
         }
 
@@ -96,7 +94,7 @@ namespace Basic
             var tx = TransactionBuilder.buildAddPublicKeyTx(ontid, new_publickey, publickey, privatekey);
             var serialized = tx.serialize();
             IList<object> param = new List<object>() { serialized };
-            var result = NetworkHelper.sendNetworkRequest(Common.Enums.Protocol.REST, "POST", Constants.REST_sendRawTransaction, param);
+            var result = NetworkHelper.sendNetworkRequest(Protocol.REST, "POST", Constants.REST_sendRawTransaction, param);
             return result;
         }
 

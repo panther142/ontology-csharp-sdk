@@ -1,8 +1,5 @@
-﻿using ConnectionMethods;
-using Interface;
-using Network;
-using Network.NetworkHelper;
-using OntologyCSharpSDK.NetController;
+﻿using OntologyCSharpSDK.Interface;
+using OntologyCSharpSDK.Network;
 
 namespace OntologyCSharpSDK
 {

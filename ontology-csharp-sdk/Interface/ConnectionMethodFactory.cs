@@ -1,7 +1,6 @@
-﻿using Interface;
-using ConnectionMethods;
+﻿using OntologyCSharpSDK.ConnectionMethods;
 
-namespace OntologyCSharpSDK.NetController
+namespace OntologyCSharpSDK.Interface
 {
     public class ConnectionMethodFactory
     {

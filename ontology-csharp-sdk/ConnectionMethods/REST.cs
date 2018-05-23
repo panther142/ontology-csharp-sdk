@@ -1,12 +1,10 @@
-﻿using Interface;
+﻿using OntologyCSharpSDK.Interface;
 using System.Collections.Generic;
-using Common.Enums;
+using OntologyCSharpSDK.Common;
 using System;
-using Network.NetworkHelper;
-using Common.Constants;
-using Common.Cryptology;
+using OntologyCSharpSDK.Network;
 
-namespace ConnectionMethods
+namespace OntologyCSharpSDK.ConnectionMethods
 {
 
     public class REST : IConnectionMethod

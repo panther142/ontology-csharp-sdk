@@ -1,6 +1,6 @@
-﻿using OntologyCSharpSDK;
-using System;
-using OntologyCSharpSDK.NetController;
+﻿using System;
+using OntologyCSharpSDK;
+using OntologyCSharpSDK.Interface;
 
 namespace ontology_csharp_demo
 {
@@ -17,7 +17,7 @@ namespace ontology_csharp_demo
         static string BlockHash = "f0d2da3a971b2e51f8aebce06c37a9bb5253db39a28b1fd713b222928e2c439c";
         static string privatekey = "2d3747c9b5eba66e3b4f5b1491aa08720503fffca167b2b405af6f07c8eb108b";
 
-        
+
         static void Main(string[] args)
         {
             //QueryBlockchain();
@@ -27,7 +27,7 @@ namespace ontology_csharp_demo
             //AddPublicKey();
             Console.WriteLine("\r\n\r\nPress any key..");
             Console.ReadKey();
-            
+
         }
         //Query blockchain using chosen connection method (RPC, REST or Websocket)
         public static void QueryBlockchain()
@@ -45,7 +45,7 @@ namespace ontology_csharp_demo
             Console.WriteLine("Transaction Hex by Tx Hash: " + OntSDK.connectionManager.getRawTransactionHex(TxHash));
             Console.WriteLine("Transaction Json by Tx Hash: " + OntSDK.connectionManager.getRawTransactionJson(TxHash));
         }
- 
+
         // create a new private key
         public static void CreatePrivateKey()
         {

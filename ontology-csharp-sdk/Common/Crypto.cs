@@ -6,9 +6,9 @@ using Org.BouncyCastle.Asn1.Sec;
 using Org.BouncyCastle.Asn1.X9;
 using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.Security;
-using Common.Enums;
+using OntologyCSharpSDK.Common;
 
-namespace Common.Cryptology
+namespace OntologyCSharpSDK.Common
 {
     public static class Crypto
     {

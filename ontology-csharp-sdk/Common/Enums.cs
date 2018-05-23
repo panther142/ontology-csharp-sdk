@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Common.Enums
+﻿namespace OntologyCSharpSDK.Common
 {
 
     public enum signDataType

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Numerics;
 using System.Collections.Generic;
-using Common.Cryptology;
+using OntologyCSharpSDK.Common;
 
-namespace Common.SmartContract
+namespace OntologyCSharpSDK.Common
 {
     public class State
     {

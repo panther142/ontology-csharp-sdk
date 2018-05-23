@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace Common.Helpers
+namespace OntologyCSharpSDK.Common
 {
     public static class Helpers
     {

@@ -1,6 +1,4 @@
-﻿using Common;
-
-namespace Interface
+﻿namespace OntologyCSharpSDK.Interface
 {
     public interface IConnectionMethod
     {
