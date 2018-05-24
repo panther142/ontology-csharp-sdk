@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using OntologyCSharpSDK.Network;
-using OntologyCSharpSDK.Common;
+﻿using OntologyCSharpSDK.Common;
 using OntologyCSharpSDK.Interface;
+using OntologyCSharpSDK.Network;
 using System;
+using System.Collections.Generic;
 
 namespace OntologyCSharpSDK.ConnectionMethods
 {
@@ -186,7 +186,27 @@ namespace OntologyCSharpSDK.ConnectionMethods
 
         public string getMerkleProof(string hash)
         {
-            throw new System.NotImplementedException();
+            param.Clear();
+            param.Add(hash);
+            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.RPC, "POST", "getmerkleproof", param);
+            return response.jobjectResponse["result"].ToString();
+        }
+
+        public string getGasPrice()
+        {
+            param.Clear();
+            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.RPC, "POST", "getgasprice", param);
+            return response.jobjectResponse["result"].ToString();
+        }
+
+        public string getAllowance(string asset, string fromAddress, string toAddress)
+        {
+            param.Clear();
+            param.Add(asset);
+            param.Add(fromAddress);
+            param.Add(toAddress);
+            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.RPC, "POST", "getallowance", param);
+            return response.jobjectResponse["result"].ToString();
         }
     }
 }

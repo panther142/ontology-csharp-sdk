@@ -20,6 +20,16 @@ namespace OntologyCSharpSDK.ConnectionMethods
             return response.jobjectResponse["Result"].ToString();
         }
 
+        public string getAllowance(string asset, string fromAddress, string toAddress)
+        {
+            param.Clear();
+            param.Add(new KeyValuePair<string, object>("Asset", "ont"));
+            param.Add(new KeyValuePair<string, object>("From", fromAddress));
+            param.Add(new KeyValuePair<string, object>("To", toAddress));
+            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "getallowance", param);
+            return response.jobjectResponse["Result"].ToString();
+        }
+
         public string getBestBlockHash()
         {
             throw new NotImplementedException();
@@ -104,6 +114,13 @@ namespace OntologyCSharpSDK.ConnectionMethods
             return response.jobjectResponse["Result"].ToString();
         }
 
+        public string getGasPrice()
+        {
+            param.Clear();
+            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "getgasprice", param);
+            return response.jobjectResponse["Result"].ToString();
+        }
+
         public string getMempoolTxState(string txHash)
         {
             throw new NotImplementedException();
@@ -173,7 +190,7 @@ namespace OntologyCSharpSDK.ConnectionMethods
         }
 
         public string setSendRawTransaction(string tx, bool preExec)
-        {            
+        {
             param.Clear();
             param.Add(new KeyValuePair<string, object>("PreExec", Convert.ToInt32(preExec)));
             param.Add(new KeyValuePair<string, object>("Data", tx));

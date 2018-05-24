@@ -140,5 +140,21 @@
         /// <param name="preExec"></param>
         /// <returns></returns>
         string setSendRawTransaction(string tx, bool preExec);
+        
+        /// <summary>
+        /// Gets the current GAS price (transaction fee)
+        /// </summary>
+        /// <returns></returns>
+        string getGasPrice();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="asset"></param>
+        /// <param name="fromAddress"></param>
+        /// <param name="toAddress"></param>
+        /// <returns></returns>
+        string getAllowance(string asset, string fromAddress, string toAddress);
+
     }
 }

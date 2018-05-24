@@ -19,6 +19,16 @@ namespace OntologyCSharpSDK.ConnectionMethods
             return response.jobjectResponse["Result"].ToString();
         }
 
+        public string getAllowance(string asset, string fromAddress, string toAddress)
+        {
+            param.Clear();
+            param.Add(asset);
+            param.Add(fromAddress);
+            param.Add(toAddress);
+            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.REST, "GET", Constants.REST_getBlockHeightByTxHash, param);
+            return response.jobjectResponse["Result"].ToString();
+        }
+
         public string getBestBlockHash()
         {
             throw new NotImplementedException();
@@ -91,6 +101,13 @@ namespace OntologyCSharpSDK.ConnectionMethods
             return response.jobjectResponse["Result"].ToString();
         }
 
+        public string getGasPrice()
+        {
+            param.Clear();
+            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.REST, "GET", Constants.REST_getGasPrice, param);
+            return response.jobjectResponse["Result"].ToString();
+        }
+
         public string getMempoolTxState(string txHash)
         {
             throw new NotImplementedException();
@@ -136,7 +153,7 @@ namespace OntologyCSharpSDK.ConnectionMethods
         {
             param.Clear();
             param.Add(txHash);
-            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.REST, "GET", Constants.RESTful_getSmartCodeEventByTxHash, param);
+            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.REST, "GET", Constants.REST_getSmartCodeEventByTxHash, param);
             return response.jobjectResponse["Result"].ToString();
         }
 
