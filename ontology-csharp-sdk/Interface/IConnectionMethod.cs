@@ -117,7 +117,7 @@
         /// </summary>
         /// <param name="scriptHash"></param>
         /// <returns></returns>
-        string getContractState(string scriptHash);
+        string getContractJson(string contractHash);
 
         /// <summary>
         /// Returns the stranasction status as per the memory pool
@@ -132,12 +132,13 @@
         /// <param name="hash"></param>
         /// <returns></returns>
         string getMerkleProof(string hash);
-               
+
         /// <summary>
         /// Broadcasts a transaction to the network (must be a valid sign transaction in hex format)
         /// </summary>
-        /// <param name="hexValue"></param>
+        /// <param name="tx"></param>
+        /// <param name="preExec"></param>
         /// <returns></returns>
-        string setSendRawTransaction(string tx);
+        string setSendRawTransaction(string tx, bool preExec);
     }
 }

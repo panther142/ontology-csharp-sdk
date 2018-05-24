@@ -49,22 +49,34 @@ namespace OntologyCSharpSDK.ConnectionMethods
 
         public int getBlockHeightByTxHash(string txHash)
         {
-            throw new NotImplementedException();
+            param.Clear();
+            param.Add(new KeyValuePair<string, object>("Hash", txHash));
+            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "getblockheightbytxhash", param);
+            return (int)response.jobjectResponse["Result"];
         }
 
         public string getBlockHex(int blockHeight)
         {
-            throw new NotImplementedException();
+            param.Clear();
+            param.Add(new KeyValuePair<string, object>("Raw", 1));
+            param.Add(new KeyValuePair<string, object>("Height", blockHeight));
+            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "getblockbyheight", param);
+            return response.jobjectResponse["Result"].ToString();
         }
 
         public string getBlockHex(string blockHash)
         {
-            throw new NotImplementedException();
+            param.Clear();
+            param.Add(new KeyValuePair<string, object>("Raw", 1));
+            param.Add(new KeyValuePair<string, object>("Hash", blockHash));
+            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "getblockbyhash", param);
+            return response.jobjectResponse["Result"].ToString();
         }
 
         public string getBlockJson(int blockHeight)
         {
             param.Clear();
+            param.Add(new KeyValuePair<string, object>("Raw", 0));
             param.Add(new KeyValuePair<string, object>("Height", blockHeight));
             NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "getblockbyheight", param);
             return response.jobjectResponse["Result"].ToString();
@@ -86,12 +98,10 @@ namespace OntologyCSharpSDK.ConnectionMethods
 
         public string getContractJson(string contractHash)
         {
-            throw new NotImplementedException();
-        }
-
-        public string getContractState(string scriptHash)
-        {
-            throw new NotImplementedException();
+            param.Clear();
+            param.Add(new KeyValuePair<string, object>("Hash", contractHash));
+            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "getcontract", param);
+            return response.jobjectResponse["Result"].ToString();
         }
 
         public string getMempoolTxState(string txHash)
@@ -101,7 +111,10 @@ namespace OntologyCSharpSDK.ConnectionMethods
 
         public string getMerkleProof(string hash)
         {
-            throw new NotImplementedException();
+            param.Clear();
+            param.Add(new KeyValuePair<string, object>("Hash", hash));
+            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "getmerkleproof", param);
+            return response.jobjectResponse["Result"].ToString();
         }
 
         public int getNodeCount()
@@ -113,22 +126,36 @@ namespace OntologyCSharpSDK.ConnectionMethods
 
         public string getRawTransactionHex(string txHash)
         {
-            throw new NotImplementedException();
+            param.Clear();
+            param.Add(new KeyValuePair<string, object>("Raw", 1));
+            param.Add(new KeyValuePair<string, object>("Hash", txHash));
+            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "gettransaction", param);
+            return response.jobjectResponse["Result"].ToString();
         }
 
         public string getRawTransactionJson(string txHash)
         {
-            throw new NotImplementedException();
+            param.Clear();
+            param.Add(new KeyValuePair<string, object>("Raw", 0));
+            param.Add(new KeyValuePair<string, object>("Hash", txHash));
+            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "gettransaction", param);
+            return response.jobjectResponse["Result"].ToString();
         }
 
         public string getSmartCodeEvent(int blockHeight)
         {
-            throw new NotImplementedException();
+            param.Clear();
+            param.Add(new KeyValuePair<string, object>("Height", blockHeight));
+            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "getsmartcodeeventbyheight", param);
+            return response.jobjectResponse["Result"].ToString();
         }
 
         public string getSmartCodeEvent(string txHash)
         {
-            throw new NotImplementedException();
+            param.Clear();
+            param.Add(new KeyValuePair<string, object>("Height", txHash));
+            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "getsmartcodeeventbyhash", param);
+            return response.jobjectResponse["Result"].ToString();
         }
 
         public string getStorage(string contractHash, string key)
@@ -145,9 +172,13 @@ namespace OntologyCSharpSDK.ConnectionMethods
             throw new NotImplementedException();
         }
 
-        public string setSendRawTransaction(string tx)
-        {
-            throw new NotImplementedException();
+        public string setSendRawTransaction(string tx, bool preExec)
+        {            
+            param.Clear();
+            param.Add(new KeyValuePair<string, object>("PreExec", Convert.ToInt32(preExec)));
+            param.Add(new KeyValuePair<string, object>("Data", tx));
+            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "sendrawtransaction", param);
+            return response.jobjectResponse["Result"].ToString();
         }
     }
 }

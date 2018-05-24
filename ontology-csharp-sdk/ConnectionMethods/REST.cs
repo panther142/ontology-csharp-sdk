@@ -91,11 +91,6 @@ namespace OntologyCSharpSDK.ConnectionMethods
             return response.jobjectResponse["Result"].ToString();
         }
 
-        public string getContractState(string scriptHash)
-        {
-            throw new NotImplementedException();
-        }
-
         public string getMempoolTxState(string txHash)
         {
             throw new NotImplementedException();
@@ -161,12 +156,20 @@ namespace OntologyCSharpSDK.ConnectionMethods
             throw new NotImplementedException();
         }
 
-        public string setSendRawTransaction(string tx)
+        public string setSendRawTransaction(string tx, bool preExec)
         {
             param.Clear();
             param.Add(tx);
-            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.REST, "POST", Constants.REST_sendRawTransaction, param);
-            return response.jobjectResponse["result"].ToString();
+            if (preExec)
+            {
+                NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.REST, "POST", Constants.REST_sendRawTransactionPreExec, param);
+                return response.jobjectResponse["result"].ToString();
+            }
+            else
+            {
+                NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.REST, "POST", Constants.REST_sendRawTransaction, param);
+                return response.jobjectResponse["result"].ToString();
+            }
         }
     }
 }

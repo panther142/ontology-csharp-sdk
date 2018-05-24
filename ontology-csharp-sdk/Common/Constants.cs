@@ -18,7 +18,8 @@
         public const string REST_getTransactionsInBlock = "/api/v1/block/transactions/height"; //+height
         public const string REST_getMerkleProof = "/api/v1/merkleproof";//+hash 
         public const string REST_getStorage = "/api/v1/storage"; //+hash + /key
-        public const string REST_sendRawTransaction = "/api/v1/transaction";
+        public const string REST_sendRawTransaction = "/api/v1/transaction?preExec=0";
+        public const string REST_sendRawTransactionPreExec = "/api/v1/transaction?preExec=1";
         #endregion
 
 

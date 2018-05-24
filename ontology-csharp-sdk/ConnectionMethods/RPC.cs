@@ -2,6 +2,7 @@
 using OntologyCSharpSDK.Network;
 using OntologyCSharpSDK.Common;
 using OntologyCSharpSDK.Interface;
+using System;
 
 namespace OntologyCSharpSDK.ConnectionMethods
 {
@@ -158,10 +159,10 @@ namespace OntologyCSharpSDK.ConnectionMethods
             return (int)response.jobjectResponse["result"];
         }
 
-        public string getContractState(string scriptHash)
+        public string getContractJson(string contractHash)
         {
             param.Clear();
-            param.Add(scriptHash);
+            param.Add(contractHash);
             NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.RPC, "POST", "getcontractstate", param);
             return response.jobjectResponse["result"].ToString();
         }
@@ -174,10 +175,11 @@ namespace OntologyCSharpSDK.ConnectionMethods
             return response.jobjectResponse["result"].ToString();
         }
 
-        public string setSendRawTransaction(string tx)
+        public string setSendRawTransaction(string tx, bool preExec)
         {
             param.Clear();
             param.Add(tx);
+            param.Add(Convert.ToInt32(preExec));
             NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.RPC, "POST", "sendrawtransaction", param);
             return response.jobjectResponse["result"].ToString();
         }
