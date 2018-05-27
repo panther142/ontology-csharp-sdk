@@ -6,12 +6,12 @@ namespace OntologyCSharpSDK
     public class OntologySDK
     {
         private Basic.Account account = null;
-        public IConnectionMethod connectionManager;
+        public IConnectionMethod connectionManager = null;
+        public WebsocketSubscribe websocketSubscribe = new WebsocketSubscribe();
+
 
         public OntologySDK(string node, ConnectionMethodFactory.ConnectionMethod connectionMethod)
         {
-
-            connectionManager = null;
             ConnectionMethodFactory factory = new ConnectionMethodFactory();
             connectionManager = factory.setConnectionMethod(connectionMethod);
 

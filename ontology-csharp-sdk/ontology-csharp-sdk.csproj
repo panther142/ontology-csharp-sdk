@@ -69,6 +69,7 @@
     <Compile Include="Interface\IAccount.cs" />
     <Compile Include="Interface\IConnectionMethod.cs" />
     <Compile Include="Network\NetworkHelper.cs" />
+    <Compile Include="Network\WebsocketSubscribe.cs" />
     <Compile Include="OntologySDK.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -1,6 +1,7 @@
-﻿using System;
-using OntologyCSharpSDK;
+﻿using OntologyCSharpSDK;
 using OntologyCSharpSDK.Interface;
+using System;
+using System.Threading.Tasks;
 
 namespace ontology_csharp_demo
 {
@@ -9,7 +10,7 @@ namespace ontology_csharp_demo
 
         // MAIN_NODE = "54.222.182.88";
         // TEST_NODE = "139.219.111.50";
-        private static string node = "ws://192.168.4.5:20335";
+        private static string node = "http://192.168.4.5:20336";
 
         static OntologySDK OntSDK = new OntologySDK(node, ConnectionMethodFactory.ConnectionMethod.RPC);
         static string TxHash = "5fcffe97e2c4d413b34cea985bf548bfce0ae3a0cbf2c9ec9e518388c0dd650a5fcffe97e2c4d413b34cea985bf548bfce0ae3a0cbf2c9ec9e518388c0dd650a";
@@ -20,6 +21,17 @@ namespace ontology_csharp_demo
 
         static void Main(string[] args)
         {
+            /************  Example to show Websocket Subcribe functionality
+            ConsoleKeyInfo cki;
+            var progress = new Progress<string>(ProgressUpdate);
+            Task wsSubscribeTask = Task.Factory.StartNew(() => OntSDK.websocketSubscribe.SubscribeAsync(null, true, true, false, false, "ws://192.168.4.5:20335", progress));
+            do
+            {
+                cki = Console.ReadKey();
+            } while (cki.Key != ConsoleKey.Escape);
+            wsSubscribeTask.Dispose(); 
+            ****************/
+
             //QueryBlockchain();
             //CreateRegisterONTID();
             //TransferFund();
@@ -27,8 +39,8 @@ namespace ontology_csharp_demo
             //AddPublicKey();
             Console.WriteLine("\r\n\r\nPress any key..");
             Console.ReadKey();
-
         }
+
         //Query blockchain using chosen connection method (RPC, REST or Websocket)
         public static void QueryBlockchain()
         {
@@ -123,6 +135,12 @@ namespace ontology_csharp_demo
             var result = OntSDK.addPublicKey(ontid, publickey2, publickey, privatekey);
             Console.WriteLine("result:{0}", result.rawResponse);
         }
+
+        static void ProgressUpdate(string progress)
+        {
+            Console.WriteLine(progress);
+        }
+
     }
 
 }
