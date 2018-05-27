@@ -7,6 +7,7 @@ using System.IO;
 using System.Net;
 using WebSocketSharp;
 using OntologyCSharpSDK.Common;
+using OntologyCSharpSDK.ExceptionHandling;
 
 
 namespace OntologyCSharpSDK.Network
@@ -106,7 +107,15 @@ namespace OntologyCSharpSDK.Network
                         {
                             response.rawResponse = sr.ReadToEnd();
                             response.jobjectResponse = JsonConvert.DeserializeObject<JObject>(response.rawResponse);
-                            return response;
+
+                            if (Convert.ToInt32(response.jobjectResponse.GetValue("error")) == 0)
+                            {
+                                return response;
+                            }
+                            else
+                            {
+                                throw new NetworkException("An error response was received from the server.", response, Protocol.RPC, request);
+                            }
                         }
                     }
                 }

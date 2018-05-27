@@ -64,6 +64,7 @@
     <Compile Include="ConnectionMethods\REST.cs" />
     <Compile Include="ConnectionMethods\RPC.cs" />
     <Compile Include="ConnectionMethods\Websocket.cs" />
+    <Compile Include="ExceptionHandling\NetworkException.cs" />
     <Compile Include="Interface\ConnectionMethodFactory.cs" />
     <Compile Include="Common\Helpers.cs" />
     <Compile Include="Interface\IAccount.cs" />

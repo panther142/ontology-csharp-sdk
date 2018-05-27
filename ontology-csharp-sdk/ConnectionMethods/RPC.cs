@@ -3,13 +3,13 @@ using OntologyCSharpSDK.Interface;
 using OntologyCSharpSDK.Network;
 using System;
 using System.Collections.Generic;
+using OntologyCSharpSDK.ExceptionHandling;
 
 namespace OntologyCSharpSDK.ConnectionMethods
 {
 
     public class RPC : IConnectionMethod
     {
-
         IList<object> param = new List<object>();
 
         public int getBlockGenerationTime()
@@ -28,10 +28,14 @@ namespace OntologyCSharpSDK.ConnectionMethods
 
         public int getBlockHeightByTxHash(string txHash)
         {
-            param.Clear();
-            param.Add(txHash);
-            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.RPC, "POST", "getblockheightbytxhash", param);
-            return (int)response.jobjectResponse["result"];
+            try
+            {
+                param.Clear();
+                param.Add(txHash);
+                NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.RPC, "POST", "getblockheightbytxhash", param);
+                return (int)response.jobjectResponse["result"];
+             }
+            catch { throw; }
         }
 
         public string getBlockHex(int blockHeight)
