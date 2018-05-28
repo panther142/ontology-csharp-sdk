@@ -3,7 +3,6 @@ using OntologyCSharpSDK.Interface;
 using OntologyCSharpSDK.Network;
 using System;
 using System.Collections.Generic;
-using OntologyCSharpSDK.ExceptionHandling;
 
 namespace OntologyCSharpSDK.ConnectionMethods
 {
