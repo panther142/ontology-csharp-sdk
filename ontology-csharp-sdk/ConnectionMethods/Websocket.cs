@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using OntologyCSharpSDK.Common;
 using OntologyCSharpSDK.Interface;
-using OntologyCSharpSDK.Common;
 using OntologyCSharpSDK.Network;
+using System;
+using System.Collections.Generic;
 
 namespace OntologyCSharpSDK.ConnectionMethods
 {
@@ -13,21 +13,29 @@ namespace OntologyCSharpSDK.ConnectionMethods
 
         public string getAddressBalance(string address)
         {
-            param.Clear();
-            param.Add(new KeyValuePair<string, object>("Raw", 0));
-            param.Add(new KeyValuePair<string, object>("Addr", address));
-            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "getbalance", param);
-            return response.jobjectResponse["Result"].ToString();
+            try
+            {
+                param.Clear();
+                param.Add(new KeyValuePair<string, object>("Raw", 0));
+                param.Add(new KeyValuePair<string, object>("Addr", address));
+                NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "getbalance", param);
+                return response.jobjectResponse["Result"].ToString();
+            }
+            catch { throw; }
         }
 
         public string getAllowance(string asset, string fromAddress, string toAddress)
         {
-            param.Clear();
-            param.Add(new KeyValuePair<string, object>("Asset", "ont"));
-            param.Add(new KeyValuePair<string, object>("From", fromAddress));
-            param.Add(new KeyValuePair<string, object>("To", toAddress));
-            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "getallowance", param);
-            return response.jobjectResponse["Result"].ToString();
+            try
+            {
+                param.Clear();
+                param.Add(new KeyValuePair<string, object>("Asset", "ont"));
+                param.Add(new KeyValuePair<string, object>("From", fromAddress));
+                param.Add(new KeyValuePair<string, object>("To", toAddress));
+                NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "getallowance", param);
+                return response.jobjectResponse["Result"].ToString();
+            }
+            catch { throw; }
         }
 
         public string getBestBlockHash()
@@ -37,68 +45,100 @@ namespace OntologyCSharpSDK.ConnectionMethods
 
         public int getBlockGenerationTime()
         {
-            param.Clear();
-            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "getgenerateblocktime", param);
-            return (int)response.jobjectResponse["Result"];
+            try
+            {
+                param.Clear();
+                NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "getgenerateblocktime", param);
+                return (int)response.jobjectResponse["Result"];
+            }
+            catch { throw; }
         }
 
         public string getBlockHashByHeight(int blockHeight)
         {
-            param.Clear();
-            param.Add(new KeyValuePair<string, object>("Height", blockHeight));
-            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "getblockhash", param);
-            return response.jobjectResponse["Result"].ToString();
+            try
+            {
+                param.Clear();
+                param.Add(new KeyValuePair<string, object>("Height", blockHeight));
+                NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "getblockhash", param);
+                return response.jobjectResponse["Result"].ToString();
+            }
+            catch { throw; }
         }
 
         public int getBlockHeight()
         {
-            param.Clear();
-            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "getblockheight", param);
-            return (int)response.jobjectResponse["Result"];
+            try
+            {
+                param.Clear();
+                NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "getblockheight", param);
+                return (int)response.jobjectResponse["Result"];
+            }
+            catch { throw; }
         }
 
         public int getBlockHeightByTxHash(string txHash)
         {
-            param.Clear();
-            param.Add(new KeyValuePair<string, object>("Hash", txHash));
-            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "getblockheightbytxhash", param);
-            return (int)response.jobjectResponse["Result"];
+            try
+            {
+                param.Clear();
+                param.Add(new KeyValuePair<string, object>("Hash", txHash));
+                NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "getblockheightbytxhash", param);
+                return (int)response.jobjectResponse["Result"];
+            }
+            catch { throw; }
         }
 
         public string getBlockHex(int blockHeight)
         {
-            param.Clear();
-            param.Add(new KeyValuePair<string, object>("Raw", 1));
-            param.Add(new KeyValuePair<string, object>("Height", blockHeight));
-            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "getblockbyheight", param);
-            return response.jobjectResponse["Result"].ToString();
+            try
+            {
+                param.Clear();
+                param.Add(new KeyValuePair<string, object>("Raw", 1));
+                param.Add(new KeyValuePair<string, object>("Height", blockHeight));
+                NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "getblockbyheight", param);
+                return response.jobjectResponse["Result"].ToString();
+            }
+            catch { throw; }
         }
 
         public string getBlockHex(string blockHash)
         {
-            param.Clear();
-            param.Add(new KeyValuePair<string, object>("Raw", 1));
-            param.Add(new KeyValuePair<string, object>("Hash", blockHash));
-            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "getblockbyhash", param);
-            return response.jobjectResponse["Result"].ToString();
+            try
+            {
+                param.Clear();
+                param.Add(new KeyValuePair<string, object>("Raw", 1));
+                param.Add(new KeyValuePair<string, object>("Hash", blockHash));
+                NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "getblockbyhash", param);
+                return response.jobjectResponse["Result"].ToString();
+            }
+            catch { throw; }
         }
 
         public string getBlockJson(int blockHeight)
         {
-            param.Clear();
-            param.Add(new KeyValuePair<string, object>("Raw", 0));
-            param.Add(new KeyValuePair<string, object>("Height", blockHeight));
-            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "getblockbyheight", param);
-            return response.jobjectResponse["Result"].ToString();
+            try
+            {
+                param.Clear();
+                param.Add(new KeyValuePair<string, object>("Raw", 0));
+                param.Add(new KeyValuePair<string, object>("Height", blockHeight));
+                NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "getblockbyheight", param);
+                return response.jobjectResponse["Result"].ToString();
+            }
+            catch { throw; }
         }
 
         public string getBlockJson(string blockHash)
         {
-            param.Clear();
-            param.Add(new KeyValuePair<string, object>("Raw", 0));
-            param.Add(new KeyValuePair<string, object>("Hash", blockHash));
-            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "getblockbyhash", param);
-            return response.jobjectResponse["Result"].ToString();
+            try
+            {
+                param.Clear();
+                param.Add(new KeyValuePair<string, object>("Raw", 0));
+                param.Add(new KeyValuePair<string, object>("Hash", blockHash));
+                NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "getblockbyhash", param);
+                return response.jobjectResponse["Result"].ToString();
+            }
+            catch { throw; }
         }
 
         public int getBlockSysFee(int index)
@@ -108,17 +148,25 @@ namespace OntologyCSharpSDK.ConnectionMethods
 
         public string getContractJson(string contractHash)
         {
-            param.Clear();
-            param.Add(new KeyValuePair<string, object>("Hash", contractHash));
-            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "getcontract", param);
-            return response.jobjectResponse["Result"].ToString();
+            try
+            {
+                param.Clear();
+                param.Add(new KeyValuePair<string, object>("Hash", contractHash));
+                NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "getcontract", param);
+                return response.jobjectResponse["Result"].ToString();
+            }
+            catch { throw; }
         }
 
         public string getGasPrice()
         {
-            param.Clear();
-            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "getgasprice", param);
-            return response.jobjectResponse["Result"].ToString();
+            try
+            {
+                param.Clear();
+                NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "getgasprice", param);
+                return response.jobjectResponse["Result"].ToString();
+            }
+            catch { throw; }
         }
 
         public string getMempoolTxState(string txHash)
@@ -128,60 +176,88 @@ namespace OntologyCSharpSDK.ConnectionMethods
 
         public string getMerkleProof(string hash)
         {
-            param.Clear();
-            param.Add(new KeyValuePair<string, object>("Hash", hash));
-            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "getmerkleproof", param);
-            return response.jobjectResponse["Result"].ToString();
+            try
+            {
+                param.Clear();
+                param.Add(new KeyValuePair<string, object>("Hash", hash));
+                NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "getmerkleproof", param);
+                return response.jobjectResponse["Result"].ToString();
+            }
+            catch { throw; }
         }
 
         public int getNodeCount()
         {
-            param.Clear();
-            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "getconnectioncount", param);
-            return (int)response.jobjectResponse["Result"];
+            try
+            {
+                param.Clear();
+                NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "getconnectioncount", param);
+                return (int)response.jobjectResponse["Result"];
+            }
+            catch { throw; }
         }
 
         public string getRawTransactionHex(string txHash)
         {
-            param.Clear();
-            param.Add(new KeyValuePair<string, object>("Raw", 1));
-            param.Add(new KeyValuePair<string, object>("Hash", txHash));
-            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "gettransaction", param);
-            return response.jobjectResponse["Result"].ToString();
+            try
+            {
+                param.Clear();
+                param.Add(new KeyValuePair<string, object>("Raw", 1));
+                param.Add(new KeyValuePair<string, object>("Hash", txHash));
+                NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "gettransaction", param);
+                return response.jobjectResponse["Result"].ToString();
+            }
+            catch { throw; }
         }
 
         public string getRawTransactionJson(string txHash)
         {
-            param.Clear();
-            param.Add(new KeyValuePair<string, object>("Raw", 0));
-            param.Add(new KeyValuePair<string, object>("Hash", txHash));
-            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "gettransaction", param);
-            return response.jobjectResponse["Result"].ToString();
+            try
+            {
+                param.Clear();
+                param.Add(new KeyValuePair<string, object>("Raw", 0));
+                param.Add(new KeyValuePair<string, object>("Hash", txHash));
+                NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "gettransaction", param);
+                return response.jobjectResponse["Result"].ToString();
+            }
+            catch { throw; }
         }
 
         public string getSmartCodeEvent(int blockHeight)
         {
-            param.Clear();
-            param.Add(new KeyValuePair<string, object>("Height", blockHeight));
-            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "getsmartcodeeventbyheight", param);
-            return response.jobjectResponse["Result"].ToString();
+            try
+            {
+                param.Clear();
+                param.Add(new KeyValuePair<string, object>("Height", blockHeight));
+                NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "getsmartcodeeventbyheight", param);
+                return response.jobjectResponse["Result"].ToString();
+            }
+            catch { throw; }
         }
 
         public string getSmartCodeEvent(string txHash)
         {
-            param.Clear();
-            param.Add(new KeyValuePair<string, object>("Height", txHash));
-            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "getsmartcodeeventbyhash", param);
-            return response.jobjectResponse["Result"].ToString();
+            try
+            {
+                param.Clear();
+                param.Add(new KeyValuePair<string, object>("Height", txHash));
+                NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "getsmartcodeeventbyhash", param);
+                return response.jobjectResponse["Result"].ToString();
+            }
+            catch { throw; }
         }
 
         public string getStorage(string contractHash, string key)
         {
-            param.Clear();
-            param.Add(new KeyValuePair<string, object>("Hash", contractHash));
-            param.Add(new KeyValuePair<string, object>("Key", key));
-            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "getstorage", param);
-            return response.jobjectResponse["Result"].ToString();
+            try
+            {
+                param.Clear();
+                param.Add(new KeyValuePair<string, object>("Hash", contractHash));
+                param.Add(new KeyValuePair<string, object>("Key", key));
+                NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "getstorage", param);
+                return response.jobjectResponse["Result"].ToString();
+            }
+            catch { throw; }
         }
 
         public int getVersion()
@@ -191,11 +267,15 @@ namespace OntologyCSharpSDK.ConnectionMethods
 
         public string setSendRawTransaction(string tx, bool preExec)
         {
-            param.Clear();
-            param.Add(new KeyValuePair<string, object>("PreExec", Convert.ToInt32(preExec)));
-            param.Add(new KeyValuePair<string, object>("Data", tx));
-            NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "sendrawtransaction", param);
-            return response.jobjectResponse["Result"].ToString();
+            try
+            {
+                param.Clear();
+                param.Add(new KeyValuePair<string, object>("PreExec", Convert.ToInt32(preExec)));
+                param.Add(new KeyValuePair<string, object>("Data", tx));
+                NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "sendrawtransaction", param);
+                return response.jobjectResponse["Result"].ToString();
+            }
+            catch { throw; }
         }
     }
 }
