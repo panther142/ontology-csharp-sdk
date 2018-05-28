@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System.IO;
-using System.Net;
-using WebSocketSharp;
 using OntologyCSharpSDK.Common;
 using OntologyCSharpSDK.ExceptionHandling;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Net;
+using System.Text;
+using WebSocketSharp;
 
 
 namespace OntologyCSharpSDK.Network
@@ -77,7 +77,7 @@ namespace OntologyCSharpSDK.Network
             }
             catch (Exception ex)
             {
-                throw new Exception("Error while creating HttpWebRequest object", ex.InnerException);
+                throw new NetworkException("Error while creating HttpWebRequest object", ex.InnerException);
             }
 
             // Send network request
@@ -184,7 +184,15 @@ namespace OntologyCSharpSDK.Network
                         {
                             response.rawResponse = sr.ReadToEnd();
                             response.jobjectResponse = JsonConvert.DeserializeObject<JObject>(response.rawResponse);
-                            return response;
+
+                            if (Convert.ToInt32(response.jobjectResponse.GetValue("error")) == 0)
+                            {
+                                return response;
+                            }
+                            else
+                            {
+                                throw new NetworkException("An error response was received from the server.", response, Protocol.REST, request);
+                            }
                         }
                     }
                 }
@@ -208,7 +216,14 @@ namespace OntologyCSharpSDK.Network
                 {
                     response.rawResponse = e.Data;
                     response.jobjectResponse = JsonConvert.DeserializeObject<JObject>(response.rawResponse);
-                    ws.Close();
+                    if (Convert.ToInt32(response.jobjectResponse.GetValue("error")) == 0)
+                    {
+                        ws.Close();
+                    }
+                    else
+                    {
+                        throw new NetworkException("An error response was received from the server.", response, Protocol.Websocket, request);
+                    }
                 };
 
                 ws.OnError += (sender, e) =>
