@@ -1,7 +1,7 @@
-﻿using System;
-using OntologyCSharpSDK.Common;
+﻿using OntologyCSharpSDK.Common;
 using OntologyCSharpSDK.Network;
-using System.Runtime.CompilerServices;
+using System;
+
 
 namespace OntologyCSharpSDK.ExceptionHandling
 {
@@ -32,13 +32,20 @@ namespace OntologyCSharpSDK.ExceptionHandling
         public NetworkException(string message, NetworkResponse response, Protocol connectionmethod, string request)
             : base(message)
         {
-            _networkErrorCode = Convert.ToInt32(response.jobjectResponse.GetValue("error"));
-            _networkErrorDescription = response.jobjectResponse.GetValue("desc").ToString();
+            string errorfield = "Error";
+            string descriptionfield = "Desc";
+
+            if (connectionmethod == Protocol.RPC)
+            {
+                errorfield = "error";
+                descriptionfield = "desc";
+            }
+            
+            _networkErrorCode = Convert.ToInt32(response.jobjectResponse.GetValue(errorfield).ToString());
+            _networkErrorDescription = response.jobjectResponse.GetValue(descriptionfield).ToString();
             _networkRawError = response.rawResponse;
             _connectionMethod = connectionmethod;
             _networkRequestSent = request;
         }
-
     }
-
 }

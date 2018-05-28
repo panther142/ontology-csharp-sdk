@@ -185,7 +185,7 @@ namespace OntologyCSharpSDK.Network
                             response.rawResponse = sr.ReadToEnd();
                             response.jobjectResponse = JsonConvert.DeserializeObject<JObject>(response.rawResponse);
 
-                            if (Convert.ToInt32(response.jobjectResponse.GetValue("error")) == 0)
+                            if (Convert.ToInt32(response.jobjectResponse.GetValue("Error")) == 0)
                             {
                                 return response;
                             }
@@ -205,42 +205,45 @@ namespace OntologyCSharpSDK.Network
 
         private static NetworkResponse sendWebSocketRequest(string request, string host)
         {
-
-            NetworkResponse response = new NetworkResponse();
-
-
-            using (var ws = new WebSocket(host))
+            try
             {
 
-                ws.OnMessage += (sender, e) =>
+                NetworkResponse response = new NetworkResponse();
+                
+                using (var ws = new WebSocket(host))
                 {
-                    response.rawResponse = e.Data;
-                    response.jobjectResponse = JsonConvert.DeserializeObject<JObject>(response.rawResponse);
-                    if (Convert.ToInt32(response.jobjectResponse.GetValue("error")) == 0)
+                    
+                    ws.OnMessage += (sender, e) =>
                     {
+                        response.rawResponse = e.Data;
+                        response.jobjectResponse = JsonConvert.DeserializeObject<JObject>(response.rawResponse);
                         ws.Close();
+                    };
+                    
+                    ws.OnError += (sender, e) =>
+                    {
+                        response.rawResponse = e.Exception.InnerException.ToString();
+                        ws.Close();
+                    };
+
+                    ws.Connect();
+                    ws.Send(request);
+
+                    while (ws.IsAlive)
+                    {
+                    }
+
+                    if (Convert.ToInt32(response.jobjectResponse.GetValue("Error")) == 0)
+                    {
+                        return response;
                     }
                     else
                     {
-                        throw new NetworkException("An error response was received from the server.", response, Protocol.Websocket, request);
+                        throw new NetworkException("An error response was received from the server.", response, Protocol.REST, request);
                     }
-                };
-
-                ws.OnError += (sender, e) =>
-                {
-                    response.rawResponse = e.Exception.InnerException.ToString();
-                    ws.Close();
-                };
-
-                ws.Connect();
-                ws.Send(request);
-
-                while (ws.IsAlive)
-                {
                 }
-
-                return response;
             }
+            catch { throw; }
         }
 
         private static string rpcRequestBuilder(string method, IList<object> param)
