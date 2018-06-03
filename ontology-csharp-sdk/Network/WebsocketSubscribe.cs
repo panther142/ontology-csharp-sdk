@@ -10,49 +10,52 @@ namespace OntologyCSharpSDK.Network
     {
         public async Task SubscribeAsync(string contractFilter, bool subscribeEvents, bool subscribeJsonBlock, bool subscribeHexBlock, bool subscribeBlockTxHashes, string node, IProgress<string> progress)
         {
-            JObject jsonObject = new JObject();
-
-            jsonObject["Action"] = "subscribe";
-            jsonObject["Version"] = "1.0.0";
-            jsonObject["contractAddress"] = contractFilter;
-            jsonObject["SubscribeEvent"] = subscribeEvents;
-            jsonObject["SubscribeJsonBlock"] = subscribeJsonBlock;
-            jsonObject["SubscribeRawBlock"] = subscribeHexBlock;
-            jsonObject["SubscribeBlockTxHashs"] = subscribeBlockTxHashes;
-
-            string jsonSubscribe = JsonConvert.SerializeObject(jsonObject);
-
-            var ws = new WebSocket(node);
-
-            ws.OnMessage += (sender, e) =>
+            try
             {
-                progress.Report(e.Data);
-            };
+                JObject jsonObject = new JObject();
 
-            ws.OnError += (sender, e) =>
-            {
-                ws.Close();
-            };
+                jsonObject["Action"] = "subscribe";
+                jsonObject["Version"] = "1.0.0";
+                jsonObject["contractAddress"] = contractFilter;
+                jsonObject["SubscribeEvent"] = subscribeEvents;
+                jsonObject["SubscribeJsonBlock"] = subscribeJsonBlock;
+                jsonObject["SubscribeRawBlock"] = subscribeHexBlock;
+                jsonObject["SubscribeBlockTxHashs"] = subscribeBlockTxHashes;
 
-            Action<bool> completed = null;
+                string jsonSubscribe = JsonConvert.SerializeObject(jsonObject);
 
-            ws.Connect();
-            ws.SendAsync(jsonSubscribe, completed);
+                var ws = new WebSocket(node);
 
-            // While connection is still alive, send heartbeat every 4 minutes (required by websocket server else session expires)
-            while (ws.IsAlive)
-            {
-                JObject heartbeat = new JObject();
+                ws.OnMessage += (sender, e) =>
+                {
+                    progress.Report(e.Data);
+                };
 
-                heartbeat["Action"] = "heartbeat";
-                heartbeat["Version"] = "1.0.0";
+                ws.OnError += (sender, e) =>
+                {
+                    ws.Close();
+                };
 
-                string jsonHeartbeat = JsonConvert.SerializeObject(heartbeat);
-                ws.SendAsync(jsonHeartbeat, completed);
+                Action<bool> completed = null;
 
-                await Task.Delay(200000);
+                ws.Connect();
+                ws.SendAsync(jsonSubscribe, completed);
+
+                // While connection is still alive, send heartbeat every 4 minutes (required by websocket server else session expires)
+                while (ws.IsAlive)
+                {
+                    JObject heartbeat = new JObject();
+
+                    heartbeat["Action"] = "heartbeat";
+                    heartbeat["Version"] = "1.0.0";
+
+                    string jsonHeartbeat = JsonConvert.SerializeObject(heartbeat);
+                    ws.SendAsync(jsonHeartbeat, completed);
+
+                    await Task.Delay(200000);
+                }
             }
-
+            catch { throw; }
         }
     }
 }

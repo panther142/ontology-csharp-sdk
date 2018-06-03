@@ -19,43 +19,46 @@ namespace OntologyCSharpSDK.Network
         public static NetworkResponse sendNetworkRequest(Protocol protocol, string requestType, string method, IList<object> param)
         {
 
-            requestType = requestType.ToUpper();
-
-            string host = Basic.Account._node;
-
-            string request = "";
-
-            switch (protocol)
+            try
             {
-                case Protocol.RPC:
-                    {
-                        request = rpcRequestBuilder(method, param);
-                        return sendRPCRequest(request, requestType, host);
-                    }
+                requestType = requestType.ToUpper();
 
-                case Protocol.REST:
-                    {
-                        if (requestType == "GET")
+                string host = Basic.Account._node;
+
+                string request = "";
+
+                switch (protocol)
+                {
+                    case Protocol.RPC:
                         {
-                            request = restRequestBuilder(method, param);
+                            request = rpcRequestBuilder(method, param);
+                            return sendRPCRequest(request, requestType, host);
                         }
-                        else
+
+                    case Protocol.REST:
                         {
-                            request = restBuildSendRawTransaction(method, param);
+                            if (requestType == "GET")
+                            {
+                                request = restRequestBuilder(method, param);
+                            }
+                            else
+                            {
+                                request = restBuildSendRawTransaction(method, param);
+                            }
+                            return sendRESTRequest(request, requestType, host);
                         }
-                        return sendRESTRequest(request, requestType, host);
-                    }
 
-                case Protocol.Websocket:
-                    {
-                        request = webSocketRequestBuilder(method, param);
-                        return sendWebSocketRequest(request, host);
-                    }
+                    case Protocol.Websocket:
+                        {
+                            request = webSocketRequestBuilder(method, param);
+                            return sendWebSocketRequest(request, host);
+                        }
 
-                default:
-                    return null;
+                    default:
+                        return null;
+                }
             }
-
+            catch { throw; }
         }
 
         private static NetworkResponse sendRPCRequest(string request, string requestType, string host)
@@ -209,17 +212,17 @@ namespace OntologyCSharpSDK.Network
             {
 
                 NetworkResponse response = new NetworkResponse();
-                
+
                 using (var ws = new WebSocket(host))
                 {
-                    
+
                     ws.OnMessage += (sender, e) =>
                     {
                         response.rawResponse = e.Data;
                         response.jobjectResponse = JsonConvert.DeserializeObject<JObject>(response.rawResponse);
                         ws.Close();
                     };
-                    
+
                     ws.OnError += (sender, e) =>
                     {
                         response.rawResponse = e.Exception.InnerException.ToString();
@@ -248,73 +251,84 @@ namespace OntologyCSharpSDK.Network
 
         private static string rpcRequestBuilder(string method, IList<object> param)
         {
+            try
+            {
+                JObject jsonObject = new JObject();
 
-            JObject jsonObject = new JObject();
+                jsonObject["jsonrpc"] = "2.0";
+                jsonObject["method"] = method;
+                jsonObject["id"] = 1;
 
-            jsonObject["jsonrpc"] = "2.0";
-            jsonObject["method"] = method;
-            jsonObject["id"] = 1;
+                JArray jsonArray = new JArray(param);
 
-            JArray jsonArray = new JArray(param);
+                jsonObject.Add("params", jsonArray);
 
-            jsonObject.Add("params", jsonArray);
-
-            string json = JsonConvert.SerializeObject(jsonObject);
-            return json;
-
+                string json = JsonConvert.SerializeObject(jsonObject);
+                return json;
+            }
+            catch { throw; }
         }
 
 
         private static string restRequestBuilder(string method, IList<object> param)
         {
-
-            StringBuilder sb = new StringBuilder();
-            sb.Append(method);
-
-            if (param != null)
+            try
             {
-                foreach (object o in param)
+                StringBuilder sb = new StringBuilder();
+                sb.Append(method);
+
+                if (param != null)
                 {
-                    sb.Append("/" + o);
-                }
+                    foreach (object o in param)
+                    {
+                        sb.Append("/" + o);
+                    }
 
-                return sb.ToString();
+                    return sb.ToString();
+                }
+                else
+                {
+                    return sb.ToString();
+                }
             }
-            else
-            {
-                return sb.ToString();
-            }
+            catch { throw; }
         }
 
         private static string webSocketRequestBuilder(string method, IList<object> param)
         {
-            JObject jsonObject = new JObject();
-
-            jsonObject["Action"] = method;
-            jsonObject["Version"] = "1.0.0";
-
-            foreach (KeyValuePair<string, object> kvp in param)
+            try
             {
-                JToken jt = JToken.FromObject(kvp.Value);
-                jsonObject.Add(kvp.Key, jt);
+                JObject jsonObject = new JObject();
+
+                jsonObject["Action"] = method;
+                jsonObject["Version"] = "1.0.0";
+
+                foreach (KeyValuePair<string, object> kvp in param)
+                {
+                    JToken jt = JToken.FromObject(kvp.Value);
+                    jsonObject.Add(kvp.Key, jt);
+                }
+
+                string json = JsonConvert.SerializeObject(jsonObject);
+                return json;
             }
-
-            string json = JsonConvert.SerializeObject(jsonObject);
-            return json;
-
+            catch { throw; }
         }
 
         public static string restBuildSendRawTransaction(string method, IList<object> param)
         {
+            try
+            {
+                JObject jsonObject = new JObject();
 
-            JObject jsonObject = new JObject();
+                jsonObject["Action"] = "sendrawtransaction";
+                jsonObject["Version"] = "1.0.0";
+                jsonObject["Data"] = param[0].ToString();
 
-            jsonObject["Action"] = "sendrawtransaction";
-            jsonObject["Version"] = "1.0.0";
-            jsonObject["Data"] = param[0].ToString();
-
-            string json = JsonConvert.SerializeObject(jsonObject);
-            return json;
+                string json = JsonConvert.SerializeObject(jsonObject);
+                return json;
+            }
+            catch { throw; }
         }
 
 

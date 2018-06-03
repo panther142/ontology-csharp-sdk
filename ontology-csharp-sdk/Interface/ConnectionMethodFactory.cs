@@ -13,27 +13,29 @@ namespace OntologyCSharpSDK.Interface
 
         public virtual IConnectionMethod setConnectionMethod(ConnectionMethod method)
         {
-            IConnectionMethod connectionMethod = null;
-
-            switch (method)
-
+            try
             {
-                case ConnectionMethod.RPC:
-                    connectionMethod = new RPC();
-                    break;
-                    
-                case ConnectionMethod.REST:
-                    connectionMethod = new REST();
-                    break;
+                IConnectionMethod connectionMethod = null;
 
-                case ConnectionMethod.Websocket:
-                    connectionMethod = new Websocket();
-                    break;
+                switch (method)
+
+                {
+                    case ConnectionMethod.RPC:
+                        connectionMethod = new RPC();
+                        break;
+
+                    case ConnectionMethod.REST:
+                        connectionMethod = new REST();
+                        break;
+
+                    case ConnectionMethod.Websocket:
+                        connectionMethod = new Websocket();
+                        break;
+                }
+
+                return connectionMethod;
             }
-
-            return connectionMethod;
-
+            catch { throw; }
         }
-
     }
 }
