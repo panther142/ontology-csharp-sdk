@@ -52,21 +52,11 @@ See more code examples in `ontology-csharp-demo` project
 <br><br>
 ## Methods
 
-| Method | Parameters | Description | Note |
-| :---| :---| :---| :---|
-| getBlockGenerationTime |  | gets the current block generation time |  |
-| getBlockHeight |  | gets the current block height | |
-| getAddressBalance | string | gets the ont/ong balance of address |  |
-| getNodeCount |  | gets the number of network nodes |  |
-| getBlockHeightByTxHash | string | gets the block height of specified transaction hash |  |
-| getBlockHex | int | gets the block (hex) of specified block by block height | |
-| getBlockHex | string | gets the block (hex) of specified block by block hash | |
-| getBlockJson | int | gets the block (json) of specified block by block height| |
-| getBlockJson | string | gets the block (json) of specified block by block hash | |
-| getRawTransactionHex | string | gets the hex representation of a transaction based on transaction hash | |
-| getRawTransactionJson | string | gets the json representation of a transaction based on transaction hash | |
+All RPC, REST and Websocket methods implemented by the Ontology network are available via this SDK, for a list of each based on connection method, see below:
 
-
+REST:      https://github.com/ontio/documentation/blob/master/docs/pages/doc_en/restfulapi_en.md<br>
+RPC:       https://github.com/ontio/documentation/blob/master/docs/pages/doc_en/ontrpcapi_en.md<br>
+Websocket: https://github.com/ontio/documentation/blob/master/docs/pages/doc_en/websocket_en.md<br>
 
 <br><br>
 ## Account
