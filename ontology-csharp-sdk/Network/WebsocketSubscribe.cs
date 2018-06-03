@@ -24,35 +24,36 @@ namespace OntologyCSharpSDK.Network
 
                 string jsonSubscribe = JsonConvert.SerializeObject(jsonObject);
 
-                var ws = new WebSocket(node);
-
-                ws.OnMessage += (sender, e) =>
+                using (var ws = new WebSocket(node))
+                {
+                    ws.OnMessage += (sender, e) =>
                 {
                     progress.Report(e.Data);
                 };
 
-                ws.OnError += (sender, e) =>
-                {
-                    ws.Close();
-                };
+                    ws.OnError += (sender, e) =>
+                    {
+                        ws.Close();
+                    };
 
-                Action<bool> completed = null;
+                    Action<bool> completed = null;
 
-                ws.Connect();
-                ws.SendAsync(jsonSubscribe, completed);
+                    ws.Connect();
+                    ws.SendAsync(jsonSubscribe, completed);
 
-                // While connection is still alive, send heartbeat every 4 minutes (required by websocket server else session expires)
-                while (ws.IsAlive)
-                {
-                    JObject heartbeat = new JObject();
+                    // While connection is still alive, send heartbeat every 4 minutes (required by websocket server else session expires)
+                    while (ws.IsAlive)
+                    {
+                        JObject heartbeat = new JObject();
 
-                    heartbeat["Action"] = "heartbeat";
-                    heartbeat["Version"] = "1.0.0";
+                        heartbeat["Action"] = "heartbeat";
+                        heartbeat["Version"] = "1.0.0";
 
-                    string jsonHeartbeat = JsonConvert.SerializeObject(heartbeat);
-                    ws.SendAsync(jsonHeartbeat, completed);
+                        string jsonHeartbeat = JsonConvert.SerializeObject(heartbeat);
+                        ws.SendAsync(jsonHeartbeat, completed);
 
-                    await Task.Delay(200000);
+                        await Task.Delay(200000);
+                    }
                 }
             }
             catch { throw; }

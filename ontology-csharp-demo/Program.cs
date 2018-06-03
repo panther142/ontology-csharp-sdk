@@ -44,18 +44,18 @@ namespace ontology_csharp_demo
         //Query blockchain using chosen connection method (RPC, REST or Websocket)
         public static void QueryBlockchain()
         {
-            Console.WriteLine("Connecting to blockchain via: " + OntSDK.connectionManager.GetType());
-            Console.WriteLine("Block Generation Time: " + OntSDK.connectionManager.getBlockGenerationTime().ToString() + " seconds ");
-            Console.WriteLine("Block Height: " + OntSDK.connectionManager.getBlockHeight().ToString());
-            Console.WriteLine("ONT Balance: " + OntSDK.connectionManager.getAddressBalance(Address));
-            Console.WriteLine("Node Count: " + OntSDK.connectionManager.getNodeCount());
-            Console.WriteLine("Block Height by Tx Hash: " + OntSDK.connectionManager.getBlockHeightByTxHash(TxHash));
-            Console.WriteLine("Block Hex (int): " + OntSDK.connectionManager.getBlockHex(15));
-            Console.WriteLine("Block Hex (hash): " + OntSDK.connectionManager.getBlockHex(BlockHash));
-            Console.WriteLine("Block Json (int): " + OntSDK.connectionManager.getBlockJson(15));
-            Console.WriteLine("Block Json (hash): " + OntSDK.connectionManager.getBlockJson(BlockHash));
-            Console.WriteLine("Transaction Hex by Tx Hash: " + OntSDK.connectionManager.getRawTransactionHex(TxHash));
-            Console.WriteLine("Transaction Json by Tx Hash: " + OntSDK.connectionManager.getRawTransactionJson(TxHash));
+            try { Console.WriteLine("Connecting to blockchain via: " + OntSDK.connectionManager.GetType()); } catch { };
+            try { Console.WriteLine("Block Generation Time: " + OntSDK.connectionManager.getBlockGenerationTime().ToString() + " seconds "); } catch { };
+            try { Console.WriteLine("Block Height: " + OntSDK.connectionManager.getBlockHeight().ToString()); } catch { };
+            try { Console.WriteLine("ONT Balance: " + OntSDK.connectionManager.getAddressBalance(Address)); } catch { };
+            try { Console.WriteLine("Node Count: " + OntSDK.connectionManager.getNodeCount()); } catch { };
+            try { Console.WriteLine("Block Height by Tx Hash: " + OntSDK.connectionManager.getBlockHeightByTxHash(TxHash)); } catch { };
+            try { Console.WriteLine("Block Hex (int): " + OntSDK.connectionManager.getBlockHex(15)); } catch { };
+            try { Console.WriteLine("Block Hex (hash): " + OntSDK.connectionManager.getBlockHex(BlockHash)); } catch { };
+            try { Console.WriteLine("Block Json (int): " + OntSDK.connectionManager.getBlockJson(15)); } catch { };
+            try { Console.WriteLine("Block Json (hash): " + OntSDK.connectionManager.getBlockJson(BlockHash)); } catch { };
+            try { Console.WriteLine("Transaction Hex by Tx Hash: " + OntSDK.connectionManager.getRawTransactionHex(TxHash)); } catch { };
+            try { Console.WriteLine("Transaction Json by Tx Hash: " + OntSDK.connectionManager.getRawTransactionJson(TxHash)); } catch { };
         }
 
         // create a new private key
