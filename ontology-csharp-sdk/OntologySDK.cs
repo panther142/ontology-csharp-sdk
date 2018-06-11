@@ -1,4 +1,5 @@
-﻿using OntologyCSharpSDK.Interface;
+﻿using Newtonsoft.Json;
+using OntologyCSharpSDK.Interface;
 using OntologyCSharpSDK.Network;
 
 namespace OntologyCSharpSDK
@@ -18,10 +19,15 @@ namespace OntologyCSharpSDK
             account = new Basic.Account(node);
         }
 
+        public string createWallet()
+        {
+            Wallet.Wallet wallet = new Wallet.Wallet();
+            string json = JsonConvert.SerializeObject(wallet, Formatting.Indented).Replace("enc_alg", "enc-alg");
+            return json;
+        }
         public string createPrivateKey()
         {
             return account.createPrivateKey();
-
         }
 
         public string getPublicKey(string privatekey)

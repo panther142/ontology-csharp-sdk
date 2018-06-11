@@ -5,9 +5,10 @@ namespace OntologyCSharpSDK.Wallet
     public class Control
     {
         public string algorithm = "ECDSA";
-        public IDictionary parameters = new Hashtable();
         public string id = "";
         public string key = "";
+        public IDictionary parameters = new Hashtable();
+        
 
         public Control()
         {
