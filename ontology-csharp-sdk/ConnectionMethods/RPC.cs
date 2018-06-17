@@ -314,6 +314,18 @@ namespace OntologyCSharpSDK.ConnectionMethods
             }
             catch { throw; }
         }
+
+        public string getUnclaimedONG(string address)
+        {
+            try
+            {
+                param.Clear();
+                param.Add(address);
+                NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.RPC, "POST", "getunclaimong", param);
+                return response.jobjectResponse["result"].ToString();
+            }
+            catch { throw; }
+        }
     }
 }
 

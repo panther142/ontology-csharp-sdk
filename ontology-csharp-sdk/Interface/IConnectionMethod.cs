@@ -140,7 +140,7 @@
         /// <param name="preExec"></param>
         /// <returns></returns>
         string setSendRawTransaction(string tx, bool preExec);
-        
+
         /// <summary>
         /// Gets the current GAS price (transaction fee)
         /// </summary>
@@ -156,12 +156,18 @@
         /// <returns></returns>
         string getAllowance(string asset, string fromAddress, string toAddress);
 
-
         /// <summary>
         /// Returns the transactions in a given block
         /// </summary>
         /// <param name="blockHeight"></param>
         /// <returns></returns>
         string getBlockTxsByHeight(int blockHeight);
+
+        /// <summary>
+        /// Returns the amount of unclaimed ONG for given address
+        /// </summary>
+        /// <param name="address"></param>
+        /// <returns></returns>
+        string getUnclaimedONG(string ONTAddress);
     }
 }

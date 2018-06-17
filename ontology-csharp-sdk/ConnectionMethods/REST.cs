@@ -239,6 +239,18 @@ namespace OntologyCSharpSDK.ConnectionMethods
             catch { throw; }
         }
 
+        public string getUnclaimedONG(string address)
+        {
+            try
+            {
+                param.Clear();
+                param.Add(address);
+                NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.REST, "GET", Constants.REST_getUnclaimedONG, param);
+                return response.jobjectResponse["Result"].ToString();
+            }
+            catch { throw; }
+        }
+
         public int getVersion()
         {
             throw new NotImplementedException();

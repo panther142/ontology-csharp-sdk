@@ -23,6 +23,7 @@
         public const string REST_getGasPrice = "/api/v1/gasprice";
         public const string REST_getAllowance = "/api/v1/allowance"; //+asset + /from + /to
         public const string REST_getBlockTxsByHeight = "/api/v1/block/transactions/height"; //+height
+        public const string REST_getUnclaimedONG = " /api/v1/unclaimong/"; //+addr"
         #endregion
 
 
