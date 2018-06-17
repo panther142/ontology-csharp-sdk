@@ -157,7 +157,14 @@ namespace OntologyCSharpSDK.ConnectionMethods
 
         public string getMempoolTxState(string txHash)
         {
-            throw new NotImplementedException();
+            try
+            {
+                param.Clear();
+                param.Add(txHash);
+                NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.REST, "GET", Constants.REST_getMempoolTxState, param);
+                return response.jobjectResponse["Result"].ToString();
+            }
+            catch { throw; }
         }
 
         public string getMerkleProof(string hash)

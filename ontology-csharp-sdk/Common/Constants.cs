@@ -24,6 +24,7 @@
         public const string REST_getAllowance = "/api/v1/allowance"; //+asset + /from + /to
         public const string REST_getBlockTxsByHeight = "/api/v1/block/transactions/height"; //+height
         public const string REST_getUnclaimedONG = " /api/v1/unclaimong/"; //+addr"
+        public const string REST_getMempoolTxState = "/api/v1/mempool/txstate"; //+hash"
         #endregion
 
 
