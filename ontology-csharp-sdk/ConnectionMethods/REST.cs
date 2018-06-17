@@ -120,6 +120,18 @@ namespace OntologyCSharpSDK.ConnectionMethods
             throw new NotImplementedException();
         }
 
+        public string getBlockTxsByHeight(int blockHeight)
+        {
+            try
+            {
+                param.Clear();
+                param.Add(blockHeight);
+                NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.REST, "GET", Constants.REST_getBlockTxsByHeight, param);
+                return response.jobjectResponse["Result"].ToString();
+            }
+            catch { throw; }
+        }
+
         public string getContractJson(string contractHash)
         {
             try

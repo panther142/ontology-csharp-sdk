@@ -22,6 +22,7 @@
         public const string REST_sendRawTransactionPreExec = "/api/v1/transaction?preExec=1";
         public const string REST_getGasPrice = "/api/v1/gasprice";
         public const string REST_getAllowance = "/api/v1/allowance"; //+asset + /from + /to
+        public const string REST_getBlockTxsByHeight = "/api/v1/block/transactions/height"; //+height
         #endregion
 
 

@@ -156,5 +156,12 @@
         /// <returns></returns>
         string getAllowance(string asset, string fromAddress, string toAddress);
 
+
+        /// <summary>
+        /// Returns the transactions in a given block
+        /// </summary>
+        /// <param name="blockHeight"></param>
+        /// <returns></returns>
+        string getBlockTxsByHeight(int blockHeight);
     }
 }

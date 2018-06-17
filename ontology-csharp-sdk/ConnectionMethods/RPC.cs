@@ -302,6 +302,18 @@ namespace OntologyCSharpSDK.ConnectionMethods
             }
             catch { throw; }
         }
+
+        public string getBlockTxsByHeight(int blockHeight)
+        {
+            try
+            {
+                param.Clear();
+                param.Add(blockHeight);
+                NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.RPC, "POST", "getblocktxsbyheight", param);
+                return response.jobjectResponse["result"].ToString();
+            }
+            catch { throw; }
+        }
     }
 }
 

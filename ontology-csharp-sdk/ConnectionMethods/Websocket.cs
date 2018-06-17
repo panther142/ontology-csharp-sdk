@@ -146,6 +146,18 @@ namespace OntologyCSharpSDK.ConnectionMethods
             throw new NotImplementedException();
         }
 
+        public string getBlockTxsByHeight(int blockHeight)
+        {
+            try
+            {
+                param.Clear();
+                param.Add(new KeyValuePair<string, object>("Height", blockHeight));
+                NetworkResponse response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "getblocktxsbyheight", param);
+                return response.jobjectResponse["Result"].ToString();
+            }
+            catch { throw; }
+        }
+
         public string getContractJson(string contractHash)
         {
             try
