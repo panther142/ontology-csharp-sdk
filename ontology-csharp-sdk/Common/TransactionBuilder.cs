@@ -22,7 +22,7 @@ namespace OntologyCSharpSDK.Common
 
         public static string u160ToAddress(string hash)
         {
-            var data = "41" + hash;
+            var data = "17" + hash;
 
             var ProgramSha256 = Crypto.SHA256ByteArray(Crypto.HexStringToByteArray(data));
             var ProgramSha256_2 = Crypto.SHA256ByteArray(Crypto.HexStringToByteArray(ProgramSha256));
