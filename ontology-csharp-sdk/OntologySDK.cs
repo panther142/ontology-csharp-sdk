@@ -4,70 +4,69 @@ using OntologyCSharpSDK.Network;
 
 namespace OntologyCSharpSDK
 {
-    public class OntologySDK
+    public class OntologySdk
     {
-        private readonly Basic.Account account = null;
-        public IConnectionMethod connectionManager = null;
-        public WebsocketSubscribe websocketSubscribe = new WebsocketSubscribe();
+        private readonly Basic.Account _account = null;
+        public IConnectionMethod ConnectionManager { get; }
+        public WebsocketSubscribe WebsocketSubscribe = new WebsocketSubscribe();
 
 
-        public OntologySDK(string node, ConnectionMethodFactory.ConnectionMethod connectionMethod)
+        public OntologySdk(string node, ConnectionMethodFactory.ConnectionMethod connectionMethod)
         {
             var factory = new ConnectionMethodFactory();
-            connectionManager = factory.setConnectionMethod(connectionMethod);
-
-            account = new Basic.Account(node);
+            ConnectionManager = factory.SetConnectionMethod(connectionMethod);
+            _account = new Basic.Account(node);
         }
 
-        public string createWallet()
+        public string CreateWallet()
         {
             var wallet = new Wallet.Wallet();
             var json = JsonConvert.SerializeObject(wallet, Formatting.Indented).Replace("enc_alg", "enc-alg");
             return json;
         }
-        public string createPrivateKey()
+        public string CreatePrivateKey()
         {
-            return account.createPrivateKey();
+            return _account.createPrivateKey();
         }
 
-        public string getPublicKey(string privatekey)
+        public string GetPublicKey(string privatekey)
         {
-            return account.getPublicKey(privatekey);
+            return _account.getPublicKey(privatekey);
         }
 
-        public string createONTID(string privatekey)
+        public string CreateOntid(string privatekey)
         {
-            return account.createONTID(privatekey);
-        }
-
-
-        public NetworkResponse registerONTID(string ontid, string privatekey)
-        {
-            return account.registerONTID(ontid, privatekey);
+            return _account.createONTID(privatekey);
         }
 
 
-        public string createAddressFromPublickKey(string publickey)
+        public NetworkResponse RegisterOntid(string ontid, string privatekey)
         {
-            return account.createAddressFromPublickKey(publickey);
+            return _account.registerONTID(ontid, privatekey);
         }
 
 
-        public NetworkResponse transferFund(string name, string fromaddress, string toaddress, decimal value, string privatekey)
+        public string CreateAddressFromPublickKey(string publickey)
         {
-            return account.transferFund(name, fromaddress, toaddress, value, privatekey);
+            return _account.createAddressFromPublickKey(publickey);
         }
 
 
-        public NetworkResponse registerClaim(string context, string metadata,
+        public NetworkResponse TransferFund(string name, string fromaddress, string toaddress, decimal value, string privatekey)
+        {
+            return _account.transferFund(name, fromaddress, toaddress, value, privatekey);
+        }
+
+
+        public NetworkResponse RegisterClaim(string context, string metadata,
            string content, string type, string issuer, string privatekey)
         {
-            return account.registerClaim(context, metadata, content, type, issuer, privatekey);
+            return _account.registerClaim(context, metadata, content, type, issuer, privatekey);
         }
 
-        public NetworkResponse addPublicKey(string ontid, string new_publickey, string publickey, string privatekey)
+        public NetworkResponse AddPublicKey(string ontid, string newPublickey, string publickey, string privatekey)
         {
-            return account.addPublicKey(ontid, new_publickey, publickey, privatekey);
+            return _account.addPublicKey(ontid, newPublickey, publickey, privatekey);
         }
 
     }
