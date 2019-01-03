@@ -17,9 +17,9 @@ namespace OntologyCSharpSDK.Wallet
         public Control(string key, string id)
         {
             this.key = key;
-            this.algorithm = "ECDSA";
+            algorithm = "ECDSA";
             this.id = id;
-            this.parameters["curve"] = "secp256r1";
+            parameters["curve"] = "secp256r1";
         }
     }
 }

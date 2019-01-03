@@ -7,7 +7,7 @@
     <ProjectGuid>{2DD47140-C98B-49E0-9490-0EB5E7B8C52E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ontology_csharp_sdk</RootNamespace>
+    <RootNamespace>OntologyCSharpSDK</RootNamespace>
     <AssemblyName>ontology-csharp-sdk</AssemblyName>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -56,11 +56,25 @@
     <Compile Include="Basic\Account.cs" />
     <Compile Include="Common\abiModels.cs" />
     <Compile Include="Common\Base58Encoding.cs" />
+    <Compile Include="Common\Body.cs" />
+    <Compile Include="Common\Claim.cs" />
     <Compile Include="Common\Constants.cs" />
     <Compile Include="Common\Crypto.cs" />
     <Compile Include="Common\Enums.cs" />
+    <Compile Include="Common\Fee.cs" />
+    <Compile Include="Common\Fixed64.cs" />
+    <Compile Include="Common\InvokeCode.cs" />
+    <Compile Include="Common\Metadata.cs" />
+    <Compile Include="Common\PubKey.cs" />
+    <Compile Include="Common\SendRawTransactionPayload.cs" />
+    <Compile Include="Common\Sig.cs" />
+    <Compile Include="Common\Signature.cs" />
     <Compile Include="Common\SmartContract.cs" />
+    <Compile Include="Common\Transaction.cs" />
+    <Compile Include="Common\TransactionAttribute.cs" />
     <Compile Include="Common\TransactionBuilder.cs" />
+    <Compile Include="Common\Uint160.cs" />
+    <Compile Include="Common\VmCode.cs" />
     <Compile Include="ConnectionMethods\REST.cs" />
     <Compile Include="ConnectionMethods\RPC.cs" />
     <Compile Include="ConnectionMethods\Websocket.cs" />

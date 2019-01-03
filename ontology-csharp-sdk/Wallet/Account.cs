@@ -4,9 +4,8 @@ namespace OntologyCSharpSDK.Wallet
 {
     public class Account
     {
-        
-        public string address = "";
-        public string enc_alg = "";
+        public string address { get; set; } = "";
+        public string encAlg { get; } = "";
         public string key = "";
         public string hash = "";
         public string algorithm = "";
@@ -23,10 +22,10 @@ namespace OntologyCSharpSDK.Wallet
 
         public Account()
         {
-            this.algorithm = "ECDSA";
-            this.parameters["curve"] = "secp256r1";
-            this.enc_alg = "aes-256-ctr";
-            this.extra = null;
+            algorithm = "ECDSA";
+            parameters["curve"] = "secp256r1";
+            encAlg = "aes-256-ctr";
+            extra = null;
         }
 
     }

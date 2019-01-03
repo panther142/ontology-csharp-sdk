@@ -17,8 +17,8 @@ namespace OntologyCSharpSDK.Common
 
         public static byte[] getPublicKeyByteArray(byte[] privateKey)
         {
-            Org.BouncyCastle.Math.BigInteger d = new Org.BouncyCastle.Math.BigInteger(1, privateKey);
-            Org.BouncyCastle.Math.EC.ECPoint q = domain.G.Multiply(d);
+            var d = new Org.BouncyCastle.Math.BigInteger(1, privateKey);
+            var q = domain.G.Multiply(d);
 
             var publicParams = new ECPublicKeyParameters(q, domain);
             return publicParams.Q.GetEncoded(true);
@@ -49,24 +49,16 @@ namespace OntologyCSharpSDK.Common
 
         public static byte[] DSADERtoPlain(byte[] sig)
         {
-            Asn1Sequence seq = (Asn1Sequence)Asn1Object.FromByteArray(sig);
+            var seq = (Asn1Sequence)Asn1Object.FromByteArray(sig);
             var seq0 = (DerInteger)seq[0];
             var seq1 = (DerInteger)seq[1];
-            byte[] r = seq0.Value.ToByteArray();
-            byte[] s = seq1.Value.ToByteArray();
-            int ri = (r[0] == 0) ? 1 : 0;
-            int rl = r.Length - ri;
-            int si = (s[0] == 0) ? 1 : 0;
-            int sl = s.Length - si;
-            byte[] res;
-            if (rl > sl)
-            {
-                res = new byte[rl * 2];
-            }
-            else
-            {
-                res = new byte[sl * 2];
-            }
+            var r = seq0.Value.ToByteArray();
+            var s = seq1.Value.ToByteArray();
+            var ri = (r[0] == 0) ? 1 : 0;
+            var rl = r.Length - ri;
+            var si = (s[0] == 0) ? 1 : 0;
+            var sl = s.Length - si;
+            var res = rl > sl ? new byte[rl * 2] : new byte[sl * 2];
 
             Array.Copy(r, ri, res, res.Length / 2 - rl, rl);
             Array.Copy(s, si, res, res.Length - sl, sl);
@@ -84,7 +76,7 @@ namespace OntologyCSharpSDK.Common
                 throw new ArgumentOutOfRangeException();
             }
 
-            int value2 = (int)value;
+            var value2 = (int)value;
 
             return BitConverter.GetBytes(value2);
         }
@@ -94,7 +86,7 @@ namespace OntologyCSharpSDK.Common
             if (obj == null)
                 return null;
             var bf = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
-            using (System.IO.MemoryStream ms = new System.IO.MemoryStream())
+            using (var ms = new System.IO.MemoryStream())
             {
                 bf.Serialize(ms, obj);
                 return ms.ToArray();
@@ -103,14 +95,14 @@ namespace OntologyCSharpSDK.Common
 
         public static byte[] GetSecureRandomByteArray(int size)
         {
-            SecureRandom random = new SecureRandom();
+            var random = new SecureRandom();
             return random.GenerateSeed(size);
         }
 
         public static string ByteArrayToHexString(byte[] ba)
         {
-            System.Text.StringBuilder hex = new System.Text.StringBuilder(ba.Length * 2);
-            foreach (byte b in ba)
+            var hex = new StringBuilder(ba.Length * 2);
+            foreach (var b in ba)
                 hex.AppendFormat("{0:x2}", b);
             return hex.ToString();
         }
@@ -125,57 +117,57 @@ namespace OntologyCSharpSDK.Common
 
         public static string ByteArrayToString(byte[] ba)
         {
-            string str = Encoding.UTF8.GetString(ba);
+            var str = Encoding.UTF8.GetString(ba);
             return str;
         }
 
         public static byte[] StringToByteArray(string str)
         {
-            byte[] bytes = Encoding.UTF8.GetBytes(str);
+            var bytes = Encoding.UTF8.GetBytes(str);
             return bytes;
         }
 
         public static string StringToHexString(string str)
         {
-            string hex = ByteArrayToHexString(StringToByteArray(str));
+            var hex = ByteArrayToHexString(StringToByteArray(str));
             return hex;
         }
 
         public static string HexStringToString(string hex)
         {
-            string str = ByteArrayToString(HexStringToByteArray(hex));
+            var str = ByteArrayToString(HexStringToByteArray(hex));
             return str;
         }
 
 
         public static string SHA256String(string inputString)
         {
-            var sha256 = System.Security.Cryptography.SHA256Managed.Create();
-            byte[] bytes = Encoding.UTF8.GetBytes(inputString);
-            byte[] hash = sha256.ComputeHash(bytes);
+            var sha256 = System.Security.Cryptography.SHA256.Create();
+            var bytes = Encoding.UTF8.GetBytes(inputString);
+            var hash = sha256.ComputeHash(bytes);
             return GetStringFromHash(hash);
         }
 
         public static string SHA256ByteArray(byte[] bytes)
         {
-            var sha256 = System.Security.Cryptography.SHA256Managed.Create();
-            byte[] hash = sha256.ComputeHash(bytes);
+            var sha256 = System.Security.Cryptography.SHA256.Create();
+            var hash = sha256.ComputeHash(bytes);
             return GetStringFromHash(hash);
         }
 
         public static string RIPEMD160String(string inputString)
         {
             // create a ripemd160 object
-            var r160 = System.Security.Cryptography.RIPEMD160Managed.Create();
+            var r160 = System.Security.Cryptography.RIPEMD160.Create();
             // convert the string to byte
-            byte[] myByte = System.Text.Encoding.ASCII.GetBytes(inputString);
+            var myByte = Encoding.ASCII.GetBytes(inputString);
             // compute the byte to RIPEMD160 hash
-            byte[] encrypted = r160.ComputeHash(myByte);
+            var encrypted = r160.ComputeHash(myByte);
             // create a new StringBuilder process the hash byte
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < encrypted.Length; i++)
+            var sb = new StringBuilder();
+            foreach (var t in encrypted)
             {
-                sb.Append(encrypted[i].ToString("X2"));
+                sb.Append(t.ToString("X2"));
             }
             // convert the StringBuilder to String and convert it to lower case and return it.
             return sb.ToString().ToLower();
@@ -184,14 +176,14 @@ namespace OntologyCSharpSDK.Common
         public static string RIPEMD160ByteArray(byte[] bytes)
         {
             // create a ripemd160 object
-            var r160 = System.Security.Cryptography.RIPEMD160Managed.Create();
+            var r160 = System.Security.Cryptography.RIPEMD160.Create();
             // compute the byte to RIPEMD160 hash
-            byte[] encrypted = r160.ComputeHash(bytes);
+            var encrypted = r160.ComputeHash(bytes);
             // create a new StringBuilder process the hash byte
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < encrypted.Length; i++)
+            var sb = new StringBuilder();
+            foreach (var t in encrypted)
             {
-                sb.Append(encrypted[i].ToString("X2"));
+                sb.Append(t.ToString("X2"));
             }
             // convert the StringBuilder to String and convert it to lower case and return it.
             return sb.ToString().ToLower();
@@ -199,10 +191,10 @@ namespace OntologyCSharpSDK.Common
 
         public static string GetStringFromHash(byte[] hash)
         {
-            StringBuilder result = new StringBuilder();
-            for (int i = 0; i < hash.Length; i++)
+            var result = new StringBuilder();
+            foreach (var t in hash)
             {
-                result.Append(hash[i].ToString("X2"));
+                result.Append(t.ToString("X2"));
             }
             return result.ToString();
         }
@@ -222,7 +214,7 @@ namespace OntologyCSharpSDK.Common
             return number.ToString("X");
         }
 
-        public static string NumberToHex(Int64 num, int size = 1, bool littleEndian = false)
+        public static string NumberToHex(long num, int size = 1, bool littleEndian = false)
         {
             var hexstring = "";
             if (num < 0)
@@ -239,7 +231,7 @@ namespace OntologyCSharpSDK.Common
                     size = size * 2;
                     hexstring = BigintToHex(num);
 
-                    string repeat = new String('0', size);
+                    var repeat = new string('0', size);
 
                     hexstring = hexstring.Length % size == 0 ? hexstring : (repeat + hexstring).Substring(hexstring.Length);
                     if (littleEndian)
@@ -252,31 +244,28 @@ namespace OntologyCSharpSDK.Common
             return hexstring.ToLower();
         }
 
-        public static string NumberToVarInt(Int64 num)
+        public static string NumberToVarInt(long num)
         {
             if (num < 0xfd)
             {
                 return NumberToHex(num);
 
             }
-            else if (num <= 0xffff)
+
+            if (num <= 0xffff)
             {
                 // uint16
                 return "fd" + NumberToHex(num, 2, true);
 
 
             }
-            else if (num <= 0xffffffff)
+            if (num <= 0xffffffff)
             {
                 // uint32
                 return "fe" + NumberToHex(num, 4, true);
             }
-            else
-            {
-                // uint64
-                return "ff" + NumberToHex(num, 8, true);
-            }
-
+            // uint64
+            return "ff" + NumberToHex(num, 8, true);
         }
 
         public static string reverseHex(string hex)

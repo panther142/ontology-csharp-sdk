@@ -6,14 +6,14 @@ namespace OntologyCSharpSDK
 {
     public class OntologySDK
     {
-        private Basic.Account account = null;
+        private readonly Basic.Account account = null;
         public IConnectionMethod connectionManager = null;
         public WebsocketSubscribe websocketSubscribe = new WebsocketSubscribe();
 
 
         public OntologySDK(string node, ConnectionMethodFactory.ConnectionMethod connectionMethod)
         {
-            ConnectionMethodFactory factory = new ConnectionMethodFactory();
+            var factory = new ConnectionMethodFactory();
             connectionManager = factory.setConnectionMethod(connectionMethod);
 
             account = new Basic.Account(node);
@@ -21,8 +21,8 @@ namespace OntologyCSharpSDK
 
         public string createWallet()
         {
-            Wallet.Wallet wallet = new Wallet.Wallet();
-            string json = JsonConvert.SerializeObject(wallet, Formatting.Indented).Replace("enc_alg", "enc-alg");
+            var wallet = new Wallet.Wallet();
+            var json = JsonConvert.SerializeObject(wallet, Formatting.Indented).Replace("enc_alg", "enc-alg");
             return json;
         }
         public string createPrivateKey()

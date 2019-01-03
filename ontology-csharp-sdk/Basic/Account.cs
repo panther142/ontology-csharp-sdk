@@ -5,13 +5,13 @@ using OntologyCSharpSDK.Common;
 
 namespace OntologyCSharpSDK.Basic
 {
-    class Account : IAccount
+    internal class Account : IAccount
     {
-        public static string _node { get; set; }
+        public static string node { get; set; }
 
         public Account(string node)
         {
-            _node = node;
+            Account.node = node;
         }
 
         public string createPrivateKey()
@@ -40,7 +40,7 @@ namespace OntologyCSharpSDK.Basic
 
         public NetworkResponse registerONTID(string ontid, string privatekey)
         {
-            var tx = TransactionBuilder.buildRegisterOntidTx(ontid, privatekey);
+            var tx = TransactionBuilder.BuildRegisterOntidTx(ontid, privatekey);
             var serialized = tx.serialize();
             IList<object> param = new List<object>() { serialized };
             var result = NetworkHelper.sendNetworkRequest(Protocol.REST, "POST", Constants.REST_sendRawTransaction, param);
@@ -50,8 +50,8 @@ namespace OntologyCSharpSDK.Basic
         public string createAddressFromPublickKey(string publicKey)
         {
             publicKey = "1202" + publicKey;
-            string programHash = TransactionBuilder.getSingleSigUInt160(publicKey);
-            string address = TransactionBuilder.u160ToAddress(programHash);
+            var programHash = TransactionBuilder.getSingleSigUInt160(publicKey);
+            var address = TransactionBuilder.u160ToAddress(programHash);
 
             return address;
         }
@@ -60,7 +60,7 @@ namespace OntologyCSharpSDK.Basic
         {
             var fromhexaddress = TransactionBuilder.AddresstTou160(fromaddress);
             var tohexaddress = TransactionBuilder.AddresstTou160(toaddress);
-            var tx = TransactionBuilder.makeTransferTransaction(name, fromhexaddress, tohexaddress, value.ToString(), privatekey);
+            var tx = TransactionBuilder.MakeTransferTransaction(name, fromhexaddress, tohexaddress, value.ToString(), privatekey);
             var serialized = tx.serialize();
 
             IList<object> param = new List<object>() { serialized };
@@ -74,8 +74,8 @@ namespace OntologyCSharpSDK.Basic
             var claim = new Claim(context, content, metadata);
             var signed = claim.sign(privatekey);
             var claimId = claim.Id;
-            var path = global::OntologyCSharpSDK.Common.Crypto.StringToHexString(claimId);
-            var type_hex = global::OntologyCSharpSDK.Common.Crypto.StringToHexString(type);
+            var path = Crypto.StringToHexString(claimId);
+            var type_hex = Crypto.StringToHexString(type);
 
             var data = "{'Type':'" + type + "','Value':{'Context':'" + context + "','Issuer':'" + issuer + "'}}";
 
@@ -91,7 +91,7 @@ namespace OntologyCSharpSDK.Basic
 
         public NetworkResponse addPublicKey(string ontid, string new_publickey, string publickey, string privatekey)
         {
-            var tx = TransactionBuilder.buildAddPublicKeyTx(ontid, new_publickey, publickey, privatekey);
+            var tx = TransactionBuilder.BuildAddPublicKeyTx(ontid, new_publickey, publickey, privatekey);
             var serialized = tx.serialize();
             IList<object> param = new List<object>() { serialized };
             var result = NetworkHelper.sendNetworkRequest(Protocol.REST, "POST", Constants.REST_sendRawTransaction, param);

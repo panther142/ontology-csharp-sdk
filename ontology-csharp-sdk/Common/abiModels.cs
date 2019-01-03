@@ -2,7 +2,7 @@
 
 namespace OntologyCSharpSDK.Common
 {
-    public static class abiModels
+    public static class AbiModels
     {
         private static readonly string idContract = @"{
     ""hash"": ""80b0cc71bda8653599c5666cae084bff587e2de1"",
@@ -311,7 +311,7 @@ namespace OntologyCSharpSDK.Common
         {
             JToken t = null;
 
-            JToken t1 = JToken.Parse(idContract);
+            var t1 = JToken.Parse(idContract);
             if (t1 != null)
             {
                 var functions = JArray.Parse(t1["functions"].ToString());
@@ -331,9 +331,9 @@ namespace OntologyCSharpSDK.Common
 
         public static string GetHash()
         {
-            string hash = "";
+            var hash = "";
 
-            JToken t1 = JToken.Parse(idContract);
+            var t1 = JToken.Parse(idContract);
             if (t1 != null)
             {
                 hash = t1["hash"].ToString();
@@ -342,10 +342,10 @@ namespace OntologyCSharpSDK.Common
         }
     }
 
-    public class abiParameter
+    public class AbiParameter
     {
-        public string name { get; set; }
-        public string type { get; set; }
+        public string Name { get; set; }
+        public string Type { get; set; }
     }
 
 
