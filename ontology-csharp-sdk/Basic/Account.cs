@@ -43,7 +43,7 @@ namespace OntologyCSharpSDK.Basic
             var tx = TransactionBuilder.BuildRegisterOntidTx(ontid, privatekey);
             var serialized = tx.serialize();
             IList<object> param = new List<object>() { serialized };
-            var result = NetworkHelper.sendNetworkRequest(Protocol.REST, "POST", Constants.REST_sendRawTransaction, param);
+            var result = NetworkHelper.SendNetworkRequest(Protocol.REST, "POST", Constants.REST_sendRawTransaction, param);
             return result;
         }
 
@@ -64,7 +64,7 @@ namespace OntologyCSharpSDK.Basic
             var serialized = tx.serialize();
 
             IList<object> param = new List<object>() { serialized };
-            var result = NetworkHelper.sendNetworkRequest(Protocol.REST, "POST", Constants.REST_sendRawTransaction, param);
+            var result = NetworkHelper.SendNetworkRequest(Protocol.REST, "POST", Constants.REST_sendRawTransaction, param);
             return result;
         }
 
@@ -85,7 +85,7 @@ namespace OntologyCSharpSDK.Basic
 
             var serialized = tx.serialize();
             IList<object> param = new List<object>() { serialized };
-            var result = NetworkHelper.sendNetworkRequest(Protocol.REST, "POST", Constants.REST_sendRawTransaction, param);
+            var result = NetworkHelper.SendNetworkRequest(Protocol.REST, "POST", Constants.REST_sendRawTransaction, param);
             return result;
         }
 
@@ -94,7 +94,7 @@ namespace OntologyCSharpSDK.Basic
             var tx = TransactionBuilder.BuildAddPublicKeyTx(ontid, new_publickey, publickey, privatekey);
             var serialized = tx.serialize();
             IList<object> param = new List<object>() { serialized };
-            var result = NetworkHelper.sendNetworkRequest(Protocol.REST, "POST", Constants.REST_sendRawTransaction, param);
+            var result = NetworkHelper.SendNetworkRequest(Protocol.REST, "POST", Constants.REST_sendRawTransaction, param);
             return result;
         }
 

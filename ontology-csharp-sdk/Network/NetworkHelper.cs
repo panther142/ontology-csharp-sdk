@@ -16,7 +16,7 @@ namespace OntologyCSharpSDK.Network
     {
         //TODO: Nodelist implementation
 
-        public static NetworkResponse sendNetworkRequest(Protocol protocol, string requestType, string method, IList<object> param)
+        public static NetworkResponse SendNetworkRequest(Protocol protocol, string requestType, string method, IList<object> param)
         {
 
             try
@@ -31,20 +31,20 @@ namespace OntologyCSharpSDK.Network
                 {
                     case Protocol.RPC:
                         {
-                            request = rpcRequestBuilder(method, param);
-                            return sendRPCRequest(request, requestType, host);
+                            request = RpcRequestBuilder(method, param);
+                            return SendRpcRequest(request, requestType, host);
                         }
 
                     case Protocol.REST:
                         {
-                            request = requestType == "GET" ? restRequestBuilder(method, param) : restBuildSendRawTransaction(method, param);
-                            return sendRESTRequest(request, requestType, host);
+                            request = requestType == "GET" ? RestRequestBuilder(method, param) : RestBuildSendRawTransaction(method, param);
+                            return SendRestRequest(request, requestType, host);
                         }
 
                     case Protocol.Websocket:
                         {
-                            request = webSocketRequestBuilder(method, param);
-                            return sendWebSocketRequest(request, host);
+                            request = WebSocketRequestBuilder(method, param);
+                            return SendWebSocketRequest(request, host);
                         }
 
                     default:
@@ -54,7 +54,7 @@ namespace OntologyCSharpSDK.Network
             catch { throw; }
         }
 
-        private static NetworkResponse sendRPCRequest(string request, string requestType, string host)
+        private static NetworkResponse SendRpcRequest(string request, string requestType, string host)
         {
             NetworkResponse response = null;
 
@@ -101,10 +101,10 @@ namespace OntologyCSharpSDK.Network
                     {
                         using (var sr = new StreamReader(str))
                         {
-                            response.rawResponse = sr.ReadToEnd();
-                            response.jobjectResponse = JsonConvert.DeserializeObject<JObject>(response.rawResponse);
+                            response.RawResponse = sr.ReadToEnd();
+                            response.JobjectResponse = JsonConvert.DeserializeObject<JObject>(response.RawResponse);
 
-                            if (Convert.ToInt32(response.jobjectResponse.GetValue("error")) == 0)
+                            if (Convert.ToInt32(response.JobjectResponse.GetValue("error")) == 0)
                             {
                                 return response;
                             }
@@ -120,7 +120,7 @@ namespace OntologyCSharpSDK.Network
             }
         }
 
-        private static NetworkResponse sendRESTRequest(string request, string requestType, string host)
+        private static NetworkResponse SendRestRequest(string request, string requestType, string host)
         {
 
             NetworkResponse response = null;
@@ -175,10 +175,10 @@ namespace OntologyCSharpSDK.Network
                     {
                         using (var sr = new StreamReader(str))
                         {
-                            response.rawResponse = sr.ReadToEnd();
-                            response.jobjectResponse = JsonConvert.DeserializeObject<JObject>(response.rawResponse);
+                            response.RawResponse = sr.ReadToEnd();
+                            response.JobjectResponse = JsonConvert.DeserializeObject<JObject>(response.RawResponse);
 
-                            if (Convert.ToInt32(response.jobjectResponse.GetValue("Error")) == 0)
+                            if (Convert.ToInt32(response.JobjectResponse.GetValue("Error")) == 0)
                             {
                                 return response;
                             }
@@ -194,7 +194,7 @@ namespace OntologyCSharpSDK.Network
             }
         }
 
-        private static NetworkResponse sendWebSocketRequest(string request, string host)
+        private static NetworkResponse SendWebSocketRequest(string request, string host)
         {
             try
             {
@@ -206,14 +206,14 @@ namespace OntologyCSharpSDK.Network
 
                     ws.OnMessage += (sender, e) =>
                     {
-                        response.rawResponse = e.Data;
-                        response.jobjectResponse = JsonConvert.DeserializeObject<JObject>(response.rawResponse);
+                        response.RawResponse = e.Data;
+                        response.JobjectResponse = JsonConvert.DeserializeObject<JObject>(response.RawResponse);
                         ws.Close();
                     };
 
                     ws.OnError += (sender, e) =>
                     {
-                        response.rawResponse = e.Exception.InnerException.ToString();
+                        response.RawResponse = e.Exception.InnerException.ToString();
                         ws.Close();
                     };
 
@@ -224,7 +224,7 @@ namespace OntologyCSharpSDK.Network
                     {
                     }
 
-                    if (Convert.ToInt32(response.jobjectResponse.GetValue("Error")) == 0)
+                    if (Convert.ToInt32(response.JobjectResponse.GetValue("Error")) == 0)
                     {
                         return response;
                     }
@@ -235,7 +235,7 @@ namespace OntologyCSharpSDK.Network
             catch { throw; }
         }
 
-        private static string rpcRequestBuilder(string method, IList<object> param)
+        private static string RpcRequestBuilder(string method, IList<object> param)
         {
             try
             {
@@ -253,7 +253,7 @@ namespace OntologyCSharpSDK.Network
         }
 
 
-        private static string restRequestBuilder(string method, IList<object> param)
+        private static string RestRequestBuilder(string method, IList<object> param)
         {
             try
             {
@@ -275,7 +275,7 @@ namespace OntologyCSharpSDK.Network
             catch { throw; }
         }
 
-        private static string webSocketRequestBuilder(string method, IList<object> param)
+        private static string WebSocketRequestBuilder(string method, IList<object> param)
         {
             try
             {
@@ -294,7 +294,7 @@ namespace OntologyCSharpSDK.Network
             catch { throw; }
         }
 
-        public static string restBuildSendRawTransaction(string method, IList<object> param)
+        public static string RestBuildSendRawTransaction(string method, IList<object> param)
         {
             try
             {
@@ -318,7 +318,7 @@ namespace OntologyCSharpSDK.Network
     //TODO: Implement status codes
     public class NetworkResponse
     {
-        public string rawResponse { get; set; }
-        public JObject jobjectResponse { get; set; }
+        public string RawResponse { get; set; }
+        public JObject JobjectResponse { get; set; }
     }
 }

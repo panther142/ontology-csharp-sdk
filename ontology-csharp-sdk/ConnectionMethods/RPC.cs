@@ -16,8 +16,8 @@ namespace OntologyCSharpSDK.ConnectionMethods
             try
             {
                 param.Clear();
-                var response = NetworkHelper.sendNetworkRequest(Protocol.RPC, "POST", "getgenerateblocktime", param);
-                return (int)response.jobjectResponse["result"];
+                var response = NetworkHelper.SendNetworkRequest(Protocol.RPC, "POST", "getgenerateblocktime", param);
+                return (int)response.JobjectResponse["result"];
             }
             catch { throw; }
         }
@@ -27,8 +27,8 @@ namespace OntologyCSharpSDK.ConnectionMethods
             try
             {
                 param.Clear();
-                var response = NetworkHelper.sendNetworkRequest(Protocol.RPC, "POST", "getblockcount", param);
-                return (int)response.jobjectResponse["result"];
+                var response = NetworkHelper.SendNetworkRequest(Protocol.RPC, "POST", "getblockcount", param);
+                return (int)response.JobjectResponse["result"];
             }
             catch { throw; }
         }
@@ -39,8 +39,8 @@ namespace OntologyCSharpSDK.ConnectionMethods
             {
                 param.Clear();
                 param.Add(txHash);
-                var response = NetworkHelper.sendNetworkRequest(Protocol.RPC, "POST", "getblockheightbytxhash", param);
-                return (int)response.jobjectResponse["result"];
+                var response = NetworkHelper.SendNetworkRequest(Protocol.RPC, "POST", "getblockheightbytxhash", param);
+                return (int)response.JobjectResponse["result"];
             }
             catch { throw; }
         }
@@ -51,8 +51,8 @@ namespace OntologyCSharpSDK.ConnectionMethods
             {
                 param.Clear();
                 param.Add(blockHeight);
-                var response = NetworkHelper.sendNetworkRequest(Protocol.RPC, "POST", "getblock", param);
-                return response.jobjectResponse["result"].ToString();
+                var response = NetworkHelper.SendNetworkRequest(Protocol.RPC, "POST", "getblock", param);
+                return response.JobjectResponse["result"].ToString();
             }
             catch { throw; }
         }
@@ -63,8 +63,8 @@ namespace OntologyCSharpSDK.ConnectionMethods
             {
                 param.Clear();
                 param.Add(blockHash);
-                var response = NetworkHelper.sendNetworkRequest(Protocol.RPC, "POST", "getblock", param);
-                return response.jobjectResponse["result"].ToString();
+                var response = NetworkHelper.SendNetworkRequest(Protocol.RPC, "POST", "getblock", param);
+                return response.JobjectResponse["result"].ToString();
             }
             catch { throw; }
         }
@@ -76,8 +76,8 @@ namespace OntologyCSharpSDK.ConnectionMethods
                 param.Clear();
                 param.Add(blockHeight);
                 param.Add(1);
-                var response = NetworkHelper.sendNetworkRequest(Protocol.RPC, "POST", "getblock", param);
-                return response.jobjectResponse["result"].ToString();
+                var response = NetworkHelper.SendNetworkRequest(Protocol.RPC, "POST", "getblock", param);
+                return response.JobjectResponse["result"].ToString();
             }
             catch { throw; }
         }
@@ -89,8 +89,8 @@ namespace OntologyCSharpSDK.ConnectionMethods
                 param.Clear();
                 param.Add(blockHash);
                 param.Add(1);
-                var response = NetworkHelper.sendNetworkRequest(Protocol.RPC, "POST", "getblock", param);
-                return response.jobjectResponse["result"].ToString();
+                var response = NetworkHelper.SendNetworkRequest(Protocol.RPC, "POST", "getblock", param);
+                return response.JobjectResponse["result"].ToString();
             }
             catch { throw; }
         }
@@ -100,8 +100,8 @@ namespace OntologyCSharpSDK.ConnectionMethods
             try
             {
                 param.Clear();
-                var response = NetworkHelper.sendNetworkRequest(Protocol.RPC, "POST", "getconnectioncount", param);
-                return (int)response.jobjectResponse["result"];
+                var response = NetworkHelper.SendNetworkRequest(Protocol.RPC, "POST", "getconnectioncount", param);
+                return (int)response.JobjectResponse["result"];
             }
             catch { throw; }
         }
@@ -112,8 +112,8 @@ namespace OntologyCSharpSDK.ConnectionMethods
             {
                 param.Clear();
                 param.Add(address);
-                var response = NetworkHelper.sendNetworkRequest(Protocol.RPC, "POST", "getbalance", param);
-                return response.jobjectResponse["result"].ToString();
+                var response = NetworkHelper.SendNetworkRequest(Protocol.RPC, "POST", "getbalance", param);
+                return response.JobjectResponse["result"].ToString();
             }
             catch { throw; }
         }
@@ -124,8 +124,8 @@ namespace OntologyCSharpSDK.ConnectionMethods
             {
                 param.Clear();
                 param.Add(TxHash);
-                var response = NetworkHelper.sendNetworkRequest(Protocol.RPC, "POST", "getrawtransaction", param);
-                return response.jobjectResponse["result"].ToString();
+                var response = NetworkHelper.SendNetworkRequest(Protocol.RPC, "POST", "getrawtransaction", param);
+                return response.JobjectResponse["result"].ToString();
             }
             catch { throw; }
         }
@@ -137,8 +137,8 @@ namespace OntologyCSharpSDK.ConnectionMethods
                 param.Clear();
                 param.Add(TxHash);
                 param.Add(1);
-                var response = NetworkHelper.sendNetworkRequest(Protocol.RPC, "POST", "getrawtransaction", param);
-                return response.jobjectResponse["result"].ToString();
+                var response = NetworkHelper.SendNetworkRequest(Protocol.RPC, "POST", "getrawtransaction", param);
+                return response.JobjectResponse["result"].ToString();
             }
             catch { throw; }
         }
@@ -150,8 +150,8 @@ namespace OntologyCSharpSDK.ConnectionMethods
             {
                 param.Clear();
                 param.Add(blockHeight);
-                var response = NetworkHelper.sendNetworkRequest(Protocol.RPC, "POST", "getsmartcodeevent", param);
-                return response.jobjectResponse["result"].ToString();
+                var response = NetworkHelper.SendNetworkRequest(Protocol.RPC, "POST", "getsmartcodeevent", param);
+                return response.JobjectResponse["result"].ToString();
             }
             catch { throw; }
         }
@@ -162,8 +162,8 @@ namespace OntologyCSharpSDK.ConnectionMethods
             {
                 param.Clear();
                 param.Add(txHash);
-                var response = NetworkHelper.sendNetworkRequest(Protocol.RPC, "POST", "getsmartcodeevent", param);
-                return response.jobjectResponse["result"].ToString();
+                var response = NetworkHelper.SendNetworkRequest(Protocol.RPC, "POST", "getsmartcodeevent", param);
+                return response.JobjectResponse["result"].ToString();
             }
             catch { throw; }
         }
@@ -173,8 +173,8 @@ namespace OntologyCSharpSDK.ConnectionMethods
             try
             {
                 param.Clear();
-                var response = NetworkHelper.sendNetworkRequest(Protocol.RPC, "POST", "getbestblockhash", param);
-                return response.jobjectResponse["result"].ToString();
+                var response = NetworkHelper.SendNetworkRequest(Protocol.RPC, "POST", "getbestblockhash", param);
+                return response.JobjectResponse["result"].ToString();
             }
             catch { throw; }
         }
@@ -185,8 +185,8 @@ namespace OntologyCSharpSDK.ConnectionMethods
             {
                 param.Clear();
                 param.Add(blockHeight);
-                var response = NetworkHelper.sendNetworkRequest(Protocol.RPC, "POST", "getblockhash", param);
-                return response.jobjectResponse["result"].ToString();
+                var response = NetworkHelper.SendNetworkRequest(Protocol.RPC, "POST", "getblockhash", param);
+                return response.JobjectResponse["result"].ToString();
             }
             catch { throw; }
         }
@@ -200,8 +200,8 @@ namespace OntologyCSharpSDK.ConnectionMethods
                 param.Clear();
                 param.Add(contractHash);
                 param.Add(key);
-                var response = NetworkHelper.sendNetworkRequest(Protocol.RPC, "POST", "getstorage", param);
-                return response.jobjectResponse["result"].ToString();
+                var response = NetworkHelper.SendNetworkRequest(Protocol.RPC, "POST", "getstorage", param);
+                return response.JobjectResponse["result"].ToString();
             }
             catch { throw; }
         }
@@ -211,8 +211,8 @@ namespace OntologyCSharpSDK.ConnectionMethods
             try
             {
                 param.Clear();
-                var response = NetworkHelper.sendNetworkRequest(Protocol.RPC, "POST", "getversion", param);
-                return (int)response.jobjectResponse["result"];
+                var response = NetworkHelper.SendNetworkRequest(Protocol.RPC, "POST", "getversion", param);
+                return (int)response.JobjectResponse["result"];
             }
             catch { throw; }
         }
@@ -223,8 +223,8 @@ namespace OntologyCSharpSDK.ConnectionMethods
             {
                 param.Clear();
                 param.Add(blockHeight);
-                var response = NetworkHelper.sendNetworkRequest(Protocol.RPC, "POST", "getblocksysfee", param);
-                return (int)response.jobjectResponse["result"];
+                var response = NetworkHelper.SendNetworkRequest(Protocol.RPC, "POST", "getblocksysfee", param);
+                return (int)response.JobjectResponse["result"];
             }
             catch { throw; }
         }
@@ -235,8 +235,8 @@ namespace OntologyCSharpSDK.ConnectionMethods
             {
                 param.Clear();
                 param.Add(contractHash);
-                var response = NetworkHelper.sendNetworkRequest(Protocol.RPC, "POST", "getcontractstate", param);
-                return response.jobjectResponse["result"].ToString();
+                var response = NetworkHelper.SendNetworkRequest(Protocol.RPC, "POST", "getcontractstate", param);
+                return response.JobjectResponse["result"].ToString();
             }
             catch { throw; }
         }
@@ -247,8 +247,8 @@ namespace OntologyCSharpSDK.ConnectionMethods
             {
                 param.Clear();
                 param.Add(txHash);
-                var response = NetworkHelper.sendNetworkRequest(Protocol.RPC, "POST", "getmempooltxstate", param);
-                return response.jobjectResponse["result"].ToString();
+                var response = NetworkHelper.SendNetworkRequest(Protocol.RPC, "POST", "getmempooltxstate", param);
+                return response.JobjectResponse["result"].ToString();
             }
             catch { throw; }
         }
@@ -260,8 +260,8 @@ namespace OntologyCSharpSDK.ConnectionMethods
                 param.Clear();
                 param.Add(tx);
                 param.Add(Convert.ToInt32(preExec));
-                var response = NetworkHelper.sendNetworkRequest(Protocol.RPC, "POST", "sendrawtransaction", param);
-                return response.jobjectResponse["result"].ToString();
+                var response = NetworkHelper.SendNetworkRequest(Protocol.RPC, "POST", "sendrawtransaction", param);
+                return response.JobjectResponse["result"].ToString();
             }
             catch { throw; }
         }
@@ -272,8 +272,8 @@ namespace OntologyCSharpSDK.ConnectionMethods
             {
                 param.Clear();
                 param.Add(hash);
-                var response = NetworkHelper.sendNetworkRequest(Protocol.RPC, "POST", "getmerkleproof", param);
-                return response.jobjectResponse["result"].ToString();
+                var response = NetworkHelper.SendNetworkRequest(Protocol.RPC, "POST", "getmerkleproof", param);
+                return response.JobjectResponse["result"].ToString();
             }
             catch { throw; }
         }
@@ -283,8 +283,8 @@ namespace OntologyCSharpSDK.ConnectionMethods
             try
             {
                 param.Clear();
-                var response = NetworkHelper.sendNetworkRequest(Protocol.RPC, "POST", "getgasprice", param);
-                return response.jobjectResponse["result"].ToString();
+                var response = NetworkHelper.SendNetworkRequest(Protocol.RPC, "POST", "getgasprice", param);
+                return response.JobjectResponse["result"].ToString();
             }
             catch { throw; }
         }
@@ -297,8 +297,8 @@ namespace OntologyCSharpSDK.ConnectionMethods
                 param.Add(asset);
                 param.Add(fromAddress);
                 param.Add(toAddress);
-                var response = NetworkHelper.sendNetworkRequest(Protocol.RPC, "POST", "getallowance", param);
-                return response.jobjectResponse["result"].ToString();
+                var response = NetworkHelper.SendNetworkRequest(Protocol.RPC, "POST", "getallowance", param);
+                return response.JobjectResponse["result"].ToString();
             }
             catch { throw; }
         }
@@ -309,8 +309,8 @@ namespace OntologyCSharpSDK.ConnectionMethods
             {
                 param.Clear();
                 param.Add(blockHeight);
-                var response = NetworkHelper.sendNetworkRequest(Protocol.RPC, "POST", "getblocktxsbyheight", param);
-                return response.jobjectResponse["result"].ToString();
+                var response = NetworkHelper.SendNetworkRequest(Protocol.RPC, "POST", "getblocktxsbyheight", param);
+                return response.JobjectResponse["result"].ToString();
             }
             catch { throw; }
         }
@@ -321,8 +321,8 @@ namespace OntologyCSharpSDK.ConnectionMethods
             {
                 param.Clear();
                 param.Add(address);
-                var response = NetworkHelper.sendNetworkRequest(Protocol.RPC, "POST", "getunclaimong", param);
-                return response.jobjectResponse["result"].ToString();
+                var response = NetworkHelper.SendNetworkRequest(Protocol.RPC, "POST", "getunclaimong", param);
+                return response.JobjectResponse["result"].ToString();
             }
             catch { throw; }
         }

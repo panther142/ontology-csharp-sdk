@@ -18,8 +18,8 @@ namespace OntologyCSharpSDK.ConnectionMethods
                 param.Clear();
                 param.Add(new KeyValuePair<string, object>("Raw", 0));
                 param.Add(new KeyValuePair<string, object>("Addr", address));
-                var response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "getbalance", param);
-                return response.jobjectResponse["Result"].ToString();
+                var response = NetworkHelper.SendNetworkRequest(Protocol.Websocket, "", "getbalance", param);
+                return response.JobjectResponse["Result"].ToString();
             }
             catch { throw; }
         }
@@ -32,8 +32,8 @@ namespace OntologyCSharpSDK.ConnectionMethods
                 param.Add(new KeyValuePair<string, object>("Asset", "ont"));
                 param.Add(new KeyValuePair<string, object>("From", fromAddress));
                 param.Add(new KeyValuePair<string, object>("To", toAddress));
-                var response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "getallowance", param);
-                return response.jobjectResponse["Result"].ToString();
+                var response = NetworkHelper.SendNetworkRequest(Protocol.Websocket, "", "getallowance", param);
+                return response.JobjectResponse["Result"].ToString();
             }
             catch { throw; }
         }
@@ -48,8 +48,8 @@ namespace OntologyCSharpSDK.ConnectionMethods
             try
             {
                 param.Clear();
-                var response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "getgenerateblocktime", param);
-                return (int)response.jobjectResponse["Result"];
+                var response = NetworkHelper.SendNetworkRequest(Protocol.Websocket, "", "getgenerateblocktime", param);
+                return (int)response.JobjectResponse["Result"];
             }
             catch { throw; }
         }
@@ -60,8 +60,8 @@ namespace OntologyCSharpSDK.ConnectionMethods
             {
                 param.Clear();
                 param.Add(new KeyValuePair<string, object>("Height", blockHeight));
-                var response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "getblockhash", param);
-                return response.jobjectResponse["Result"].ToString();
+                var response = NetworkHelper.SendNetworkRequest(Protocol.Websocket, "", "getblockhash", param);
+                return response.JobjectResponse["Result"].ToString();
             }
             catch { throw; }
         }
@@ -71,8 +71,8 @@ namespace OntologyCSharpSDK.ConnectionMethods
             try
             {
                 param.Clear();
-                var response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "getblockheight", param);
-                return (int)response.jobjectResponse["Result"];
+                var response = NetworkHelper.SendNetworkRequest(Protocol.Websocket, "", "getblockheight", param);
+                return (int)response.JobjectResponse["Result"];
             }
             catch { throw; }
         }
@@ -83,8 +83,8 @@ namespace OntologyCSharpSDK.ConnectionMethods
             {
                 param.Clear();
                 param.Add(new KeyValuePair<string, object>("Hash", txHash));
-                var response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "getblockheightbytxhash", param);
-                return (int)response.jobjectResponse["Result"];
+                var response = NetworkHelper.SendNetworkRequest(Protocol.Websocket, "", "getblockheightbytxhash", param);
+                return (int)response.JobjectResponse["Result"];
             }
             catch { throw; }
         }
@@ -96,8 +96,8 @@ namespace OntologyCSharpSDK.ConnectionMethods
                 param.Clear();
                 param.Add(new KeyValuePair<string, object>("Raw", 1));
                 param.Add(new KeyValuePair<string, object>("Height", blockHeight));
-                var response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "getblockbyheight", param);
-                return response.jobjectResponse["Result"].ToString();
+                var response = NetworkHelper.SendNetworkRequest(Protocol.Websocket, "", "getblockbyheight", param);
+                return response.JobjectResponse["Result"].ToString();
             }
             catch { throw; }
         }
@@ -109,8 +109,8 @@ namespace OntologyCSharpSDK.ConnectionMethods
                 param.Clear();
                 param.Add(new KeyValuePair<string, object>("Raw", 1));
                 param.Add(new KeyValuePair<string, object>("Hash", blockHash));
-                var response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "getblockbyhash", param);
-                return response.jobjectResponse["Result"].ToString();
+                var response = NetworkHelper.SendNetworkRequest(Protocol.Websocket, "", "getblockbyhash", param);
+                return response.JobjectResponse["Result"].ToString();
             }
             catch { throw; }
         }
@@ -122,8 +122,8 @@ namespace OntologyCSharpSDK.ConnectionMethods
                 param.Clear();
                 param.Add(new KeyValuePair<string, object>("Raw", 0));
                 param.Add(new KeyValuePair<string, object>("Height", blockHeight));
-                var response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "getblockbyheight", param);
-                return response.jobjectResponse["Result"].ToString();
+                var response = NetworkHelper.SendNetworkRequest(Protocol.Websocket, "", "getblockbyheight", param);
+                return response.JobjectResponse["Result"].ToString();
             }
             catch { throw; }
         }
@@ -135,8 +135,8 @@ namespace OntologyCSharpSDK.ConnectionMethods
                 param.Clear();
                 param.Add(new KeyValuePair<string, object>("Raw", 0));
                 param.Add(new KeyValuePair<string, object>("Hash", blockHash));
-                var response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "getblockbyhash", param);
-                return response.jobjectResponse["Result"].ToString();
+                var response = NetworkHelper.SendNetworkRequest(Protocol.Websocket, "", "getblockbyhash", param);
+                return response.JobjectResponse["Result"].ToString();
             }
             catch { throw; }
         }
@@ -152,8 +152,8 @@ namespace OntologyCSharpSDK.ConnectionMethods
             {
                 param.Clear();
                 param.Add(new KeyValuePair<string, object>("Height", blockHeight));
-                var response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "getblocktxsbyheight", param);
-                return response.jobjectResponse["Result"].ToString();
+                var response = NetworkHelper.SendNetworkRequest(Protocol.Websocket, "", "getblocktxsbyheight", param);
+                return response.JobjectResponse["Result"].ToString();
             }
             catch { throw; }
         }
@@ -164,8 +164,8 @@ namespace OntologyCSharpSDK.ConnectionMethods
             {
                 param.Clear();
                 param.Add(new KeyValuePair<string, object>("Hash", contractHash));
-                var response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "getcontract", param);
-                return response.jobjectResponse["Result"].ToString();
+                var response = NetworkHelper.SendNetworkRequest(Protocol.Websocket, "", "getcontract", param);
+                return response.JobjectResponse["Result"].ToString();
             }
             catch { throw; }
         }
@@ -175,8 +175,8 @@ namespace OntologyCSharpSDK.ConnectionMethods
             try
             {
                 param.Clear();
-                var response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "getgasprice", param);
-                return response.jobjectResponse["Result"].ToString();
+                var response = NetworkHelper.SendNetworkRequest(Protocol.Websocket, "", "getgasprice", param);
+                return response.JobjectResponse["Result"].ToString();
             }
             catch { throw; }
         }
@@ -187,8 +187,8 @@ namespace OntologyCSharpSDK.ConnectionMethods
             {
                 param.Clear();
                 param.Add(txHash);
-                var response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "getmempooltxstate", param);
-                return response.jobjectResponse["result"].ToString();
+                var response = NetworkHelper.SendNetworkRequest(Protocol.Websocket, "", "getmempooltxstate", param);
+                return response.JobjectResponse["result"].ToString();
             }
             catch { throw; }
         }
@@ -199,8 +199,8 @@ namespace OntologyCSharpSDK.ConnectionMethods
             {
                 param.Clear();
                 param.Add(new KeyValuePair<string, object>("Hash", hash));
-                var response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "getmerkleproof", param);
-                return response.jobjectResponse["Result"].ToString();
+                var response = NetworkHelper.SendNetworkRequest(Protocol.Websocket, "", "getmerkleproof", param);
+                return response.JobjectResponse["Result"].ToString();
             }
             catch { throw; }
         }
@@ -210,8 +210,8 @@ namespace OntologyCSharpSDK.ConnectionMethods
             try
             {
                 param.Clear();
-                var response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "getconnectioncount", param);
-                return (int)response.jobjectResponse["Result"];
+                var response = NetworkHelper.SendNetworkRequest(Protocol.Websocket, "", "getconnectioncount", param);
+                return (int)response.JobjectResponse["Result"];
             }
             catch { throw; }
         }
@@ -223,8 +223,8 @@ namespace OntologyCSharpSDK.ConnectionMethods
                 param.Clear();
                 param.Add(new KeyValuePair<string, object>("Raw", 1));
                 param.Add(new KeyValuePair<string, object>("Hash", txHash));
-                var response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "gettransaction", param);
-                return response.jobjectResponse["Result"].ToString();
+                var response = NetworkHelper.SendNetworkRequest(Protocol.Websocket, "", "gettransaction", param);
+                return response.JobjectResponse["Result"].ToString();
             }
             catch { throw; }
         }
@@ -236,8 +236,8 @@ namespace OntologyCSharpSDK.ConnectionMethods
                 param.Clear();
                 param.Add(new KeyValuePair<string, object>("Raw", 0));
                 param.Add(new KeyValuePair<string, object>("Hash", txHash));
-                var response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "gettransaction", param);
-                return response.jobjectResponse["Result"].ToString();
+                var response = NetworkHelper.SendNetworkRequest(Protocol.Websocket, "", "gettransaction", param);
+                return response.JobjectResponse["Result"].ToString();
             }
             catch { throw; }
         }
@@ -248,8 +248,8 @@ namespace OntologyCSharpSDK.ConnectionMethods
             {
                 param.Clear();
                 param.Add(new KeyValuePair<string, object>("Height", blockHeight));
-                var response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "getsmartcodeeventbyheight", param);
-                return response.jobjectResponse["Result"].ToString();
+                var response = NetworkHelper.SendNetworkRequest(Protocol.Websocket, "", "getsmartcodeeventbyheight", param);
+                return response.JobjectResponse["Result"].ToString();
             }
             catch { throw; }
         }
@@ -260,8 +260,8 @@ namespace OntologyCSharpSDK.ConnectionMethods
             {
                 param.Clear();
                 param.Add(new KeyValuePair<string, object>("Height", txHash));
-                var response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "getsmartcodeeventbyhash", param);
-                return response.jobjectResponse["Result"].ToString();
+                var response = NetworkHelper.SendNetworkRequest(Protocol.Websocket, "", "getsmartcodeeventbyhash", param);
+                return response.JobjectResponse["Result"].ToString();
             }
             catch { throw; }
         }
@@ -273,8 +273,8 @@ namespace OntologyCSharpSDK.ConnectionMethods
                 param.Clear();
                 param.Add(new KeyValuePair<string, object>("Hash", contractHash));
                 param.Add(new KeyValuePair<string, object>("Key", key));
-                var response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "getstorage", param);
-                return response.jobjectResponse["Result"].ToString();
+                var response = NetworkHelper.SendNetworkRequest(Protocol.Websocket, "", "getstorage", param);
+                return response.JobjectResponse["Result"].ToString();
             }
             catch { throw; }
         }
@@ -285,8 +285,8 @@ namespace OntologyCSharpSDK.ConnectionMethods
             {
                 param.Clear();
                 param.Add(new KeyValuePair<string, object>("Addr", address));
-                var response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "getunclaimong", param);
-                return response.jobjectResponse["Result"].ToString();
+                var response = NetworkHelper.SendNetworkRequest(Protocol.Websocket, "", "getunclaimong", param);
+                return response.JobjectResponse["Result"].ToString();
             }
             catch { throw; }
         }
@@ -303,8 +303,8 @@ namespace OntologyCSharpSDK.ConnectionMethods
                 param.Clear();
                 param.Add(new KeyValuePair<string, object>("PreExec", Convert.ToInt32(preExec)));
                 param.Add(new KeyValuePair<string, object>("Data", tx));
-                var response = NetworkHelper.sendNetworkRequest(Protocol.Websocket, "", "sendrawtransaction", param);
-                return response.jobjectResponse["Result"].ToString();
+                var response = NetworkHelper.SendNetworkRequest(Protocol.Websocket, "", "sendrawtransaction", param);
+                return response.JobjectResponse["Result"].ToString();
             }
             catch { throw; }
         }

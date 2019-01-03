@@ -71,7 +71,7 @@ namespace ontology_csharp_demo
             var ontid = OntSDK.createONTID(privatekey);
             Console.WriteLine("ontid:{0}", ontid);
             var result = OntSDK.registerONTID(ontid, privatekey);
-            Console.WriteLine("result:{0}", result.rawResponse);
+            Console.WriteLine("result:{0}", result.RawResponse);
         }
 
         // get the public key from privatekey
@@ -97,7 +97,7 @@ namespace ontology_csharp_demo
             var fromaddress = OntSDK.createAddressFromPublickKey(publickey);
             var toaddress = "TA5UZsbLNNw1kLQhtarvVMfoCVBe6ZDZGv";
             var result = OntSDK.transferFund("ONT", fromaddress, toaddress, 5, privatekey);
-            Console.WriteLine("result:{0}", result.rawResponse);
+            Console.WriteLine("result:{0}", result.RawResponse);
         }
 
         public static void CreateAndRegisterClaim()
@@ -112,7 +112,7 @@ namespace ontology_csharp_demo
             var type = "JSON";
 
             var result = OntSDK.registerClaim(context, metaData, content, type, issuer_ontid, privatekey);
-            Console.WriteLine("result:{0}", result.rawResponse);
+            Console.WriteLine("result:{0}", result.RawResponse);
         }
 
         public static void AddPublicKey()
@@ -133,7 +133,7 @@ namespace ontology_csharp_demo
             var publickey2 = OntSDK.getPublicKey(privatekey2); // get the new public key
 
             var result = OntSDK.addPublicKey(ontid, publickey2, publickey, privatekey);
-            Console.WriteLine("result:{0}", result.rawResponse);
+            Console.WriteLine("result:{0}", result.RawResponse);
         }
 
         static void ProgressUpdate(string progress)

@@ -43,9 +43,9 @@ namespace OntologyCSharpSDK.ExceptionHandling
                     descriptionfield = "desc";
                 }
 
-                _networkErrorCode = Convert.ToInt32(response.jobjectResponse.GetValue(errorfield).ToString());
-                _networkErrorDescription = response.jobjectResponse.GetValue(descriptionfield).ToString();
-                _networkRawError = response.rawResponse;
+                _networkErrorCode = Convert.ToInt32(response.JobjectResponse.GetValue(errorfield).ToString());
+                _networkErrorDescription = response.JobjectResponse.GetValue(descriptionfield).ToString();
+                _networkRawError = response.RawResponse;
                 _connectionMethod = connectionmethod;
                 _networkRequestSent = request;
             }
