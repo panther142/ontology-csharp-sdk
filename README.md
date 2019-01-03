@@ -2,7 +2,7 @@
 
 ## Overview
 
-This C# SDK aims to help .NET developers when writing applications for the Ontology Blockhain.  
+This C# SDK aims to help .NET developers when writing applications for the Ontology Blockchain.  
 
 <b> Note: This software should be considered pre-alpha and only be used on testnet (current version 0.75, address: polaris1.ont.io ) or privatenet</b>
 
