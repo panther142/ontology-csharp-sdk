@@ -61,7 +61,7 @@ namespace OntologyCSharpSDK.Common
             result += Crypto.NumberToHex(txAttributes.Count);
             foreach (var t in txAttributes)
             {
-                result += t.serialize();
+                result += t.Serialize();
             }
             result += Crypto.NumberToHex(fee.Count);
             foreach (var t in fee)

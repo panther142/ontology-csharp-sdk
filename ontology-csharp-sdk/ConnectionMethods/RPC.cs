@@ -118,24 +118,24 @@ namespace OntologyCSharpSDK.ConnectionMethods
             catch { throw; }
         }
 
-        public string getRawTransactionHex(string TxHash)
+        public string getRawTransactionHex(string txHash)
         {
             try
             {
                 param.Clear();
-                param.Add(TxHash);
+                param.Add(txHash);
                 var response = NetworkHelper.SendNetworkRequest(Protocol.RPC, "POST", "getrawtransaction", param);
                 return response.JobjectResponse["result"].ToString();
             }
             catch { throw; }
         }
 
-        public string getRawTransactionJson(string TxHash)
+        public string getRawTransactionJson(string txHash)
         {
             try
             {
                 param.Clear();
-                param.Add(TxHash);
+                param.Add(txHash);
                 param.Add(1);
                 var response = NetworkHelper.SendNetworkRequest(Protocol.RPC, "POST", "getrawtransaction", param);
                 return response.JobjectResponse["result"].ToString();

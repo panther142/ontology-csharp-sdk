@@ -24,7 +24,7 @@ namespace OntologyCSharpSDK.Common
             return publicParams.Q.GetEncoded(true);
         }
 
-        public static string signData(string message, signDataType type, string privatekey)
+        public static string signData(string message, SignDataType type, string privatekey)
         {
             var bytes = HexStringToByteArray(privatekey);
             var curve = SecNamedCurves.GetByName("secp256r1");
@@ -33,11 +33,11 @@ namespace OntologyCSharpSDK.Common
             var signer = SignerUtilities.GetSigner("SHA-256withECDSA");
             signer.Init(true, keyParameters);
             byte[] bytes_message = null;
-            if (type == signDataType.Hex)
+            if (type == SignDataType.Hex)
             {
                 bytes_message = HexStringToByteArray(message);
             }
-            else if (type == signDataType.String)
+            else if (type == SignDataType.String)
             {
                 bytes_message = StringToByteArray(message);
             }

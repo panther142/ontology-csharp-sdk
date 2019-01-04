@@ -166,7 +166,7 @@
         /// <summary>
         /// Returns the amount of unclaimed ONG for given address
         /// </summary>
-        /// <param name="address"></param>
+        /// <param name="ONTAddress"></param>
         /// <returns></returns>
         string getUnclaimedONG(string ONTAddress);
     }

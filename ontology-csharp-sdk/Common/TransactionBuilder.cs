@@ -11,7 +11,7 @@ namespace OntologyCSharpSDK.Common
         private static readonly string _ontContract = "ff00000000000000000000000000000000000001";
         private static string _ongContract = "ff00000000000000000000000000000000000002";
 
-        public static string getHash(string hex)
+        public static string GetHash(string hex)
         {
 
             var sha256 = Crypto.SHA256ByteArray(Crypto.HexStringToByteArray(hex));
@@ -20,7 +20,7 @@ namespace OntologyCSharpSDK.Common
         }
 
 
-        public static string u160ToAddress(string hash)
+        public static string U160ToAddress(string hash)
         {
             var data = "17" + hash;
 
@@ -30,22 +30,21 @@ namespace OntologyCSharpSDK.Common
 
             var datas = data + programSha2562.Substring(0, 8).ToLower();
 
-            return Base58Encoding.Encode(Crypto.HexStringToByteArray(datas)); ;
+            return Base58Encoding.Encode(Crypto.HexStringToByteArray(datas));
         }
 
         public static string AddresstTou160(string addressencoded)
         {
-            var result = "";
             var decoded = Base58Encoding.Decode(addressencoded);
 
             var programhash = Crypto.ByteArrayToHexString(decoded).Substring(2, 40);
-            var add58 = u160ToAddress(programhash);
-            result = add58 != addressencoded ? "" : programhash;
+            var add58 = U160ToAddress(programhash);
+            var result = add58 != addressencoded ? string.Empty : programhash;
 
             return result;
         }
 
-        public static string getSingleSigUInt160(string hash)
+        public static string GetSingleSigUInt160(string hash)
         {
             var pkSha256 = Crypto.SHA256ByteArray(Crypto.HexStringToByteArray(hash));
             var pkRipemd160 = Crypto.RIPEMD160ByteArray(Crypto.HexStringToByteArray(pkSha256));
@@ -55,13 +54,13 @@ namespace OntologyCSharpSDK.Common
         public static string getPublicKey(string privatekey)
         {
             var bytes = Crypto.HexStringToByteArray(privatekey);
-            var bytes_pub = Crypto.getPublicKeyByteArray(bytes);
+            var bytesPub = Crypto.getPublicKeyByteArray(bytes);
 
-            var publickey = Crypto.ByteArrayToHexString(bytes_pub);
+            var publickey = Crypto.ByteArrayToHexString(bytesPub);
             return publickey;
         }
 
-        public static Transaction buildAddAttributeTx(string path, string value, string type, string ontid, string privatekey)
+        public static Transaction BuildAddAttributeTx(string path, string value, string type, string ontid, string privatekey)
         {
             var publickey = getPublicKey(privatekey);
             publickey = "1202" + publickey;
@@ -104,15 +103,15 @@ namespace OntologyCSharpSDK.Common
 
             var hash = AbiModels.GetHash();
 
-            var tx = makeInvokeTransaction(f, hash, privatekey);
+            var tx = MakeInvokeTransaction(f, hash, privatekey);
 
             return tx;
 
         }
 
-        public static Transaction BuildAddPublicKeyTx(string ontid, string new_publickey, string sender, string privatekey)
+        public static Transaction BuildAddPublicKeyTx(string ontid, string newPublickey, string sender, string privatekey)
         {
-            new_publickey = "1202" + new_publickey;
+            newPublickey = "1202" + newPublickey;
             sender = "1202" + sender;
 
             if (ontid.Substring(0, 3) == "did")
@@ -133,7 +132,7 @@ namespace OntologyCSharpSDK.Common
                 }
                 if (parameter["name"].ToString() == "newPublicKey")
                 {
-                    parameter["value"] = new_publickey;
+                    parameter["value"] = newPublickey;
                 }
                 if (parameter["name"].ToString() == "sender")
                 {
@@ -145,7 +144,7 @@ namespace OntologyCSharpSDK.Common
 
             var hash = AbiModels.GetHash();
 
-            var tx = makeInvokeTransaction(f, hash, privatekey);
+            var tx = MakeInvokeTransaction(f, hash, privatekey);
 
             return tx;
 
@@ -153,7 +152,7 @@ namespace OntologyCSharpSDK.Common
 
         public static Transaction MakeTransferTransaction(string tokentype, string fromaddress, string toaddress, string value, string privatekey)
         {
-            var state = new State { @from = fromaddress, to = toaddress };
+            var state = new State { from = fromaddress, to = toaddress };
 
             var valueToSend = BigInteger.Parse(value).ToString();
             state.value = valueToSend;
@@ -172,7 +171,7 @@ namespace OntologyCSharpSDK.Common
             };
 
             //inovke
-            var code = "";
+            var code = string.Empty;
             //TODO: change with token type
 
             code += contract.serialize();
@@ -182,7 +181,7 @@ namespace OntologyCSharpSDK.Common
 
             if (privatekey != null)
             {
-                tx = signTransaction(tx, privatekey);
+                tx = SignTransaction(tx, privatekey);
             }
 
             return tx;
@@ -220,12 +219,12 @@ namespace OntologyCSharpSDK.Common
 
             var hash = AbiModels.GetHash();
 
-            var tx = makeInvokeTransaction(f, hash, privatekey);
+            var tx = MakeInvokeTransaction(f, hash, privatekey);
 
             return tx;
         }
 
-        public static Transaction makeInvokeTransaction(JToken func, string hash, string privatekey)
+        public static Transaction MakeInvokeTransaction(JToken func, string hash, string privatekey)
         {
             var tx = new Transaction
             {
@@ -239,18 +238,18 @@ namespace OntologyCSharpSDK.Common
 
             var parameters = JArray.Parse(func["parameters"].ToString());
 
-            var payload = makeInvokeCode(funcname, parameters, hash, VmType.NEOVM);
+            var payload = MakeInvokeCode(funcname, parameters, hash, VmType.NEOVM);
             tx.payload = payload;
 
             if (privatekey != null)
             {
-                tx = signTransaction(tx, privatekey);
+                tx = SignTransaction(tx, privatekey);
             }
 
             return tx;
         }
 
-        public static Transaction signTransaction(Transaction tx, string privatekey, SignatureSchema schema = SignatureSchema.SHA256withECDSA)
+        public static Transaction SignTransaction(Transaction tx, string privatekey, SignatureSchema schema = SignatureSchema.SHA256withECDSA)
         {
 
 
@@ -259,7 +258,7 @@ namespace OntologyCSharpSDK.Common
             var pk = new PubKey(KeyType.PK_ECDSA, publickey);
             var hash = tx.getHash();
 
-            var signed = Crypto.signData(hash, signDataType.Hex, privatekey);
+            var signed = Crypto.signData(hash, SignDataType.Hex, privatekey);
             var sig = new Sig();
             var s = Crypto.NumberToHex((int)schema);
             signed = s + signed;
@@ -277,11 +276,11 @@ namespace OntologyCSharpSDK.Common
             return tx;
         }
 
-        public static InvokeCode makeInvokeCode(string funcname, JArray parameters, string hash, VmType vmtype = VmType.NativeVM)
+        public static InvokeCode MakeInvokeCode(string funcname, JArray parameters, string hash, VmType vmtype = VmType.NativeVM)
         {
             var invokeCode = new InvokeCode();
             var vmCode = new VmCode();
-            var args = buildSmartContractParam(funcname, parameters);
+            var args = BuildSmartContractParam(funcname, parameters);
             //Console.WriteLine("code:" + code);
 
             var contract = new Contract { address = hash, args = args, method = "" };
@@ -296,9 +295,9 @@ namespace OntologyCSharpSDK.Common
             return invokeCode;
         }
 
-        public static string buildSmartContractParam(string funcname, JArray parameters)
+        public static string BuildSmartContractParam(string funcname, JArray parameters)
         {
-            var result = "";
+            var result = string.Empty;
 
             for (var i = parameters.Count - 1; i > -1; i--)
             {
@@ -306,24 +305,24 @@ namespace OntologyCSharpSDK.Common
                 switch (type)
                 {
                     case "Boolean":
-                        result += pushBool(bool.Parse(parameters[i]["value"].ToString()));
+                        result += PushBool(bool.Parse(parameters[i]["value"].ToString()));
                         break;
                     case "Number":
-                        result += pushInt(int.Parse(parameters[i]["value"].ToString()));
+                        result += PushInt(int.Parse(parameters[i]["value"].ToString()));
                         break;
                     case "String":
                     {
                         var v = Crypto.StringToHexString(parameters[i]["value"].ToString());
-                        result += pushHexString(v);
+                        result += PushHexString(v);
                         break;
                     }
                     case "ByteArray":
-                        result += pushHexString(parameters[i]["value"].ToString());
+                        result += PushHexString(parameters[i]["value"].ToString());
                         break;
                 }
             }
             //to work with vm
-            long paramsLen = 0;
+            long paramsLen;
             if (parameters.Count == 0)
             {
                 result += "00";
@@ -342,7 +341,7 @@ namespace OntologyCSharpSDK.Common
             return result;
         }
 
-        public static string pushBool(bool param)
+        public static string PushBool(bool param)
         {
             var result = "";
 
@@ -359,7 +358,7 @@ namespace OntologyCSharpSDK.Common
 
         }
 
-        public static string pushInt(int param)
+        public static string PushInt(int param)
         {
             var result = "";
 
@@ -391,9 +390,9 @@ namespace OntologyCSharpSDK.Common
 
         }
 
-        public static string pushHexString(string param)
+        public static string PushHexString(string param)
         {
-            var result = "";
+            var result = string.Empty;
             var len = param.Length / 2;
 
             if (len < Crypto.HexToInteger(OPCODE.PUSHBYTES75))
