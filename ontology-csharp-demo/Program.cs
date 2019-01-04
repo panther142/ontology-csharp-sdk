@@ -1,15 +1,12 @@
 ﻿using OntologyCSharpSDK;
 using OntologyCSharpSDK.Interface;
 using System;
-using System.Threading.Tasks;
 
 namespace ontology_csharp_demo
 {
     class Program
     {
-        // MAIN_NODE = "54.222.182.88";
-        // TEST_NODE = "139.219.111.50";
-        private static readonly string _node = "http://192.168.4.5:20336";
+        private static readonly string _node = "http://polaris1.ont.io:20336"; //Ontology TestNet
 
         static OntologySdk OntSDK = new OntologySdk(_node, ConnectionMethodFactory.ConnectionMethod.RPC);
         static string TxHash = "5fcffe97e2c4d413b34cea985bf548bfce0ae3a0cbf2c9ec9e518388c0dd650a5fcffe97e2c4d413b34cea985bf548bfce0ae3a0cbf2c9ec9e518388c0dd650a";
@@ -30,7 +27,7 @@ namespace ontology_csharp_demo
             wsSubscribeTask.Dispose(); 
             ****************/
 
-            //QueryBlockchain();
+            QueryBlockchain();
             //CreateRegisterONTID();
             //TransferFund();
             //CreateAndRegisterClaim();
