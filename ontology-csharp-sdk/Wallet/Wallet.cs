@@ -4,8 +4,8 @@ namespace OntologyCSharpSDK.Wallet
 {
     public class Wallet
     {
-        public string Name { get; } = "OntologyWallet";
-        public string Version { get; } = "1.0";
+        public string Name => "OntologyWallet";
+        public string Version => "1.0";
         public Scrypt Scrypt = new Scrypt();
         public object Extra { get; } = null;
         public IList<Identity> Identities { get; } = new List<Identity>();

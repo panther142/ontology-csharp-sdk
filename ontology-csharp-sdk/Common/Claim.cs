@@ -22,8 +22,8 @@ namespace OntologyCSharpSDK.Common
                 ["Content"] = JToken.Parse(content),
                 ["Metadata"] = JToken.Parse(metadata)
             };
-            var body_serialised = JsonConvert.SerializeObject(body);
-            Id = Crypto.SHA256ByteArray(Crypto.StringToByteArray(body_serialised));
+            var bodySerialised = JsonConvert.SerializeObject(body);
+            Id = Crypto.SHA256ByteArray(Crypto.StringToByteArray(bodySerialised));
         }
 
         public string GetValue(string data)
@@ -32,13 +32,12 @@ namespace OntologyCSharpSDK.Common
             return result;
         }
 
-
-        public Signature sign(string privatekey)
+        public Signature Sign(string privatekey)
         {
             var body = new JObject { ["Context"] = Context, ["Id"] = Id, ["Content"] = Content, ["Metadata"] = Metadata };
 
             var unsignedData = JsonConvert.SerializeObject(body);
-            var signatureValue = Crypto.signData(unsignedData, signDataType.String, privatekey);
+            var signatureValue = Crypto.signData(unsignedData, SignDataType.String, privatekey);
             var sig = new Signature { Value = signatureValue };
             Signature = sig;
             return sig;

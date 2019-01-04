@@ -2,18 +2,18 @@
 {
     public class TransactionAttribute
     {
-        public TransactionAttributeUsage usage { get; set; }
-        public string data { get; set; }
-        public string size { get; set; }
+        public TransactionAttributeUsage Usage { get; set; }
+        public string Data { get; set; }
+        public string Size { get; set; }
 
-        public string serialize()
+        public string Serialize()
         {
-            var result = Crypto.NumberToHex(Crypto.HexToInteger(usage));
-            if (!IsValidAttributeType(usage))
+            var result = Crypto.NumberToHex(Crypto.HexToInteger(Usage));
+            if (!IsValidAttributeType(Usage))
             {
                 result = "[TxAttribute] error, Unsupported attribute Description.";
             }
-            result += Crypto.HexToVarBytes(data);
+            result += Crypto.HexToVarBytes(Data);
             return result;
         }
 

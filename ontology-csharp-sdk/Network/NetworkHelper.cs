@@ -23,7 +23,7 @@ namespace OntologyCSharpSDK.Network
             {
                 requestType = requestType.ToUpper();
 
-                var host = Basic.Account.node;
+                var host = Basic.Account.Node;
 
                 string request;
 

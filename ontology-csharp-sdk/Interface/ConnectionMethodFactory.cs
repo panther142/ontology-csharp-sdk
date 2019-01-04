@@ -16,7 +16,7 @@ namespace OntologyCSharpSDK.Interface
         {
             try
             {
-                IConnectionMethod connectionMethod = null;
+                IConnectionMethod connectionMethod;
 
                 switch (method)
                 {

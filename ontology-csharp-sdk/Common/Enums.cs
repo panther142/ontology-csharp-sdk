@@ -1,7 +1,7 @@
 ﻿namespace OntologyCSharpSDK.Common
 {
 
-    public enum signDataType
+    public enum SignDataType
     {
         String = 1,
         Hex = 2
