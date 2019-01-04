@@ -1,4 +1,5 @@
-﻿using OntologyCSharpSDK.ConnectionMethods;
+﻿using System;
+using OntologyCSharpSDK.ConnectionMethods;
 
 namespace OntologyCSharpSDK.Interface
 {
@@ -11,14 +12,13 @@ namespace OntologyCSharpSDK.Interface
             Websocket
         }
 
-        public virtual IConnectionMethod setConnectionMethod(ConnectionMethod method)
+        public virtual IConnectionMethod SetConnectionMethod(ConnectionMethod method)
         {
             try
             {
                 IConnectionMethod connectionMethod = null;
 
                 switch (method)
-
                 {
                     case ConnectionMethod.RPC:
                         connectionMethod = new RPC();
@@ -31,6 +31,8 @@ namespace OntologyCSharpSDK.Interface
                     case ConnectionMethod.Websocket:
                         connectionMethod = new Websocket();
                         break;
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(method), method, null);
                 }
 
                 return connectionMethod;

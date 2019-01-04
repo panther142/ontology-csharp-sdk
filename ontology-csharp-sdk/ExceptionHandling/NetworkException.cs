@@ -8,11 +8,11 @@ namespace OntologyCSharpSDK.ExceptionHandling
 
     public class NetworkException : Exception
     {
-        readonly public string _networkRequestSent;
-        readonly public int _networkErrorCode;
-        readonly public string _networkErrorDescription;
-        readonly public string _networkRawError;
-        readonly public Protocol _connectionMethod;
+        public readonly string _networkRequestSent;
+        public readonly int _networkErrorCode;
+        public readonly string _networkErrorDescription;
+        public readonly string _networkRawError;
+        public readonly Protocol _connectionMethod;
 
 
         public NetworkException()
@@ -34,8 +34,8 @@ namespace OntologyCSharpSDK.ExceptionHandling
         {
             try
             {
-                string errorfield = "Error";
-                string descriptionfield = "Desc";
+                var errorfield = "Error";
+                var descriptionfield = "Desc";
 
                 if (connectionmethod == Protocol.RPC)
                 {
@@ -43,9 +43,9 @@ namespace OntologyCSharpSDK.ExceptionHandling
                     descriptionfield = "desc";
                 }
 
-                _networkErrorCode = Convert.ToInt32(response.jobjectResponse.GetValue(errorfield).ToString());
-                _networkErrorDescription = response.jobjectResponse.GetValue(descriptionfield).ToString();
-                _networkRawError = response.rawResponse;
+                _networkErrorCode = Convert.ToInt32(response.JobjectResponse.GetValue(errorfield).ToString());
+                _networkErrorDescription = response.JobjectResponse.GetValue(descriptionfield).ToString();
+                _networkRawError = response.RawResponse;
                 _connectionMethod = connectionmethod;
                 _networkRequestSent = request;
             }

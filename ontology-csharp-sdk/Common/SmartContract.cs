@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Numerics;
 using System.Collections.Generic;
+using System.Linq;
 using OntologyCSharpSDK.Common;
 
 namespace OntologyCSharpSDK.Common
@@ -14,38 +15,34 @@ namespace OntologyCSharpSDK.Common
 
         public State()
         {
-            this.version = "00";
+            version = "00";
         }
 
         public string serialize()
         {
             var result = "";
-            result += this.version;
-            if (this.from == null)
+            result += version;
+            if (@from == null)
             {
                 throw new Exception("[State.serialize], Invalid from address");
             }
-            else
+
+            if (@from.Length != 40)
             {
-                if (this.from.Length != 40)
-                {
-                    throw new Exception("[State.serialize], Invalid from address");
-                }
+                throw new Exception("[State.serialize], Invalid from address");
             }
-            result += this.from;
-            if (this.to == null)
+            result += @from;
+            if (to == null)
             {
                 throw new Exception("[State.serialize], Invalid to address");
             }
-            else
+
+            if (to.Length != 40)
             {
-                if (this.to.Length != 40)
-                {
-                    throw new Exception("[State.serialize], Invalid to address");
-                }
+                throw new Exception("[State.serialize], Invalid to address");
             }
-            result += this.to;
-            var bn = Crypto.ByteArrayToHexString(BigInteger.Parse(this.value).ToByteArray());
+            result += to;
+            var bn = Crypto.ByteArrayToHexString(BigInteger.Parse(value).ToByteArray());
             bn = bn.Length % 2 == 0 ? bn : '0' + bn;
             result += Crypto.HexToVarBytes(bn);
 
@@ -60,19 +57,15 @@ namespace OntologyCSharpSDK.Common
 
         public Transfers()
         {
-            this.version = "00";
+            version = "00";
         }
 
         public string serialize()
         {
-            string result = "";
-            result += this.version;
-            result += Crypto.NumberToHex(this.states.Count);
-            for (var i = 0; i < this.states.Count; i++)
-            {
-                result += this.states[i].serialize();
-            }
-            return result;
+            var result = "";
+            result += version;
+            result += Crypto.NumberToHex(states.Count);
+            return states.Aggregate(result, (current, t) => current + t.serialize());
         }
 
     }
@@ -87,17 +80,17 @@ namespace OntologyCSharpSDK.Common
 
         public Contract()
         {
-            this.version = "00";
-            this.code = "00";
+            version = "00";
+            code = "00";
         }
         public string serialize()
         {
             var result = "";
-            result += this.version;
-            result += this.code;
-            result += this.address;
-            result += Crypto.StringToVarBytes(this.method);
-            result += Crypto.HexToVarBytes(this.args);
+            result += version;
+            result += code;
+            result += address;
+            result += Crypto.StringToVarBytes(method);
+            result += Crypto.HexToVarBytes(args);
 
             return result;
         }

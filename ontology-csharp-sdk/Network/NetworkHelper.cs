@@ -12,46 +12,39 @@ using WebSocketSharp;
 
 namespace OntologyCSharpSDK.Network
 {
-    class NetworkHelper
+    internal class NetworkHelper
     {
         //TODO: Nodelist implementation
 
-        public static NetworkResponse sendNetworkRequest(Protocol protocol, string requestType, string method, IList<object> param)
+        public static NetworkResponse SendNetworkRequest(Protocol protocol, string requestType, string method, IList<object> param)
         {
 
             try
             {
                 requestType = requestType.ToUpper();
 
-                string host = Basic.Account._node;
+                var host = Basic.Account.node;
 
-                string request = "";
+                string request;
 
                 switch (protocol)
                 {
                     case Protocol.RPC:
                         {
-                            request = rpcRequestBuilder(method, param);
-                            return sendRPCRequest(request, requestType, host);
+                            request = RpcRequestBuilder(method, param);
+                            return SendRpcRequest(request, requestType, host);
                         }
 
                     case Protocol.REST:
                         {
-                            if (requestType == "GET")
-                            {
-                                request = restRequestBuilder(method, param);
-                            }
-                            else
-                            {
-                                request = restBuildSendRawTransaction(method, param);
-                            }
-                            return sendRESTRequest(request, requestType, host);
+                            request = requestType == "GET" ? RestRequestBuilder(method, param) : RestBuildSendRawTransaction(method, param);
+                            return SendRestRequest(request, requestType, host);
                         }
 
                     case Protocol.Websocket:
                         {
-                            request = webSocketRequestBuilder(method, param);
-                            return sendWebSocketRequest(request, host);
+                            request = WebSocketRequestBuilder(method, param);
+                            return SendWebSocketRequest(request, host);
                         }
 
                     default:
@@ -61,11 +54,10 @@ namespace OntologyCSharpSDK.Network
             catch { throw; }
         }
 
-        private static NetworkResponse sendRPCRequest(string request, string requestType, string host)
+        private static NetworkResponse SendRpcRequest(string request, string requestType, string host)
         {
             NetworkResponse response = null;
 
-            WebResponse webResponse = null;
             HttpWebRequest webRequest = null;
             byte[] byteArray;
 
@@ -87,7 +79,7 @@ namespace OntologyCSharpSDK.Network
             try
             {
 
-                using (Stream requestStream = webRequest.GetRequestStream())
+                using (var requestStream = webRequest.GetRequestStream())
                 {
                     requestStream.Write(byteArray, 0, byteArray.Length);
                 }
@@ -102,23 +94,22 @@ namespace OntologyCSharpSDK.Network
             //Receive response from network node
             try
             {
+                WebResponse webResponse;
                 using (webResponse = webRequest.GetResponse())
                 {
-                    using (Stream str = webResponse.GetResponseStream())
+                    using (var str = webResponse.GetResponseStream())
                     {
-                        using (StreamReader sr = new StreamReader(str))
+                        using (var sr = new StreamReader(str))
                         {
-                            response.rawResponse = sr.ReadToEnd();
-                            response.jobjectResponse = JsonConvert.DeserializeObject<JObject>(response.rawResponse);
+                            response.RawResponse = sr.ReadToEnd();
+                            response.JobjectResponse = JsonConvert.DeserializeObject<JObject>(response.RawResponse);
 
-                            if (Convert.ToInt32(response.jobjectResponse.GetValue("error")) == 0)
+                            if (Convert.ToInt32(response.JobjectResponse.GetValue("error")) == 0)
                             {
                                 return response;
                             }
-                            else
-                            {
-                                throw new NetworkException("An error response was received from the server.", response, Protocol.RPC, request);
-                            }
+
+                            throw new NetworkException("An error response was received from the server.", response, Protocol.RPC, request);
                         }
                     }
                 }
@@ -129,13 +120,11 @@ namespace OntologyCSharpSDK.Network
             }
         }
 
-        private static NetworkResponse sendRESTRequest(string request, string requestType, string host)
+        private static NetworkResponse SendRestRequest(string request, string requestType, string host)
         {
 
             NetworkResponse response = null;
-            WebResponse webResponse = null;
             HttpWebRequest webRequest = null;
-            byte[] byteArray;
 
             // Create WebRequest object
             try
@@ -170,32 +159,31 @@ namespace OntologyCSharpSDK.Network
 
                 if (requestType == "POST")
                 {
-                    byteArray = Encoding.UTF8.GetBytes(request);
+                    var byteArray = Encoding.UTF8.GetBytes(request);
                     webRequest.ContentLength = byteArray.Length;
 
-                    using (Stream stream = webRequest.GetRequestStream())
+                    using (var stream = webRequest.GetRequestStream())
                     {
                         stream.Write(byteArray, 0, byteArray.Length);
                     }
                 }
 
+                WebResponse webResponse;
                 using (webResponse = webRequest.GetResponse())
                 {
-                    using (Stream str = webResponse.GetResponseStream())
+                    using (var str = webResponse.GetResponseStream())
                     {
-                        using (StreamReader sr = new StreamReader(str))
+                        using (var sr = new StreamReader(str))
                         {
-                            response.rawResponse = sr.ReadToEnd();
-                            response.jobjectResponse = JsonConvert.DeserializeObject<JObject>(response.rawResponse);
+                            response.RawResponse = sr.ReadToEnd();
+                            response.JobjectResponse = JsonConvert.DeserializeObject<JObject>(response.RawResponse);
 
-                            if (Convert.ToInt32(response.jobjectResponse.GetValue("Error")) == 0)
+                            if (Convert.ToInt32(response.JobjectResponse.GetValue("Error")) == 0)
                             {
                                 return response;
                             }
-                            else
-                            {
-                                throw new NetworkException("An error response was received from the server.", response, Protocol.REST, request);
-                            }
+
+                            throw new NetworkException("An error response was received from the server.", response, Protocol.REST, request);
                         }
                     }
                 }
@@ -206,26 +194,26 @@ namespace OntologyCSharpSDK.Network
             }
         }
 
-        private static NetworkResponse sendWebSocketRequest(string request, string host)
+        private static NetworkResponse SendWebSocketRequest(string request, string host)
         {
             try
             {
 
-                NetworkResponse response = new NetworkResponse();
+                var response = new NetworkResponse();
 
                 using (var ws = new WebSocket(host))
                 {
 
                     ws.OnMessage += (sender, e) =>
                     {
-                        response.rawResponse = e.Data;
-                        response.jobjectResponse = JsonConvert.DeserializeObject<JObject>(response.rawResponse);
+                        response.RawResponse = e.Data;
+                        response.JobjectResponse = JsonConvert.DeserializeObject<JObject>(response.RawResponse);
                         ws.Close();
                     };
 
                     ws.OnError += (sender, e) =>
                     {
-                        response.rawResponse = e.Exception.InnerException.ToString();
+                        response.RawResponse = e.Exception.InnerException.ToString();
                         ws.Close();
                     };
 
@@ -236,96 +224,89 @@ namespace OntologyCSharpSDK.Network
                     {
                     }
 
-                    if (Convert.ToInt32(response.jobjectResponse.GetValue("Error")) == 0)
+                    if (Convert.ToInt32(response.JobjectResponse.GetValue("Error")) == 0)
                     {
                         return response;
                     }
-                    else
-                    {
-                        throw new NetworkException("An error response was received from the server.", response, Protocol.REST, request);
-                    }
+
+                    throw new NetworkException("An error response was received from the server.", response, Protocol.REST, request);
                 }
             }
             catch { throw; }
         }
 
-        private static string rpcRequestBuilder(string method, IList<object> param)
+        private static string RpcRequestBuilder(string method, IList<object> param)
         {
             try
             {
-                JObject jsonObject = new JObject();
+                var jsonObject = new JObject { ["jsonrpc"] = "2.0", ["method"] = method, ["id"] = 1 };
 
-                jsonObject["jsonrpc"] = "2.0";
-                jsonObject["method"] = method;
-                jsonObject["id"] = 1;
 
-                JArray jsonArray = new JArray(param);
+                var jsonArray = new JArray(param);
 
                 jsonObject.Add("params", jsonArray);
 
-                string json = JsonConvert.SerializeObject(jsonObject);
+                var json = JsonConvert.SerializeObject(jsonObject);
                 return json;
             }
             catch { throw; }
         }
 
 
-        private static string restRequestBuilder(string method, IList<object> param)
+        private static string RestRequestBuilder(string method, IList<object> param)
         {
             try
             {
-                StringBuilder sb = new StringBuilder();
+                var sb = new StringBuilder();
                 sb.Append(method);
 
                 if (param != null)
                 {
-                    foreach (object o in param)
+                    foreach (var o in param)
                     {
                         sb.Append("/" + o);
                     }
 
                     return sb.ToString();
                 }
-                else
-                {
-                    return sb.ToString();
-                }
+
+                return sb.ToString();
             }
             catch { throw; }
         }
 
-        private static string webSocketRequestBuilder(string method, IList<object> param)
+        private static string WebSocketRequestBuilder(string method, IList<object> param)
         {
             try
             {
-                JObject jsonObject = new JObject();
+                var jsonObject = new JObject { ["Action"] = method, ["Version"] = "1.0.0" };
 
-                jsonObject["Action"] = method;
-                jsonObject["Version"] = "1.0.0";
 
                 foreach (KeyValuePair<string, object> kvp in param)
                 {
-                    JToken jt = JToken.FromObject(kvp.Value);
+                    var jt = JToken.FromObject(kvp.Value);
                     jsonObject.Add(kvp.Key, jt);
                 }
 
-                string json = JsonConvert.SerializeObject(jsonObject);
+                var json = JsonConvert.SerializeObject(jsonObject);
                 return json;
             }
             catch { throw; }
         }
 
-        public static string restBuildSendRawTransaction(string method, IList<object> param)
+        public static string RestBuildSendRawTransaction(string method, IList<object> param)
         {
             try
             {
-                JObject jsonObject = new JObject();
+                var jsonObject = new JObject
+                {
+                    ["Action"] = "sendrawtransaction",
+                    ["Version"] = "1.0.0",
+                    ["Data"] = param[0].ToString()
+                };
 
-                jsonObject["Action"] = "sendrawtransaction";
-                jsonObject["Version"] = "1.0.0";
-                jsonObject["Data"] = param[0].ToString();
 
-                string json = JsonConvert.SerializeObject(jsonObject);
+                var json = JsonConvert.SerializeObject(jsonObject);
                 return json;
             }
             catch { throw; }
@@ -337,7 +318,7 @@ namespace OntologyCSharpSDK.Network
     //TODO: Implement status codes
     public class NetworkResponse
     {
-        public string rawResponse { get; set; }
-        public JObject jobjectResponse { get; set; }
+        public string RawResponse { get; set; }
+        public JObject JobjectResponse { get; set; }
     }
 }

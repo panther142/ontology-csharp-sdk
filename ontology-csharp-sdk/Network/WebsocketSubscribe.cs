@@ -12,17 +12,19 @@ namespace OntologyCSharpSDK.Network
         {
             try
             {
-                JObject jsonObject = new JObject();
+                var jsonObject = new JObject
+                {
+                    ["Action"] = "subscribe",
+                    ["Version"] = "1.0.0",
+                    ["contractAddress"] = contractFilter,
+                    ["SubscribeEvent"] = subscribeEvents,
+                    ["SubscribeJsonBlock"] = subscribeJsonBlock,
+                    ["SubscribeRawBlock"] = subscribeHexBlock,
+                    ["SubscribeBlockTxHashs"] = subscribeBlockTxHashes
+                };
 
-                jsonObject["Action"] = "subscribe";
-                jsonObject["Version"] = "1.0.0";
-                jsonObject["contractAddress"] = contractFilter;
-                jsonObject["SubscribeEvent"] = subscribeEvents;
-                jsonObject["SubscribeJsonBlock"] = subscribeJsonBlock;
-                jsonObject["SubscribeRawBlock"] = subscribeHexBlock;
-                jsonObject["SubscribeBlockTxHashs"] = subscribeBlockTxHashes;
 
-                string jsonSubscribe = JsonConvert.SerializeObject(jsonObject);
+                var jsonSubscribe = JsonConvert.SerializeObject(jsonObject);
 
                 using (var ws = new WebSocket(node))
                 {
@@ -44,12 +46,10 @@ namespace OntologyCSharpSDK.Network
                     // While connection is still alive, send heartbeat every 4 minutes (required by websocket server else session expires)
                     while (ws.IsAlive)
                     {
-                        JObject heartbeat = new JObject();
+                        var heartbeat = new JObject { ["Action"] = "heartbeat", ["Version"] = "1.0.0" };
 
-                        heartbeat["Action"] = "heartbeat";
-                        heartbeat["Version"] = "1.0.0";
 
-                        string jsonHeartbeat = JsonConvert.SerializeObject(heartbeat);
+                        var jsonHeartbeat = JsonConvert.SerializeObject(heartbeat);
                         ws.SendAsync(jsonHeartbeat, completed);
 
                         await Task.Delay(200000);

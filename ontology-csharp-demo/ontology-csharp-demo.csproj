@@ -33,9 +33,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ontology-csharp-sdk">
-      <HintPath>..\ontology-csharp-sdk\bin\Debug\ontology-csharp-sdk.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -55,6 +52,12 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ontology-csharp-sdk\ontology-csharp-sdk.csproj">
+      <Project>{2dd47140-c98b-49e0-9490-0eb5e7b8c52e}</Project>
+      <Name>ontology-csharp-sdk</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

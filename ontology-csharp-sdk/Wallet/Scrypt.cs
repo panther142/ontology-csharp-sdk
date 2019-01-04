@@ -2,9 +2,9 @@
 {
     public class Scrypt
     {
-        private int n = 16384;
-        private int r = 8;
-        private int p = 8;
+        private int _n = 16384;
+        private int _r = 8;
+        private int _p = 8;
 
         public Scrypt()
         {
@@ -12,9 +12,9 @@
 
         public Scrypt(int n, int r, int p)
         {
-            this.n = n;
-            this.r = r;
-            this.p = p;
+            this._n = n;
+            this._r = r;
+            this._p = p;
         }
     }
 }
